@@ -16,10 +16,7 @@ namespace SQADemicApp
             hand = new List<Card>();
             currentCity = Create.cityDictionary["Atlanta"];
         }
-        public void move(City destination)
-        {
 
-        }
         public List<Object> handStringList()
         {
             List<Object> stringHand = new List<Object>();

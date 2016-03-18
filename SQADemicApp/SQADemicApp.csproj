@@ -139,7 +139,6 @@
     <Compile Include="TreatDiseaseForm.Designer.cs">
       <DependentUpon>TreatDiseaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WS\InfectorWS.cs" />
     <EmbeddedResource Include="AdvancedActions.resx">
       <DependentUpon>AdvancedActions.cs</DependentUpon>
     </EmbeddedResource>
