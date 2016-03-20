@@ -13,7 +13,7 @@ namespace SQADemicApp.Objects
             Sunset
         }
 
-        private readonly Dictionary<COLOR, CURESTATE> cureSet;
+        private Dictionary<COLOR, CURESTATE> cureSet;
 
         public Cures() : this(CURESTATE.NotCured)
         {

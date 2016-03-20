@@ -85,60 +85,60 @@ namespace SQADemicApp.BL
                     case COLOR.blue:
                         if (GameBoardModels.CURESTATUS.GetCureStatus(city.color)!= Cures.CURESTATE.Sunset)
                         {
-                            if (city.blueCubes < 3)
+                            if (city.Cubes.GetCubeCount(city.color) < 3)
                             {
-                                GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(city.color);
-                                city.blueCubes++;
-                                return city.blueCubes;
+                                GameBoardModels.cubeCount.DecrementCubeCount(city.color);
+                                city.Cubes.IncrementCubes(city.color);
+                                return city.Cubes.GetCubeCount(city.color);
                             }
                             Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
-                            return city.blueCubes;
+                            return city.Cubes.GetCubeCount(city.color);
                         }
-                        return city.blueCubes;
+                        return city.Cubes.GetCubeCount(city.color);
 
                     case COLOR.yellow:
                         if (GameBoardModels.CURESTATUS.GetCureStatus(city.color) != Cures.CURESTATE.Sunset)
                         {
-                            if (city.yellowCubes < 3)
+                            if (city.Cubes.GetCubeCount(city.color) < 3)
                             {
-                                GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(city.color);
-                                city.yellowCubes++;
-                                return city.yellowCubes;
+                                GameBoardModels.cubeCount.DecrementCubeCount(city.color);
+                                city.Cubes.IncrementCubes(city.color);
+                                return city.Cubes.GetCubeCount(city.color);
 
                             }
                             Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
-                            return city.yellowCubes;
+                            return city.Cubes.GetCubeCount(city.color);
                         }
-                        return city.yellowCubes;
+                        return city.Cubes.GetCubeCount(city.color);
 
                     case COLOR.black:
                         if (GameBoardModels.CURESTATUS.GetCureStatus(city.color) != Cures.CURESTATE.Sunset)
                         {
-                            if (city.blackCubes < 3)
+                            if (city.Cubes.GetCubeCount(city.color) < 3)
                             {
-                                GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(city.color);
-                                city.blackCubes++;
-                                return city.blackCubes;
+                                GameBoardModels.cubeCount.DecrementCubeCount(city.color);
+                                city.Cubes.IncrementCubes(city.color);
+                                return city.Cubes.GetCubeCount(city.color);
 
                             }
                             Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
-                            return city.blackCubes;
+                            return city.Cubes.GetCubeCount(city.color);
                         }
-                        return city.blackCubes;
+                        return city.Cubes.GetCubeCount(city.color);
                     case COLOR.red:
                         if (GameBoardModels.CURESTATUS.GetCureStatus(city.color) != Cures.CURESTATE.Sunset)
                         {
-                            if (city.redCubes < 3)
+                            if (city.Cubes.GetCubeCount(city.color) < 3)
                             {
-                                GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(city.color);
-                                city.redCubes++;
-                                return city.redCubes;
+                                GameBoardModels.cubeCount.DecrementCubeCount(city.color);
+                                city.Cubes.IncrementCubes(city.color);
+                                return city.Cubes.GetCubeCount(city.color);
 
                             }
                             Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
-                            return city.redCubes;
+                            return city.Cubes.GetCubeCount(city.color);
                         }
-                        return city.redCubes;
+                        return city.Cubes.GetCubeCount(city.color);
                     default:
                         throw new ArgumentException("Not a valid color");
 
@@ -150,59 +150,59 @@ namespace SQADemicApp.BL
                 case COLOR.blue:
                     if (GameBoardModels.CURESTATUS.GetCureStatus(outbreakColor) != Cures.CURESTATE.Sunset)
                     {
-                        if (city.blueCubes < 3)
+                        if (city.Cubes.GetCubeCount(outbreakColor) < 3)
                         {
-                            GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(outbreakColor);
-                            city.blueCubes++;
-                            return city.blueCubes;
+                            GameBoardModels.cubeCount.DecrementCubeCount(outbreakColor);
+                            city.Cubes.IncrementCubes(outbreakColor);
+                            return city.Cubes.GetCubeCount(outbreakColor);
                         }
                         Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
-                        return city.blueCubes;
+                        return city.Cubes.GetCubeCount(outbreakColor);
                     }
-                    return city.blueCubes;
+                    return city.Cubes.GetCubeCount(outbreakColor);
                 case COLOR.yellow:
                     if (GameBoardModels.CURESTATUS.GetCureStatus(outbreakColor) != Cures.CURESTATE.Sunset)
                     {
-                        if (city.yellowCubes < 3)
+                        if (city.Cubes.GetCubeCount(outbreakColor) < 3)
                         {
-                            GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(outbreakColor);
-                            city.yellowCubes++;
-                            return city.yellowCubes;
+                            GameBoardModels.cubeCount.DecrementCubeCount(outbreakColor);
+                            city.Cubes.IncrementCubes(outbreakColor);
+                            return city.Cubes.GetCubeCount(outbreakColor);
 
                         }
                         Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
-                        return city.yellowCubes;
+                        return city.Cubes.GetCubeCount(outbreakColor);
                     }
-                    return city.yellowCubes;
+                    return city.Cubes.GetCubeCount(outbreakColor);
 
                 case COLOR.black:
                     if (GameBoardModels.CURESTATUS.GetCureStatus(outbreakColor) != Cures.CURESTATE.Sunset)
                     {
-                        if (city.blackCubes < 3)
+                        if (city.Cubes.GetCubeCount(outbreakColor) < 3)
                         {
-                            GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(outbreakColor);
-                            city.blackCubes++;
-                            return city.blackCubes;
+                            GameBoardModels.cubeCount.DecrementCubeCount(outbreakColor);
+                            city.Cubes.IncrementCubes(outbreakColor);
+                            return city.Cubes.GetCubeCount(outbreakColor);
 
                         }
                         Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
-                        return city.blackCubes;
+                        return city.Cubes.GetCubeCount(outbreakColor);
                     }
-                    return city.blackCubes;
+                    return city.Cubes.GetCubeCount(outbreakColor);
 
                 case COLOR.red:
                     if (GameBoardModels.CURESTATUS.GetCureStatus(outbreakColor) != Cures.CURESTATE.Sunset)
                     {
-                        if (city.redCubes < 3)
+                        if (city.Cubes.GetCubeCount(outbreakColor) < 3)
                         {
-                            GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(outbreakColor);
-                            city.redCubes++;
-                           return city.redCubes;
+                            GameBoardModels.cubeCount.DecrementCubeCount(outbreakColor);
+                            city.Cubes.IncrementCubes(outbreakColor);
+                            return city.Cubes.GetCubeCount(outbreakColor);
                         }
                         Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
-                        return city.redCubes;
+                        return city.Cubes.GetCubeCount(outbreakColor);
                     }
-                    return city.redCubes;
+                    return city.Cubes.GetCubeCount(outbreakColor);
                 default:
                     throw new ArgumentException("Not a valid color");
             }

@@ -470,61 +470,61 @@ namespace SQADemicAppTest
         public void TestTreatDiseaseBasicBlue()
         {
             opExpert.currentCity = chicagoCity;
-            chicagoCity.blueCubes = 2;
+            chicagoCity.Cubes.SetCubeCount(COLOR.blue, 2);
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.blue));
-            Assert.AreEqual(chicagoCity.blueCubes, 1);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.blue) , 1);
         }
 
         [TestMethod]
         public void TestTreatDiseaseBasicRed()
         {
             opExpert.currentCity = chicagoCity;
-            chicagoCity.redCubes = 2;
+            chicagoCity.Cubes.SetCubeCount(COLOR.red, 2);
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.red));
-            Assert.AreEqual(chicagoCity.redCubes, 1);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.red), 1);
         }
 
         [TestMethod]
         public void TestTreatDiseaseBasicONLYellow()
         {
             opExpert.currentCity = chicagoCity;
-            chicagoCity.redCubes = 2; 
-            chicagoCity.blueCubes = 2;
-            chicagoCity.yellowCubes = 2;
-            chicagoCity.blackCubes= 3;
+            chicagoCity.Cubes.SetCubeCount(COLOR.red, 2);
+            chicagoCity.Cubes.SetCubeCount(COLOR.blue, 2);
+            chicagoCity.Cubes.SetCubeCount(COLOR.yellow, 2);
+            chicagoCity.Cubes.SetCubeCount(COLOR.black, 3);
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.yellow));
-            Assert.AreEqual(chicagoCity.redCubes, 2);
-            Assert.AreEqual(chicagoCity.blueCubes, 2);
-            Assert.AreEqual(chicagoCity.yellowCubes, 1);
-            Assert.AreEqual(chicagoCity.blackCubes, 3);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.red), 2);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.blue), 2);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.yellow), 1);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.black), 3);
         }
 
         [TestMethod]
         public void TestTreatDiseaseBasicDecreaseAll()
         {
             opExpert.currentCity = chicagoCity;
-            chicagoCity.redCubes = 1;
-            chicagoCity.blueCubes = 2;
-            chicagoCity.yellowCubes = 2;
-            chicagoCity.blackCubes = 1;
+            chicagoCity.Cubes.SetCubeCount(COLOR.red, 1);
+            chicagoCity.Cubes.SetCubeCount(COLOR.blue, 2);
+            chicagoCity.Cubes.SetCubeCount(COLOR.yellow, 2);
+            chicagoCity.Cubes.SetCubeCount(COLOR.black, 1);
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.red));
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.blue));
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.yellow));
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.black));
-            Assert.AreEqual(chicagoCity.redCubes, 0);
-            Assert.AreEqual(chicagoCity.blueCubes, 1);
-            Assert.AreEqual(chicagoCity.yellowCubes, 1);
-            Assert.AreEqual(chicagoCity.blackCubes, 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.red), 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.blue), 1);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.yellow), 1);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.black), 0);
         }
 
         [TestMethod]
         public void TestTreateDiesaseCuresExist()
         {
             opExpert.currentCity = chicagoCity;
-            chicagoCity.redCubes = 1;
-            chicagoCity.blueCubes = 2;
-            chicagoCity.yellowCubes = 2;
-            chicagoCity.blackCubes = 3;
+            chicagoCity.Cubes.SetCubeCount(COLOR.red, 1);
+            chicagoCity.Cubes.SetCubeCount(COLOR.blue, 2);
+            chicagoCity.Cubes.SetCubeCount(COLOR.yellow, 2);
+            chicagoCity.Cubes.SetCubeCount(COLOR.black, 3);
             GameBoardModels.CURESTATUS.SetCureStatus(COLOR.black, Cures.CURESTATE.Cured);
             GameBoardModels.CURESTATUS.SetCureStatus(COLOR.blue, Cures.CURESTATE.Cured);
             GameBoardModels.CURESTATUS.SetCureStatus(COLOR.red, Cures.CURESTATE.Cured);
@@ -537,28 +537,28 @@ namespace SQADemicAppTest
             GameBoardModels.CURESTATUS.SetCureStatus(COLOR.blue, Cures.CURESTATE.NotCured);
             GameBoardModels.CURESTATUS.SetCureStatus(COLOR.red, Cures.CURESTATE.NotCured);
             GameBoardModels.CURESTATUS.SetCureStatus(COLOR.yellow, Cures.CURESTATE.NotCured);
-            Assert.AreEqual(chicagoCity.redCubes, 0);
-            Assert.AreEqual(chicagoCity.blueCubes, 0);
-            Assert.AreEqual(chicagoCity.yellowCubes, 0);
-            Assert.AreEqual(chicagoCity.blackCubes, 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.red), 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.blue), 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.yellow), 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.black), 0);
         }
 
         [TestMethod]
         public void TestTreatDiseaseMedicDecreaseAll()
         {
             medic.currentCity = chicagoCity;
-            chicagoCity.redCubes = 1;
-            chicagoCity.blueCubes = 2;
-            chicagoCity.yellowCubes = 3;
-            chicagoCity.blackCubes = 1;
+            chicagoCity.Cubes.SetCubeCount(COLOR.red, 1);
+            chicagoCity.Cubes.SetCubeCount(COLOR.blue, 2);
+            chicagoCity.Cubes.SetCubeCount(COLOR.yellow, 3);
+            chicagoCity.Cubes.SetCubeCount(COLOR.black, 1);
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(medic, COLOR.red));
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(medic, COLOR.blue));
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(medic, COLOR.yellow));
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(medic, COLOR.black));
-            Assert.AreEqual(chicagoCity.redCubes, 0);
-            Assert.AreEqual(chicagoCity.blueCubes, 0);
-            Assert.AreEqual(chicagoCity.yellowCubes, 0);
-            Assert.AreEqual(chicagoCity.blackCubes, 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.red), 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.blue), 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.yellow), 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.black), 0);
         }
 
         [TestMethod]
@@ -566,18 +566,18 @@ namespace SQADemicAppTest
         {
             opExpert.currentCity = chicagoCity;
             medic.currentCity = chicagoCity;
-            chicagoCity.redCubes = 0;
-            chicagoCity.blueCubes = 0;
-            chicagoCity.yellowCubes = 0;
-            chicagoCity.blackCubes = 0;
+            chicagoCity.Cubes.SetCubeCount(COLOR.red, 0);
+            chicagoCity.Cubes.SetCubeCount(COLOR.blue, 0);
+            chicagoCity.Cubes.SetCubeCount(COLOR.yellow, 0);
+            chicagoCity.Cubes.SetCubeCount(COLOR.black, 0);
             Assert.AreEqual(false, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.red));
             Assert.AreEqual(false, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.blue));
             Assert.AreEqual(false, PlayerActionsBL.TreatDiseaseOption(medic, COLOR.yellow));
             Assert.AreEqual(false, PlayerActionsBL.TreatDiseaseOption(medic, COLOR.black));
-            Assert.AreEqual(chicagoCity.redCubes, 0);
-            Assert.AreEqual(chicagoCity.blueCubes, 0);
-            Assert.AreEqual(chicagoCity.yellowCubes, 0);
-            Assert.AreEqual(chicagoCity.blackCubes, 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.red), 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.blue), 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.yellow),0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.black), 0);
         }
 
         #endregion
@@ -705,9 +705,9 @@ namespace SQADemicAppTest
         {
             opExpert.currentCity = chicagoCity;
             GameBoardModels.cubeCount.SetCubeCount(COLOR.blue, 22);
-            chicagoCity.blueCubes = 2;
+            chicagoCity.Cubes.SetCubeCount(COLOR.blue, 2);
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.blue));
-            Assert.AreEqual(chicagoCity.blueCubes, 1);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.blue), 1);
             Assert.AreEqual(GameBoardModels.cubeCount.GetCubeCount(COLOR.blue), 23);
         }
 
@@ -716,9 +716,9 @@ namespace SQADemicAppTest
         {
             opExpert.currentCity = chicagoCity;
             GameBoardModels.cubeCount.SetCubeCount(COLOR.red, 22);
-            chicagoCity.redCubes = 2;
+            chicagoCity.Cubes.SetCubeCount(COLOR.red, 2);
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.red));
-            Assert.AreEqual(chicagoCity.redCubes, 1);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.red), 1);
             Assert.AreEqual(GameBoardModels.cubeCount.GetCubeCount(COLOR.red), 23);
         }
 
@@ -727,9 +727,9 @@ namespace SQADemicAppTest
         {
             medic.currentCity = chicagoCity;
             GameBoardModels.cubeCount.SetCubeCount(COLOR.red, 22);
-            chicagoCity.redCubes = 2;
+            chicagoCity.Cubes.SetCubeCount(COLOR.red, 2);
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(medic, COLOR.red));
-            Assert.AreEqual(chicagoCity.redCubes, 0);
+            Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.red), 0);
             Assert.AreEqual(GameBoardModels.cubeCount.GetCubeCount(COLOR.red), 24);
         }
 
@@ -752,12 +752,12 @@ namespace SQADemicAppTest
         //public void TestSetDiseaseCubesNoCure()
         //{
         //    GameBoardModels.CURESTATUS.RedCure = GameBoardModels.Cures.CURESTATE.NotCured;
-        //    var startingCount = GameBoardModels.cubeCount.InfectionCubes.GetCubeCount(COLOR.red);
+        //    var startingCount = GameBoardModels.cubeCount.InfectionCubesBoard.GetCubeCount(COLOR.red);
         //    chicagoCity.redCubes = 2;
 
         //    PrivateObject accessor = new PrivateObject(new PlayerActionsBL());
         //    accessor.Invoke("SetDiseaseCubes", new Object[] {chicagoCity, COLOR.red, 2, 1});
-        //    Assert.AreEqual(GameBoardModels.cubeCount.InfectionCubes.GetCubeCount(COLOR.red), (startingCount -1));
+        //    Assert.AreEqual(GameBoardModels.cubeCount.InfectionCubesBoard.GetCubeCount(COLOR.red), (startingCount -1));
         //}
 
 

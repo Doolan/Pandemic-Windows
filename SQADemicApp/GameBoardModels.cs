@@ -45,7 +45,7 @@ namespace SQADemicApp
             {
                 //set vars
                 outbreakMarker = 0;
-                cubeCount = new InfectionCubes(MAXCUBECOUNT);
+                cubeCount = new InfectionCubesBoard(MAXCUBECOUNT);
                 CURESTATUS = new Cures();
               //  CURESTATUS.BlackCure = CURESTATUS.BlueCure = CURESTATUS.RedCure = CURESTATUS.YellowCure = Cures.CURESTATE.NotCured;
                 Card[] playerDeckArray;
@@ -165,18 +165,5 @@ namespace SQADemicApp
         {
             return playerDeck.Count();
         }
-
-        #region Storage Classes
-        public class InfectionCubeCount
-        {
-            private readonly InfectionCubes _infectionCubes = new InfectionCubes();
-
-            public InfectionCubes InfectionCubes
-            {
-                get { return _infectionCubes; }
-            }
-        }
-
-        #endregion
     }
 }

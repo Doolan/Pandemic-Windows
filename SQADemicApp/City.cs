@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SQADemicApp.Objects;
 
 namespace SQADemicApp
 {
@@ -10,11 +11,8 @@ namespace SQADemicApp
 
         public string Name;
         public COLOR color;
-        public int redCubes { get; set; }
-        public int blackCubes { get; set; }
-        public int blueCubes  { get; set; }
-        public int yellowCubes  { get; set; }
         public bool researchStation = false;
+        public InfectionCubesCity Cubes;
         public HashSet<City> adjacentCities;
         //public List<City> adjacentCities;
 
@@ -22,16 +20,13 @@ namespace SQADemicApp
         {
             this.color = color;
             this.Name = name;
-            redCubes = 0;
-            blackCubes = 0;
-            blueCubes = 0;
-            yellowCubes = 0;
+            Cubes = new InfectionCubesCity(0);
             adjacentCities = new HashSet<City>();
         }
 
         public int allCubeCount()
         {
-            return redCubes + blackCubes + blueCubes + yellowCubes;
+            return Cubes.GetTotalCubeCount();
         }
 
         public void setAdjacentCities(HashSet<City> cities)

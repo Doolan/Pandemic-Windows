@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Objects\Cures.cs" />
+    <Compile Include="Objects\InfectionCubes.cs" />
+    <Compile Include="Objects\InfectionCubesCity.cs" />
     <Compile Include="UI\AdvancedActions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,7 +106,7 @@
     <Compile Include="UI\CharacterPane.Designer.cs">
       <DependentUpon>CharacterPane.cs</DependentUpon>
     </Compile>
-    <Compile Include="Objects\InfectionCubes.cs" />
+    <Compile Include="Objects\InfectionCubesBoard.cs" />
     <Compile Include="UI\PicForm.cs">
       <SubType>Form</SubType>
     </Compile>

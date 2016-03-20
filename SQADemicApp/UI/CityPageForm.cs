@@ -17,10 +17,10 @@ namespace SQADemicApp
             InitializeComponent();
             CityName.Text = city.Name;
             CityColor.Text = city.color.ToString();
-            RedCubeCount.Text = city.redCubes.ToString();
-            BlueCubeCount.Text = city.blueCubes.ToString();
-            BlackCubeCount.Text = city.blackCubes.ToString();
-            YellowCubeCount.Text = city.yellowCubes.ToString();
+            RedCubeCount.Text = city.Cubes.GetCubeCount(COLOR.red).ToString();
+            BlueCubeCount.Text = city.Cubes.GetCubeCount(COLOR.blue).ToString();
+            BlackCubeCount.Text = city.Cubes.GetCubeCount(COLOR.black).ToString();
+            YellowCubeCount.Text = city.Cubes.GetCubeCount(COLOR.yellow).ToString();
             HasResearchStation.Checked = city.researchStation;
         }
 

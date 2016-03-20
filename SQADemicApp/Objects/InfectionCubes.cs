@@ -4,16 +4,15 @@ using System.Linq;
 
 namespace SQADemicApp
 {
-    public class InfectionCubes
+    public abstract class InfectionCubes
     {
-        private Dictionary<COLOR, int> cubesSet;
+        protected Dictionary<COLOR, int> cubesSet;
 
-        public InfectionCubes() : this(0)
+        protected InfectionCubes() : this(0)
         {
         }
 
-
-        public InfectionCubes(int startingValue)
+        protected InfectionCubes(int startingValue)
         {
             cubesSet = new Dictionary<COLOR, int>();
             var values = Enum.GetValues(typeof (COLOR)).Cast<COLOR>();
@@ -23,21 +22,12 @@ namespace SQADemicApp
             }
         }
 
-
-        public void DecrementCubeCountWithGameOver(COLOR color)
+        public void IncrementCubes(COLOR color)
         {
-            cubesSet[color] --;
-            if (cubesSet[color] <= 0)
-            {
-                throw new InvalidOperationException("Game Over");
-            }
+            cubesSet[color]++;
         }
 
-        public void DecrementCubeCount(COLOR color)
-        {
-            cubesSet[color]--;
-        }
-
+        public abstract void DecrementCubeCount(COLOR color);
 
         public int GetCubeCount(COLOR color)
         {
