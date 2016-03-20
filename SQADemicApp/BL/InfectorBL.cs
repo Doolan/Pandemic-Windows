@@ -86,7 +86,7 @@ namespace SQADemicApp.BL
                         {
                             if (city.blueCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(city.color);
+                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(city.color);
                                 city.blueCubes++;
                                 return city.blueCubes;
                             }
@@ -100,7 +100,7 @@ namespace SQADemicApp.BL
                         {
                             if (city.yellowCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(city.color);
+                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(city.color);
                                 city.yellowCubes++;
                                 return city.yellowCubes;
 
@@ -115,7 +115,7 @@ namespace SQADemicApp.BL
                         {
                             if (city.blackCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(city.color);
+                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(city.color);
                                 city.blackCubes++;
                                 return city.blackCubes;
 
@@ -129,7 +129,7 @@ namespace SQADemicApp.BL
                         {
                             if (city.redCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(city.color);
+                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(city.color);
                                 city.redCubes++;
                                 return city.redCubes;
 
@@ -148,7 +148,7 @@ namespace SQADemicApp.BL
                     {
                         if (city.blueCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(outbreakColor);
+                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(outbreakColor);
                             city.blueCubes++;
                             return city.blueCubes;
                         }
@@ -161,7 +161,7 @@ namespace SQADemicApp.BL
                     {
                         if (city.yellowCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(outbreakColor);
+                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(outbreakColor);
                             city.yellowCubes++;
                             return city.yellowCubes;
 
@@ -176,7 +176,7 @@ namespace SQADemicApp.BL
                     {
                         if (city.blackCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(outbreakColor);
+                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(outbreakColor);
                             city.blackCubes++;
                             return city.blackCubes;
 
@@ -191,7 +191,7 @@ namespace SQADemicApp.BL
                     {
                         if (city.redCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(outbreakColor);
+                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(outbreakColor);
                             city.redCubes++;
                            return city.redCubes;
                         }

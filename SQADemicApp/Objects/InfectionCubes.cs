@@ -1,106 +1,57 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SQADemicApp
 {
     public class InfectionCubes
     {
+        private Dictionary<COLOR, int> cubesSet;
 
-        public void DecrementCubeCount(COLOR color)
+        public InfectionCubes() : this(0)
         {
-            //temporary switch statement -- will change when underlying storage updated
-            switch (color)
+        }
+
+
+        public InfectionCubes(int startingValue)
+        {
+            cubesSet = new Dictionary<COLOR, int>();
+            var values = Enum.GetValues(typeof (COLOR)).Cast<COLOR>();
+            foreach (var color in values)
             {
-                case COLOR.red:
-                    redCubes --;
-                    if(redCubes<= 0)
-                        throw new InvalidOperationException("Game Over");
-                    break;
-                case COLOR.black:
-                    blackCubes--;
-                    if (blackCubes <= 0)
-                        throw new InvalidOperationException("Game Over");
-                    break;
-                case COLOR.blue:
-                    blueCubes--;
-                    if (blueCubes <= 0)
-                        throw new InvalidOperationException("Game Over");
-                    break;
-                case COLOR.yellow:
-                    yellowCubes--;
-                    if (yellowCubes <= 0)
-                        throw new InvalidOperationException("Game Over");
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(color), color, null);
+                cubesSet.Add(color, startingValue);
             }
         }
 
+
+        public void DecrementCubeCountWithGameOver(COLOR color)
+        {
+            cubesSet[color] --;
+            if (cubesSet[color] <= 0)
+            {
+                throw new InvalidOperationException("Game Over");
+            }
+        }
+
+        public void DecrementCubeCount(COLOR color)
+        {
+            cubesSet[color]--;
+        }
+
+
         public int GetCubeCount(COLOR color)
         {
-            //temporary switch statement -- will change when underlying storage updated
-            switch (color)
-            {
-                case COLOR.red:
-                    return redCubes;
-                    
-                case COLOR.black:
-                    return blackCubes;
-                case COLOR.blue:
-                    return blueCubes;
-                case COLOR.yellow:
-                    return yellowCubes;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(color), color, null);
-            }
+            return cubesSet[color];
         }
 
         public void AddCubes(COLOR color, int value)
         {
-            //temporary switch statement -- will change when underlying storage updated
-            switch (color)
-            {
-                case COLOR.red:
-                    redCubes += value;
-                    break;
-                case COLOR.black:
-                    blackCubes += value;
-                    break;
-                case COLOR.blue:
-                    blueCubes += value;
-                    break;
-                case COLOR.yellow:
-                    yellowCubes += value;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(color), color, null);
-            }
+            cubesSet[color] += value;
         }
 
         public void SetCubeCount(COLOR color, int value)
         {
-            //temporary switch statement -- will change when underlying storage updated
-            switch (color)
-            {
-                case COLOR.red:
-                    redCubes = value;
-                    break;
-                case COLOR.black:
-                    blackCubes = value;
-                    break;
-                case COLOR.blue:
-                    blueCubes = value;
-                    break;
-                case COLOR.yellow:
-                    yellowCubes = value;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(color), color, null);
-            }
+            cubesSet[color] = value;
         }
-
-        private int redCubes { get; set; }
-        private int blackCubes { get; set; }
-        private int blueCubes { get; set; }
-        private int yellowCubes { get; set; }
     }
 }
