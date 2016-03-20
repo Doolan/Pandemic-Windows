@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="GameBoardModelsTest.cs" />
     <Compile Include="InfectorTest.cs" />
+    <Compile Include="Objects\CuresTests.cs" />
     <Compile Include="PlayerActionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CitiesTest.cs" />

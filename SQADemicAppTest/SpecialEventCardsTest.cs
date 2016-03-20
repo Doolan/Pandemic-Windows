@@ -20,7 +20,7 @@ namespace SQADemicAppTest
         public void setUpCitiesandStations()
         {
             //set up GameboardModels if not already
-            var g = new GameBoardModels(new string[] { "dispatcher", "medic" });
+            var g = new GameBoardModels(new string[] { "Dispatcher", "Medic" });
             //cities
             Create.createDictionary();
             Create.setAdjacentCities(new StringReader("Chicago;San Francisco,Los Angeles,Atlanta,Montreal"));

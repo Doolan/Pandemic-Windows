@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\Cures.cs" />
     <Compile Include="UI\AdvancedActions.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SQADemicApp.Objects;
 
 namespace SQADemicApp.BL
 {
@@ -82,11 +83,11 @@ namespace SQADemicApp.BL
                 switch (city.color)
                 {
                     case COLOR.blue:
-                        if (GameBoardModels.CURESTATUS.BlueCure != GameBoardModels.Cures.CURESTATE.Sunset)
+                        if (GameBoardModels.CURESTATUS.BlueCure != Cures.CURESTATE.Sunset)
                         {
                             if (city.blueCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(city.color);
+                                GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(city.color);
                                 city.blueCubes++;
                                 return city.blueCubes;
                             }
@@ -96,11 +97,11 @@ namespace SQADemicApp.BL
                         return city.blueCubes;
 
                     case COLOR.yellow:
-                        if (GameBoardModels.CURESTATUS.YellowCure != GameBoardModels.Cures.CURESTATE.Sunset)
+                        if (GameBoardModels.CURESTATUS.YellowCure != Cures.CURESTATE.Sunset)
                         {
                             if (city.yellowCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(city.color);
+                                GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(city.color);
                                 city.yellowCubes++;
                                 return city.yellowCubes;
 
@@ -111,11 +112,11 @@ namespace SQADemicApp.BL
                         return city.yellowCubes;
 
                     case COLOR.black:
-                        if (GameBoardModels.CURESTATUS.BlackCure != GameBoardModels.Cures.CURESTATE.Sunset)
+                        if (GameBoardModels.CURESTATUS.BlackCure != Cures.CURESTATE.Sunset)
                         {
                             if (city.blackCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(city.color);
+                                GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(city.color);
                                 city.blackCubes++;
                                 return city.blackCubes;
 
@@ -125,11 +126,11 @@ namespace SQADemicApp.BL
                         }
                         return city.blackCubes;
                     default:
-                        if (GameBoardModels.CURESTATUS.RedCure != GameBoardModels.Cures.CURESTATE.Sunset)
+                        if (GameBoardModels.CURESTATUS.RedCure != Cures.CURESTATE.Sunset)
                         {
                             if (city.redCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(city.color);
+                                GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(city.color);
                                 city.redCubes++;
                                 return city.redCubes;
 
@@ -144,11 +145,11 @@ namespace SQADemicApp.BL
             switch (outbreakColor)
             {
                 case COLOR.blue:
-                    if (GameBoardModels.CURESTATUS.BlueCure != GameBoardModels.Cures.CURESTATE.Sunset)
+                    if (GameBoardModels.CURESTATUS.BlueCure != Cures.CURESTATE.Sunset)
                     {
                         if (city.blueCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(outbreakColor);
+                            GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(outbreakColor);
                             city.blueCubes++;
                             return city.blueCubes;
                         }
@@ -157,11 +158,11 @@ namespace SQADemicApp.BL
                     }
                     return city.blueCubes;
                 case COLOR.yellow:
-                    if (GameBoardModels.CURESTATUS.YellowCure != GameBoardModels.Cures.CURESTATE.Sunset)
+                    if (GameBoardModels.CURESTATUS.YellowCure != Cures.CURESTATE.Sunset)
                     {
                         if (city.yellowCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(outbreakColor);
+                            GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(outbreakColor);
                             city.yellowCubes++;
                             return city.yellowCubes;
 
@@ -172,11 +173,11 @@ namespace SQADemicApp.BL
                     return city.yellowCubes;
 
                 case COLOR.black:
-                    if (GameBoardModels.CURESTATUS.BlackCure != GameBoardModels.Cures.CURESTATE.Sunset)
+                    if (GameBoardModels.CURESTATUS.BlackCure != Cures.CURESTATE.Sunset)
                     {
                         if (city.blackCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(outbreakColor);
+                            GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(outbreakColor);
                             city.blackCubes++;
                             return city.blackCubes;
 
@@ -187,11 +188,11 @@ namespace SQADemicApp.BL
                     return city.blackCubes;
 
                 default:
-                    if (GameBoardModels.CURESTATUS.RedCure != GameBoardModels.Cures.CURESTATE.Sunset)
+                    if (GameBoardModels.CURESTATUS.RedCure != Cures.CURESTATE.Sunset)
                     {
                         if (city.redCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCountWithGameOver(outbreakColor);
+                            GameBoardModels.cubeCount.DecrementCubeCountWithGameOver(outbreakColor);
                             city.redCubes++;
                            return city.redCubes;
                         }

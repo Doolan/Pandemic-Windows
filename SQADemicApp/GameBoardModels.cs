@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using SQADemicApp.BL;
+using SQADemicApp.Objects;
 
 namespace SQADemicApp
 {
@@ -10,7 +11,7 @@ namespace SQADemicApp
     public class GameBoardModels
     {
         #region Public Static Vars
-        public static InfectionCubeCount cubeCount;
+        public static InfectionCubes cubeCount;
         public static Cures CURESTATUS;
         public static List<String> citiesWithResearchStations;
         public static int outbreakMarker = 0;
@@ -44,11 +45,7 @@ namespace SQADemicApp
             {
                 //set vars
                 outbreakMarker = 0;
-                cubeCount = new InfectionCubeCount();
-                cubeCount.InfectionCubes.SetCubeCount(COLOR.red, MAXCUBECOUNT);
-                cubeCount.InfectionCubes.SetCubeCount(COLOR.black, MAXCUBECOUNT);
-                cubeCount.InfectionCubes.SetCubeCount(COLOR.blue, MAXCUBECOUNT);
-                cubeCount.InfectionCubes.SetCubeCount(COLOR.yellow, MAXCUBECOUNT);
+                cubeCount = new InfectionCubes(MAXCUBECOUNT);
                 CURESTATUS = new Cures();
                 CURESTATUS.BlackCure = CURESTATUS.BlueCure = CURESTATUS.RedCure = CURESTATUS.YellowCure = Cures.CURESTATE.NotCured;
                 Card[] playerDeckArray;
@@ -179,51 +176,7 @@ namespace SQADemicApp
                 get { return _infectionCubes; }
             }
         }
-        public class Cures
-        {
-            public enum CURESTATE { NotCured, Cured, Sunset }
-            public CURESTATE RedCure { get; set; }
-            public CURESTATE BlueCure { get; set; }
-            public CURESTATE BlackCure { get; set; }
-            public CURESTATE YellowCure { get; set; }
 
-            public CURESTATE getCureStatus(COLOR color)
-            {
-                switch (color)
-                {
-                    case COLOR.red:
-                        return RedCure;
-                    case COLOR.blue:
-                        return BlueCure;
-                    case COLOR.yellow:
-                        return YellowCure;
-                    case COLOR.black:
-                        return BlackCure;
-                    default:
-                        throw new ArgumentException("Not a vaild color");
-                }
-            }
-            public void setCureStatus(COLOR color, CURESTATE curestate)
-            {
-                switch (color)
-                {
-                    case COLOR.red:
-                        RedCure = curestate;
-                        break;
-                    case COLOR.blue:
-                        BlueCure = curestate;
-                        break;
-                    case COLOR.yellow:
-                        YellowCure = curestate;
-                        break;
-                    case COLOR.black:
-                        BlackCure = curestate;
-                        break;
-                    default:
-                        throw new ArgumentException("Not a vaild color");
-                }
-            }
-        }
         #endregion
     }
 }
