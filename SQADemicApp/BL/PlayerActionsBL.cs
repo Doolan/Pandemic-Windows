@@ -222,39 +222,11 @@ namespace SQADemicApp.BL
         /// <param name="numberBeforeCure"></param>
         private static bool SetDiseaseCubes(City city, COLOR color, int numberAfterCure, int numberBeforeCure)
         {
-            switch (color)
-            {
-                case COLOR.red:
-                    numberAfterCure = GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured ? 0 : numberAfterCure;
-                    GameBoardModels.cubeCount.AddCubes(color, numberBeforeCure - numberAfterCure);
-                    city.Cubes.SetCubeCount(color, numberAfterCure);
-                    if (GameBoardModels.cubeCount.GetCubeCount(color) == MAXCUBECOUNT && GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured)
-                        GameBoardModels.CURESTATUS.SetCureStatus(color, Cures.CURESTATE.Sunset);
-                    break;
-                case COLOR.blue:
-                    numberAfterCure = GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured ? 0 : numberAfterCure;
-                    GameBoardModels.cubeCount.AddCubes(color, numberBeforeCure - numberAfterCure);
-                    city.Cubes.SetCubeCount(color, numberAfterCure);
-                    if (GameBoardModels.cubeCount.GetCubeCount(color) == MAXCUBECOUNT && GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured)
-                        GameBoardModels.CURESTATUS.SetCureStatus(color, Cures.CURESTATE.Sunset);
-                    break;
-                case COLOR.yellow:
-                    numberAfterCure = GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured ? 0 : numberAfterCure;
-                    GameBoardModels.cubeCount.AddCubes(color, numberBeforeCure - numberAfterCure);
-                    city.Cubes.SetCubeCount(color, numberAfterCure);
-                    if (GameBoardModels.cubeCount.GetCubeCount(color) == MAXCUBECOUNT && GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured)
-                        GameBoardModels.CURESTATUS.SetCureStatus(color, Cures.CURESTATE.Sunset);
-                    break;
-                case COLOR.black:
-                    numberAfterCure = GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured ? 0 : numberAfterCure;
-                    GameBoardModels.cubeCount.AddCubes(color, numberBeforeCure - numberAfterCure);
-                    city.Cubes.SetCubeCount(color, numberAfterCure);
-                    if (GameBoardModels.cubeCount.GetCubeCount(color) == MAXCUBECOUNT && GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured)
-                        GameBoardModels.CURESTATUS.SetCureStatus(color, Cures.CURESTATE.Sunset);
-                    break;
-                default:
-                    throw new ArgumentException("invalid color");
-            }
+            numberAfterCure = GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured ? 0 : numberAfterCure;
+            GameBoardModels.cubeCount.AddCubes(color, numberBeforeCure - numberAfterCure);
+            city.Cubes.SetCubeCount(color, numberAfterCure);
+            if (GameBoardModels.cubeCount.GetCubeCount(color) == MAXCUBECOUNT && GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured)
+                GameBoardModels.CURESTATUS.SetCureStatus(color, Cures.CURESTATE.Sunset);
             return true;
         }
         
