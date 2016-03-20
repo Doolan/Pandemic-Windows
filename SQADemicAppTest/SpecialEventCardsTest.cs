@@ -50,7 +50,7 @@ namespace SQADemicAppTest
         }
 
         [TestMethod]
-        public void TestGovernmentGrantkolkataFAILED()
+        public void TestGovernmentGrantKolkataFAILED()
         {
             //already has a research station should fail
             kolkata.researchStation = true;

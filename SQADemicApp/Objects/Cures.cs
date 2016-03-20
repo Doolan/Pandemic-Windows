@@ -1,68 +1,42 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SQADemicApp.Objects
 {
     public class Cures
     {
-        public enum CURESTATE { NotCured, Cured, Sunset }
-        private CURESTATE RedCure { get; set; }
-        private CURESTATE BlueCure { get; set; }
-        private CURESTATE BlackCure { get; set; }
-        private CURESTATE YellowCure { get; set; }
+        public enum CURESTATE
+        {
+            NotCured,
+            Cured,
+            Sunset
+        }
 
-        public Cures() :this(CURESTATE.NotCured)
+        private readonly Dictionary<COLOR, CURESTATE> cureSet;
+
+        public Cures() : this(CURESTATE.NotCured)
         {
         }
 
         public Cures(CURESTATE state)
         {
-            RedCure = state;
-            BlueCure = state;
-            BlackCure = state;
-            YellowCure = state;
+            cureSet = new Dictionary<COLOR, CURESTATE>();
+            var values = Enum.GetValues(typeof (COLOR)).Cast<COLOR>();
+            foreach (var color in values)
+            {
+                cureSet.Add(color, state);
+            }
         }
 
         public CURESTATE GetCureStatus(COLOR color)
         {
-            switch (color)
-            {
-                case COLOR.red:
-                    return RedCure;
-                case COLOR.blue:
-                    return BlueCure;
-                case COLOR.yellow:
-                    return YellowCure;
-                case COLOR.black:
-                    return BlackCure;
-                default:
-                    throw new ArgumentException("Not a valid color");
-            }
+            return cureSet[color];
         }
 
         public void SetCureStatus(COLOR color, CURESTATE curestate)
         {
-            switch (color)
-            {
-                case COLOR.red:
-                    RedCure = curestate;
-                    break;
-                case COLOR.blue:
-                    BlueCure = curestate;
-                    break;
-                case COLOR.yellow:
-                    YellowCure = curestate;
-                    break;
-                case COLOR.black:
-                    BlackCure = curestate;
-                    break;
-                default:
-                    throw new ArgumentException("Not a vaild color");
-            }
+            cureSet[color] = curestate;
         }
-
-
-        
-
-
     }
 }
