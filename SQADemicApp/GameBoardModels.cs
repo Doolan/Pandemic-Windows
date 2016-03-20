@@ -30,6 +30,7 @@ namespace SQADemicApp
         #region private vars
         private static bool alreadySetUp = false;
         public static Stack<Card> playerDeck;
+        private static int MAXCUBECOUNT = 24;
         #endregion
 
         /// <summary>
@@ -44,7 +45,10 @@ namespace SQADemicApp
                 //set vars
                 outbreakMarker = 0;
                 cubeCount = new InfectionCubeCount();
-                cubeCount.InfectionCubes.blackCubes = cubeCount.InfectionCubes.redCubes = cubeCount.InfectionCubes.blueCubes = cubeCount.InfectionCubes.yellowCubes = 24;
+                cubeCount.InfectionCubes.SetCubeCount(COLOR.red, MAXCUBECOUNT);
+                cubeCount.InfectionCubes.SetCubeCount(COLOR.black, MAXCUBECOUNT);
+                cubeCount.InfectionCubes.SetCubeCount(COLOR.blue, MAXCUBECOUNT);
+                cubeCount.InfectionCubes.SetCubeCount(COLOR.yellow, MAXCUBECOUNT);
                 CURESTATUS = new Cures();
                 CURESTATUS.BlackCure = CURESTATUS.BlueCure = CURESTATUS.RedCure = CURESTATUS.YellowCure = Cures.CURESTATE.NotCured;
                 Card[] playerDeckArray;

@@ -214,10 +214,10 @@ namespace SQADemicApp
         }
         private void updateCubeCounts()
         {
-            playerForm.RedCubes.Text = String.Format("Red Cubes Remaining:    {0,-2}/24", GameBoardModels.cubeCount.InfectionCubes.redCubes);
-            playerForm.BlueCubes.Text = String.Format("Blue Cubes Remaining:   {0,-2}/24", GameBoardModels.cubeCount.InfectionCubes.blueCubes);
-            playerForm.BlackCubes.Text = String.Format("Black Cubes Remaining:  {0,-2}/24", GameBoardModels.cubeCount.InfectionCubes.blackCubes);
-            playerForm.YellowCubes.Text = String.Format("Yellow Cubes Remaining: {0,-2}/24", GameBoardModels.cubeCount.InfectionCubes.yellowCubes);
+            playerForm.RedCubes.Text = String.Format("Red Cubes Remaining:    {0,-2}/24", GameBoardModels.cubeCount.InfectionCubes.GetCubeCount(COLOR.red));
+            playerForm.BlueCubes.Text = String.Format("Blue Cubes Remaining:   {0,-2}/24", GameBoardModels.cubeCount.InfectionCubes.GetCubeCount(COLOR.blue));
+            playerForm.BlackCubes.Text = String.Format("Black Cubes Remaining:  {0,-2}/24", GameBoardModels.cubeCount.InfectionCubes.GetCubeCount(COLOR.black));
+            playerForm.YellowCubes.Text = String.Format("Yellow Cubes Remaining: {0,-2}/24", GameBoardModels.cubeCount.InfectionCubes.GetCubeCount(COLOR.yellow));
         }
         private void updateCounters()
         {

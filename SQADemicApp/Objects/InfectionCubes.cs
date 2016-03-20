@@ -76,9 +76,31 @@ namespace SQADemicApp
             }
         }
 
-        public int redCubes { get; set; }
-        public int blackCubes { get; set; }
-        public int blueCubes { get; set; }
-        public int yellowCubes { get; set; }
+        public void SetCubeCount(COLOR color, int value)
+        {
+            //temporary switch statement -- will change when underlying storage updated
+            switch (color)
+            {
+                case COLOR.red:
+                    redCubes = value;
+                    break;
+                case COLOR.black:
+                    blackCubes = value;
+                    break;
+                case COLOR.blue:
+                    blueCubes = value;
+                    break;
+                case COLOR.yellow:
+                    yellowCubes = value;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(color), color, null);
+            }
+        }
+
+        private int redCubes { get; set; }
+        private int blackCubes { get; set; }
+        private int blueCubes { get; set; }
+        private int yellowCubes { get; set; }
     }
 }
