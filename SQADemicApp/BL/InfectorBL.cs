@@ -83,7 +83,7 @@ namespace SQADemicApp.BL
                 switch (city.color)
                 {
                     case COLOR.blue:
-                        if (GameBoardModels.CURESTATUS.BlueCure != Cures.CURESTATE.Sunset)
+                        if (GameBoardModels.CURESTATUS.GetCureStatus(city.color)!= Cures.CURESTATE.Sunset)
                         {
                             if (city.blueCubes < 3)
                             {
@@ -97,7 +97,7 @@ namespace SQADemicApp.BL
                         return city.blueCubes;
 
                     case COLOR.yellow:
-                        if (GameBoardModels.CURESTATUS.YellowCure != Cures.CURESTATE.Sunset)
+                        if (GameBoardModels.CURESTATUS.GetCureStatus(city.color) != Cures.CURESTATE.Sunset)
                         {
                             if (city.yellowCubes < 3)
                             {
@@ -112,7 +112,7 @@ namespace SQADemicApp.BL
                         return city.yellowCubes;
 
                     case COLOR.black:
-                        if (GameBoardModels.CURESTATUS.BlackCure != Cures.CURESTATE.Sunset)
+                        if (GameBoardModels.CURESTATUS.GetCureStatus(city.color) != Cures.CURESTATE.Sunset)
                         {
                             if (city.blackCubes < 3)
                             {
@@ -125,8 +125,8 @@ namespace SQADemicApp.BL
                             return city.blackCubes;
                         }
                         return city.blackCubes;
-                    default:
-                        if (GameBoardModels.CURESTATUS.RedCure != Cures.CURESTATE.Sunset)
+                    case COLOR.red:
+                        if (GameBoardModels.CURESTATUS.GetCureStatus(city.color) != Cures.CURESTATE.Sunset)
                         {
                             if (city.redCubes < 3)
                             {
@@ -139,13 +139,16 @@ namespace SQADemicApp.BL
                             return city.redCubes;
                         }
                         return city.redCubes;
+                    default:
+                        throw new ArgumentException("Not a valid color");
+
                 }
             } // will reach here if this infection was caused by an outbreak.
             //need to increment cubes of outbreak color, which aren't necessarily the city color
             switch (outbreakColor)
             {
                 case COLOR.blue:
-                    if (GameBoardModels.CURESTATUS.BlueCure != Cures.CURESTATE.Sunset)
+                    if (GameBoardModels.CURESTATUS.GetCureStatus(outbreakColor) != Cures.CURESTATE.Sunset)
                     {
                         if (city.blueCubes < 3)
                         {
@@ -158,7 +161,7 @@ namespace SQADemicApp.BL
                     }
                     return city.blueCubes;
                 case COLOR.yellow:
-                    if (GameBoardModels.CURESTATUS.YellowCure != Cures.CURESTATE.Sunset)
+                    if (GameBoardModels.CURESTATUS.GetCureStatus(outbreakColor) != Cures.CURESTATE.Sunset)
                     {
                         if (city.yellowCubes < 3)
                         {
@@ -173,7 +176,7 @@ namespace SQADemicApp.BL
                     return city.yellowCubes;
 
                 case COLOR.black:
-                    if (GameBoardModels.CURESTATUS.BlackCure != Cures.CURESTATE.Sunset)
+                    if (GameBoardModels.CURESTATUS.GetCureStatus(outbreakColor) != Cures.CURESTATE.Sunset)
                     {
                         if (city.blackCubes < 3)
                         {
@@ -187,8 +190,8 @@ namespace SQADemicApp.BL
                     }
                     return city.blackCubes;
 
-                default:
-                    if (GameBoardModels.CURESTATUS.RedCure != Cures.CURESTATE.Sunset)
+                case COLOR.red:
+                    if (GameBoardModels.CURESTATUS.GetCureStatus(outbreakColor) != Cures.CURESTATE.Sunset)
                     {
                         if (city.redCubes < 3)
                         {
@@ -200,6 +203,8 @@ namespace SQADemicApp.BL
                         return city.redCubes;
                     }
                     return city.redCubes;
+                default:
+                    throw new ArgumentException("Not a valid color");
             }
         }
 

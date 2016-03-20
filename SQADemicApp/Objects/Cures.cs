@@ -5,10 +5,10 @@ namespace SQADemicApp.Objects
     public class Cures
     {
         public enum CURESTATE { NotCured, Cured, Sunset }
-        public CURESTATE RedCure { get; set; }
-        public CURESTATE BlueCure { get; set; }
-        public CURESTATE BlackCure { get; set; }
-        public CURESTATE YellowCure { get; set; }
+        private CURESTATE RedCure { get; set; }
+        private CURESTATE BlueCure { get; set; }
+        private CURESTATE BlackCure { get; set; }
+        private CURESTATE YellowCure { get; set; }
 
         public Cures() :this(CURESTATE.NotCured)
         {
@@ -22,7 +22,7 @@ namespace SQADemicApp.Objects
             YellowCure = state;
         }
 
-        public CURESTATE getCureStatus(COLOR color)
+        public CURESTATE GetCureStatus(COLOR color)
         {
             switch (color)
             {
@@ -35,11 +35,11 @@ namespace SQADemicApp.Objects
                 case COLOR.black:
                     return BlackCure;
                 default:
-                    throw new ArgumentException("Not a vaild color");
+                    throw new ArgumentException("Not a valid color");
             }
         }
 
-        public void setCureStatus(COLOR color, CURESTATE curestate)
+        public void SetCureStatus(COLOR color, CURESTATE curestate)
         {
             switch (color)
             {

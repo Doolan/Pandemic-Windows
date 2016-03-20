@@ -354,8 +354,8 @@ namespace SQADemicAppTest
             Assert.AreEqual(true, PlayerActionsBL.Cure(opExpert, cardsToSpend, COLOR.blue));
             CollectionAssert.AreEqual(correctHand, hand);
             chicagoCity.researchStation = false;
-            Assert.AreEqual(GameBoardModels.CURESTATUS.getCureStatus(COLOR.blue), Cures.CURESTATE.Cured);
-            GameBoardModels.CURESTATUS.setCureStatus(COLOR.blue, Cures.CURESTATE.NotCured);
+            Assert.AreEqual(GameBoardModels.CURESTATUS.GetCureStatus(COLOR.blue), Cures.CURESTATE.Cured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.blue, Cures.CURESTATE.NotCured);
             
         }
 
@@ -426,8 +426,8 @@ namespace SQADemicAppTest
             Assert.AreEqual(true, PlayerActionsBL.Cure(scientist, cardsToSpend, COLOR.blue));
             CollectionAssert.AreEqual(correctHand, hand);
             chicagoCity.researchStation = false;
-            Assert.AreEqual(GameBoardModels.CURESTATUS.getCureStatus(COLOR.blue), Cures.CURESTATE.Cured);
-            GameBoardModels.CURESTATUS.setCureStatus(COLOR.blue, Cures.CURESTATE.NotCured);
+            Assert.AreEqual(GameBoardModels.CURESTATUS.GetCureStatus(COLOR.blue), Cures.CURESTATE.Cured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.blue, Cures.CURESTATE.NotCured);
         }
 
         [TestMethod]
@@ -453,11 +453,11 @@ namespace SQADemicAppTest
             List<Card> correctHand = new List<Card> { chennai, newYork, atlanta, chicagoCard, london, paris, airlift };
             opExpert.currentCity = chicagoCity;
             chicagoCity.researchStation = true;
-            GameBoardModels.CURESTATUS.BlueCure = Cures.CURESTATE.Cured;
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.blue, Cures.CURESTATE.Cured);
             Assert.AreEqual(false, PlayerActionsBL.Cure(opExpert, cardsToSpend, COLOR.blue));
             CollectionAssert.AreEqual(correctHand, hand);
             chicagoCity.researchStation = false;
-            GameBoardModels.CURESTATUS.BlueCure = Cures.CURESTATE.NotCured;
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.blue,Cures.CURESTATE.NotCured);
 
         }
 
@@ -525,18 +525,18 @@ namespace SQADemicAppTest
             chicagoCity.blueCubes = 2;
             chicagoCity.yellowCubes = 2;
             chicagoCity.blackCubes = 3;
-            GameBoardModels.CURESTATUS.BlackCure = Cures.CURESTATE.Cured;
-            GameBoardModels.CURESTATUS.BlueCure = Cures.CURESTATE.Cured;
-            GameBoardModels.CURESTATUS.RedCure = Cures.CURESTATE.Cured;
-            GameBoardModels.CURESTATUS.YellowCure= Cures.CURESTATE.Cured;
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.black, Cures.CURESTATE.Cured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.blue, Cures.CURESTATE.Cured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.red, Cures.CURESTATE.Cured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.yellow, Cures.CURESTATE.Cured);
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.red));
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.blue));
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.yellow));
             Assert.AreEqual(true, PlayerActionsBL.TreatDiseaseOption(opExpert, COLOR.black));
-            GameBoardModels.CURESTATUS.BlackCure = Cures.CURESTATE.NotCured;
-            GameBoardModels.CURESTATUS.BlueCure = Cures.CURESTATE.NotCured;
-            GameBoardModels.CURESTATUS.RedCure = Cures.CURESTATE.NotCured;
-            GameBoardModels.CURESTATUS.YellowCure = Cures.CURESTATE.NotCured;
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.black, Cures.CURESTATE.NotCured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.blue, Cures.CURESTATE.NotCured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.red, Cures.CURESTATE.NotCured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.yellow, Cures.CURESTATE.NotCured);
             Assert.AreEqual(chicagoCity.redCubes, 0);
             Assert.AreEqual(chicagoCity.blueCubes, 0);
             Assert.AreEqual(chicagoCity.yellowCubes, 0);
@@ -738,10 +738,10 @@ namespace SQADemicAppTest
         public void TestWinCon()
         {
             List<String> cardsToSpend = new List<String> { atlanta.CityName, chicagoCard.CityName, london.CityName, paris.CityName };
-            GameBoardModels.CURESTATUS.setCureStatus(COLOR.blue , Cures.CURESTATE.NotCured);
-            GameBoardModels.CURESTATUS.setCureStatus(COLOR.yellow, Cures.CURESTATE.Cured);
-            GameBoardModels.CURESTATUS.setCureStatus(COLOR.red, Cures.CURESTATE.Cured);
-            GameBoardModels.CURESTATUS.setCureStatus(COLOR.black, Cures.CURESTATE.Cured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.blue , Cures.CURESTATE.NotCured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.yellow, Cures.CURESTATE.Cured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.red, Cures.CURESTATE.Cured);
+            GameBoardModels.CURESTATUS.SetCureStatus(COLOR.black, Cures.CURESTATE.Cured);
             scientist.hand = new List<Card> { atlanta, chicagoCard, london, paris };
             PlayerActionsBL.Cure(scientist, cardsToSpend, COLOR.blue);
 

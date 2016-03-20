@@ -47,7 +47,7 @@ namespace SQADemicApp
                 outbreakMarker = 0;
                 cubeCount = new InfectionCubes(MAXCUBECOUNT);
                 CURESTATUS = new Cures();
-                CURESTATUS.BlackCure = CURESTATUS.BlueCure = CURESTATUS.RedCure = CURESTATUS.YellowCure = Cures.CURESTATE.NotCured;
+              //  CURESTATUS.BlackCure = CURESTATUS.BlueCure = CURESTATUS.RedCure = CURESTATUS.YellowCure = Cures.CURESTATE.NotCured;
                 Card[] playerDeckArray;
                 List<String> infectionDeckList;
                 Create.setUpCreate(out playerDeckArray, out infectionDeckList);
