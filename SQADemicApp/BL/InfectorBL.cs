@@ -86,12 +86,8 @@ namespace SQADemicApp.BL
                         {
                             if (city.blueCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.blueCubes--;
+                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(city.color);
                                 city.blueCubes++;
-                                if (GameBoardModels.cubeCount.InfectionCubes.blueCubes <= 0)
-                                {
-                                    throw new InvalidOperationException("Game Over");
-                                }
                                 return city.blueCubes;
                             }
                             Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
@@ -104,12 +100,8 @@ namespace SQADemicApp.BL
                         {
                             if (city.yellowCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.yellowCubes--;
+                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(city.color);
                                 city.yellowCubes++;
-                                if (GameBoardModels.cubeCount.InfectionCubes.yellowCubes <= 0)
-                                {
-                                    throw new InvalidOperationException("Game Over");
-                                }
                                 return city.yellowCubes;
 
                             }
@@ -123,12 +115,8 @@ namespace SQADemicApp.BL
                         {
                             if (city.blackCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.blackCubes--;
+                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(city.color);
                                 city.blackCubes++;
-                                if (GameBoardModels.cubeCount.InfectionCubes.blackCubes <= 0)
-                                {
-                                    throw new InvalidOperationException("Game Over");
-                                }
                                 return city.blackCubes;
 
                             }
@@ -141,12 +129,8 @@ namespace SQADemicApp.BL
                         {
                             if (city.redCubes < 3)
                             {
-                                GameBoardModels.cubeCount.InfectionCubes.redCubes--;
+                                GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(city.color);
                                 city.redCubes++;
-                                if (GameBoardModels.cubeCount.InfectionCubes.redCubes <= 0)
-                                {
-                                    throw new InvalidOperationException("Game Over");
-                                }
                                 return city.redCubes;
 
                             }
@@ -164,12 +148,8 @@ namespace SQADemicApp.BL
                     {
                         if (city.blueCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.blueCubes--;
+                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(outbreakColor);
                             city.blueCubes++;
-                            if (GameBoardModels.cubeCount.InfectionCubes.blueCubes <= 0)
-                            {
-                                throw new InvalidOperationException("Game Over");
-                            }
                             return city.blueCubes;
                         }
                         Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
@@ -181,12 +161,8 @@ namespace SQADemicApp.BL
                     {
                         if (city.yellowCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.yellowCubes--;
+                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(outbreakColor);
                             city.yellowCubes++;
-                            if (GameBoardModels.cubeCount.InfectionCubes.yellowCubes <= 0)
-                            {
-                                throw new InvalidOperationException("Game Over");
-                            }
                             return city.yellowCubes;
 
                         }
@@ -200,12 +176,8 @@ namespace SQADemicApp.BL
                     {
                         if (city.blackCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.blackCubes--;
+                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(outbreakColor);
                             city.blackCubes++;
-                            if (GameBoardModels.cubeCount.InfectionCubes.blackCubes <= 0)
-                            {
-                                throw new InvalidOperationException("Game Over");
-                            }
                             return city.blackCubes;
 
                         }
@@ -219,13 +191,9 @@ namespace SQADemicApp.BL
                     {
                         if (city.redCubes < 3)
                         {
-                            GameBoardModels.cubeCount.InfectionCubes.redCubes--;
+                            GameBoardModels.cubeCount.InfectionCubes.DecrementCubeCount(outbreakColor);
                             city.redCubes++;
-                            if (GameBoardModels.cubeCount.InfectionCubes.redCubes <= 0)
-                            {
-                                throw new InvalidOperationException("Game Over");
-                            }
-                            return city.redCubes;
+                           return city.redCubes;
                         }
                         Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
                         return city.redCubes;

@@ -16,13 +16,14 @@ namespace SQADemicAppTest
         List<Player> players;
         Card chennai, newYork, atlanta, chicagoCard, london, paris, milan, airlift;
         Player dispatcher, medic, opExpert, researcher, scientist;
+        GameBoardModels gameBoardModels;
 
 
         [TestInitialize]
         public void SetupPlayer()
         {
             //set up GameboardModels if not already
-            var g = new GameBoardModels(new string[] { "Dispatcher", "Medic" });
+            gameBoardModels = new GameBoardModels(new string[] { "Dispatcher", "Medic" });
             //cities
             Create.createDictionary();
             Create.setAdjacentCities(new StringReader("Chicago;San Francisco,Los Angeles,Atlanta,Montreal"));
@@ -744,6 +745,22 @@ namespace SQADemicAppTest
             PlayerActionsBL.Cure(scientist, cardsToSpend, COLOR.blue);
 
         }
+
+
+        //[TestMethod]
+        //public void TestSetDiseaseCubesNoCure()
+        //{
+        //    GameBoardModels.CURESTATUS.RedCure = GameBoardModels.Cures.CURESTATE.NotCured;
+        //    var startingCount = GameBoardModels.cubeCount.InfectionCubes.GetCubeCount(COLOR.red);
+        //    chicagoCity.redCubes = 2;
+
+        //    PrivateObject accessor = new PrivateObject(new PlayerActionsBL());
+        //    accessor.Invoke("SetDiseaseCubes", new Object[] {chicagoCity, COLOR.red, 2, 1});
+        //    Assert.AreEqual(GameBoardModels.cubeCount.InfectionCubes.GetCubeCount(COLOR.red), (startingCount -1));
+        //}
+
+
+
     }
     /** PRINTING STUFF
     //Print Statment
