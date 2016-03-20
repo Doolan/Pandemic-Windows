@@ -44,10 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdvancedActions.cs">
+    <Compile Include="UI\AdvancedActions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdvancedActions.Designer.cs">
+    <Compile Include="UI\AdvancedActions.Designer.cs">
       <DependentUpon>AdvancedActions.cs</DependentUpon>
     </Compile>
     <Compile Include="BL\CityBL.cs" />
@@ -55,64 +55,65 @@
     <Compile Include="BL\PlayerActionsBL.cs" />
     <Compile Include="BL\SpecialEventCardsBL.cs" />
     <Compile Include="Card.cs" />
-    <Compile Include="CityPageForm.cs">
+    <Compile Include="UI\CityPageForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CityPageForm.Designer.cs">
+    <Compile Include="UI\CityPageForm.Designer.cs">
       <DependentUpon>CityPageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forecast.cs">
+    <Compile Include="UI\Forecast.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forecast.Designer.cs">
+    <Compile Include="UI\Forecast.Designer.cs">
       <DependentUpon>Forecast.cs</DependentUpon>
     </Compile>
-    <Compile Include="CureForm.cs">
+    <Compile Include="UI\CureForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CureForm.Designer.cs">
+    <Compile Include="UI\CureForm.Designer.cs">
       <DependentUpon>CureForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DiscardPile.cs">
+    <Compile Include="UI\DiscardPile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DiscardPile.Designer.cs">
+    <Compile Include="UI\DiscardPile.Designer.cs">
       <DependentUpon>DiscardPile.cs</DependentUpon>
     </Compile>
-    <Compile Include="DispatcherMove.cs">
+    <Compile Include="UI\DispatcherMove.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DispatcherMove.Designer.cs">
+    <Compile Include="UI\DispatcherMove.Designer.cs">
       <DependentUpon>DispatcherMove.cs</DependentUpon>
     </Compile>
-    <Compile Include="EventCardForm.cs">
+    <Compile Include="UI\EventCardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EventCardForm.Designer.cs">
+    <Compile Include="UI\EventCardForm.Designer.cs">
       <DependentUpon>EventCardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameBoard.cs">
+    <Compile Include="UI\GameBoard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameBoard.Designer.cs">
+    <Compile Include="UI\GameBoard.Designer.cs">
       <DependentUpon>GameBoard.cs</DependentUpon>
     </Compile>
-    <Compile Include="CharacterPane.cs">
+    <Compile Include="UI\CharacterPane.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CharacterPane.Designer.cs">
+    <Compile Include="UI\CharacterPane.Designer.cs">
       <DependentUpon>CharacterPane.cs</DependentUpon>
     </Compile>
-    <Compile Include="PicForm.cs">
+    <Compile Include="Objects\InfectionCubes.cs" />
+    <Compile Include="UI\PicForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PicForm.Designer.cs">
+    <Compile Include="UI\PicForm.Designer.cs">
       <DependentUpon>PicForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PlayerPanel.cs">
+    <Compile Include="UI\PlayerPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PlayerPanel.Designer.cs">
+    <Compile Include="UI\PlayerPanel.Designer.cs">
       <DependentUpon>PlayerPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="City.cs" />
@@ -121,55 +122,55 @@
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetupGameForm.cs">
+    <Compile Include="UI\SetupGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SetupGameForm.Designer.cs">
+    <Compile Include="UI\SetupGameForm.Designer.cs">
       <DependentUpon>SetupGameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ShareCardForm.cs">
+    <Compile Include="UI\ShareCardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ShareCardForm.Designer.cs">
+    <Compile Include="UI\ShareCardForm.Designer.cs">
       <DependentUpon>ShareCardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TreatDiseaseForm.cs">
+    <Compile Include="UI\TreatDiseaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TreatDiseaseForm.Designer.cs">
+    <Compile Include="UI\TreatDiseaseForm.Designer.cs">
       <DependentUpon>TreatDiseaseForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AdvancedActions.resx">
+    <EmbeddedResource Include="UI\AdvancedActions.resx">
       <DependentUpon>AdvancedActions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CityPageForm.resx">
+    <EmbeddedResource Include="UI\CityPageForm.resx">
       <DependentUpon>CityPageForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forecast.resx">
+    <EmbeddedResource Include="UI\Forecast.resx">
       <DependentUpon>Forecast.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CureForm.resx">
+    <EmbeddedResource Include="UI\CureForm.resx">
       <DependentUpon>CureForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DiscardPile.resx">
+    <EmbeddedResource Include="UI\DiscardPile.resx">
       <DependentUpon>DiscardPile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DispatcherMove.resx">
+    <EmbeddedResource Include="UI\DispatcherMove.resx">
       <DependentUpon>DispatcherMove.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EventCardForm.resx">
+    <EmbeddedResource Include="UI\EventCardForm.resx">
       <DependentUpon>EventCardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GameBoard.resx">
+    <EmbeddedResource Include="UI\GameBoard.resx">
       <DependentUpon>GameBoard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CharacterPane.resx">
+    <EmbeddedResource Include="UI\CharacterPane.resx">
       <DependentUpon>CharacterPane.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PicForm.resx">
+    <EmbeddedResource Include="UI\PicForm.resx">
       <DependentUpon>PicForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PlayerPanel.resx">
+    <EmbeddedResource Include="UI\PlayerPanel.resx">
       <DependentUpon>PlayerPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -183,13 +184,13 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="BL\InfectorBL.cs" />
-    <EmbeddedResource Include="SetupGameForm.resx">
+    <EmbeddedResource Include="UI\SetupGameForm.resx">
       <DependentUpon>SetupGameForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ShareCardForm.resx">
+    <EmbeddedResource Include="UI\ShareCardForm.resx">
       <DependentUpon>ShareCardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TreatDiseaseForm.resx">
+    <EmbeddedResource Include="UI\TreatDiseaseForm.resx">
       <DependentUpon>TreatDiseaseForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

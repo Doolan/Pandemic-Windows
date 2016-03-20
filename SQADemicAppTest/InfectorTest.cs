@@ -20,10 +20,10 @@ namespace SQADemicAppTest
         {
             new GameBoardModels(new string[] { "Dispatcher", "Operations Expert" });
             GameBoardModels.outbreakMarker = 0;
-            GameBoardModels.cubeCount.yellowCubes = 24;
-            GameBoardModels.cubeCount.blueCubes = 24;
-            GameBoardModels.cubeCount.blackCubes = 24;
-            GameBoardModels.cubeCount.redCubes = 24;
+            GameBoardModels.cubeCount.InfectionCubes.yellowCubes = 24;
+            GameBoardModels.cubeCount.InfectionCubes.blueCubes = 24;
+            GameBoardModels.cubeCount.InfectionCubes.blackCubes = 24;
+            GameBoardModels.cubeCount.InfectionCubes.redCubes = 24;
             deck = new LinkedList<string>();
             pile = new LinkedList<string>();
             infectionRate = 3;
@@ -306,7 +306,7 @@ namespace SQADemicAppTest
         {
             SQADemicApp.City tokyo = new SQADemicApp.City(COLOR.red, "Tokyo");
             tokyo.redCubes = 2;
-            GameBoardModels.cubeCount.redCubes = 1;
+            GameBoardModels.cubeCount.InfectionCubes.redCubes = 1;
             int numRedCubes = SQADemicApp.BL.InfectorBL.InfectCity(tokyo, new HashSet<City>(), false, COLOR.red);
         }
 
@@ -319,7 +319,7 @@ namespace SQADemicAppTest
             SQADemicApp.City santiago = new SQADemicApp.City(COLOR.yellow, "Santiago");
             infected.Add(santiago);
             santiago.adjacentCities.Add(lima);
-            GameBoardModels.cubeCount.yellowCubes = 1;
+            GameBoardModels.cubeCount.InfectionCubes.yellowCubes = 1;
             santiago.yellowCubes = 3;
             SQADemicApp.BL.InfectorBL.Outbreak(santiago, COLOR.yellow, santiago.adjacentCities, infected);
         }
@@ -343,9 +343,9 @@ namespace SQADemicAppTest
         {
             SQADemicApp.City tokyo = new SQADemicApp.City(COLOR.red, "Tokyo");
             tokyo.redCubes = 2;
-            GameBoardModels.cubeCount.redCubes = 24;
+            GameBoardModels.cubeCount.InfectionCubes.redCubes = 24;
             SQADemicApp.BL.InfectorBL.InfectCity(tokyo, new HashSet<City>(), false, COLOR.red);
-            Assert.AreEqual(23, GameBoardModels.cubeCount.redCubes);
+            Assert.AreEqual(23, GameBoardModels.cubeCount.InfectionCubes.redCubes);
         }
 
         [TestMethod]
@@ -353,9 +353,9 @@ namespace SQADemicAppTest
         {
             SQADemicApp.City lima = new SQADemicApp.City(COLOR.yellow, "Lima");
             lima.yellowCubes = 1;
-            GameBoardModels.cubeCount.yellowCubes = 23;
+            GameBoardModels.cubeCount.InfectionCubes.yellowCubes = 23;
             SQADemicApp.BL.InfectorBL.InfectCity(lima, new HashSet<City>(), false, COLOR.yellow);
-            Assert.AreEqual(22, GameBoardModels.cubeCount.yellowCubes);
+            Assert.AreEqual(22, GameBoardModels.cubeCount.InfectionCubes.yellowCubes);
 
         }
 
@@ -364,9 +364,9 @@ namespace SQADemicAppTest
         {
             SQADemicApp.City chicago = new SQADemicApp.City(COLOR.blue, "Chicago");
             chicago.blueCubes = 2;
-            GameBoardModels.cubeCount.blueCubes = 22;
+            GameBoardModels.cubeCount.InfectionCubes.blueCubes = 22;
             SQADemicApp.BL.InfectorBL.InfectCity(chicago, new HashSet<City>(), false, COLOR.blue);
-            Assert.AreEqual(21, GameBoardModels.cubeCount.blueCubes);
+            Assert.AreEqual(21, GameBoardModels.cubeCount.InfectionCubes.blueCubes);
         }
 
         [TestMethod]
@@ -374,9 +374,9 @@ namespace SQADemicAppTest
         {
             SQADemicApp.City kolkata = new SQADemicApp.City(COLOR.black, "Kolkata");
             kolkata.blackCubes = 2;
-            GameBoardModels.cubeCount.blackCubes = 22;
+            GameBoardModels.cubeCount.InfectionCubes.blackCubes = 22;
             SQADemicApp.BL.InfectorBL.InfectCity(kolkata, new HashSet<City>(), false, COLOR.black);
-            Assert.AreEqual(21, GameBoardModels.cubeCount.blackCubes);
+            Assert.AreEqual(21, GameBoardModels.cubeCount.InfectionCubes.blackCubes);
         }
 
         

@@ -44,7 +44,7 @@ namespace SQADemicApp
                 //set vars
                 outbreakMarker = 0;
                 cubeCount = new InfectionCubeCount();
-                cubeCount.blackCubes = cubeCount.redCubes = cubeCount.blueCubes = cubeCount.yellowCubes = 24;
+                cubeCount.InfectionCubes.blackCubes = cubeCount.InfectionCubes.redCubes = cubeCount.InfectionCubes.blueCubes = cubeCount.InfectionCubes.yellowCubes = 24;
                 CURESTATUS = new Cures();
                 CURESTATUS.BlackCure = CURESTATUS.BlueCure = CURESTATUS.RedCure = CURESTATUS.YellowCure = Cures.CURESTATE.NotCured;
                 Card[] playerDeckArray;
@@ -168,10 +168,12 @@ namespace SQADemicApp
         #region Storage Classes
         public class InfectionCubeCount
         {
-            public int redCubes { get; set; }
-            public int blackCubes { get; set; }
-            public int blueCubes { get; set; }
-            public int yellowCubes { get; set; }
+            private readonly InfectionCubes _infectionCubes = new InfectionCubes();
+
+            public InfectionCubes InfectionCubes
+            {
+                get { return _infectionCubes; }
+            }
         }
         public class Cures
         {

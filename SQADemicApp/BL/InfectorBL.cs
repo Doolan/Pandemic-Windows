@@ -86,9 +86,9 @@ namespace SQADemicApp.BL
                         {
                             if (city.blueCubes < 3)
                             {
-                                GameBoardModels.cubeCount.blueCubes--;
+                                GameBoardModels.cubeCount.InfectionCubes.blueCubes--;
                                 city.blueCubes++;
-                                if (GameBoardModels.cubeCount.blueCubes <= 0)
+                                if (GameBoardModels.cubeCount.InfectionCubes.blueCubes <= 0)
                                 {
                                     throw new InvalidOperationException("Game Over");
                                 }
@@ -104,9 +104,9 @@ namespace SQADemicApp.BL
                         {
                             if (city.yellowCubes < 3)
                             {
-                                GameBoardModels.cubeCount.yellowCubes--;
+                                GameBoardModels.cubeCount.InfectionCubes.yellowCubes--;
                                 city.yellowCubes++;
-                                if (GameBoardModels.cubeCount.yellowCubes <= 0)
+                                if (GameBoardModels.cubeCount.InfectionCubes.yellowCubes <= 0)
                                 {
                                     throw new InvalidOperationException("Game Over");
                                 }
@@ -123,9 +123,9 @@ namespace SQADemicApp.BL
                         {
                             if (city.blackCubes < 3)
                             {
-                                GameBoardModels.cubeCount.blackCubes--;
+                                GameBoardModels.cubeCount.InfectionCubes.blackCubes--;
                                 city.blackCubes++;
-                                if (GameBoardModels.cubeCount.blackCubes <= 0)
+                                if (GameBoardModels.cubeCount.InfectionCubes.blackCubes <= 0)
                                 {
                                     throw new InvalidOperationException("Game Over");
                                 }
@@ -141,9 +141,9 @@ namespace SQADemicApp.BL
                         {
                             if (city.redCubes < 3)
                             {
-                                GameBoardModels.cubeCount.redCubes--;
+                                GameBoardModels.cubeCount.InfectionCubes.redCubes--;
                                 city.redCubes++;
-                                if (GameBoardModels.cubeCount.redCubes <= 0)
+                                if (GameBoardModels.cubeCount.InfectionCubes.redCubes <= 0)
                                 {
                                     throw new InvalidOperationException("Game Over");
                                 }
@@ -164,9 +164,9 @@ namespace SQADemicApp.BL
                     {
                         if (city.blueCubes < 3)
                         {
-                            GameBoardModels.cubeCount.blueCubes--;
+                            GameBoardModels.cubeCount.InfectionCubes.blueCubes--;
                             city.blueCubes++;
-                            if (GameBoardModels.cubeCount.blueCubes <= 0)
+                            if (GameBoardModels.cubeCount.InfectionCubes.blueCubes <= 0)
                             {
                                 throw new InvalidOperationException("Game Over");
                             }
@@ -181,9 +181,9 @@ namespace SQADemicApp.BL
                     {
                         if (city.yellowCubes < 3)
                         {
-                            GameBoardModels.cubeCount.yellowCubes--;
+                            GameBoardModels.cubeCount.InfectionCubes.yellowCubes--;
                             city.yellowCubes++;
-                            if (GameBoardModels.cubeCount.yellowCubes <= 0)
+                            if (GameBoardModels.cubeCount.InfectionCubes.yellowCubes <= 0)
                             {
                                 throw new InvalidOperationException("Game Over");
                             }
@@ -200,9 +200,9 @@ namespace SQADemicApp.BL
                     {
                         if (city.blackCubes < 3)
                         {
-                            GameBoardModels.cubeCount.blackCubes--;
+                            GameBoardModels.cubeCount.InfectionCubes.blackCubes--;
                             city.blackCubes++;
-                            if (GameBoardModels.cubeCount.blackCubes <= 0)
+                            if (GameBoardModels.cubeCount.InfectionCubes.blackCubes <= 0)
                             {
                                 throw new InvalidOperationException("Game Over");
                             }
@@ -219,9 +219,9 @@ namespace SQADemicApp.BL
                     {
                         if (city.redCubes < 3)
                         {
-                            GameBoardModels.cubeCount.redCubes--;
+                            GameBoardModels.cubeCount.InfectionCubes.redCubes--;
                             city.redCubes++;
-                            if (GameBoardModels.cubeCount.redCubes <= 0)
+                            if (GameBoardModels.cubeCount.InfectionCubes.redCubes <= 0)
                             {
                                 throw new InvalidOperationException("Game Over");
                             }

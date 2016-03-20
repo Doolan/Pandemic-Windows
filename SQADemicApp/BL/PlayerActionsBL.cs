@@ -235,30 +235,30 @@ namespace SQADemicApp.BL
             {
                 case COLOR.red:
                     numberaftercure = GameBoardModels.CURESTATUS.RedCure == GameBoardModels.Cures.CURESTATE.Cured ? 0 : numberaftercure;
-                    GameBoardModels.cubeCount.redCubes += (numberBeforeCure - numberaftercure);
+                    GameBoardModels.cubeCount.InfectionCubes.redCubes += (numberBeforeCure - numberaftercure);
                     city.redCubes = numberaftercure;
-                    if (GameBoardModels.cubeCount.redCubes == MAXCUBECOUNT && GameBoardModels.CURESTATUS.RedCure == GameBoardModels.Cures.CURESTATE.Cured)
+                    if (GameBoardModels.cubeCount.InfectionCubes.redCubes == MAXCUBECOUNT && GameBoardModels.CURESTATUS.RedCure == GameBoardModels.Cures.CURESTATE.Cured)
                         GameBoardModels.CURESTATUS.RedCure = GameBoardModels.Cures.CURESTATE.Sunset;
                     break;
                 case COLOR.blue:
                     numberaftercure = GameBoardModels.CURESTATUS.BlueCure == GameBoardModels.Cures.CURESTATE.Cured ? 0 : numberaftercure;
-                    GameBoardModels.cubeCount.blueCubes += (numberBeforeCure - numberaftercure);
+                    GameBoardModels.cubeCount.InfectionCubes.blueCubes += (numberBeforeCure - numberaftercure);
                     city.blueCubes = numberaftercure;
-                    if (GameBoardModels.cubeCount.blueCubes == MAXCUBECOUNT && GameBoardModels.CURESTATUS.BlueCure == GameBoardModels.Cures.CURESTATE.Cured)
+                    if (GameBoardModels.cubeCount.InfectionCubes.blueCubes == MAXCUBECOUNT && GameBoardModels.CURESTATUS.BlueCure == GameBoardModels.Cures.CURESTATE.Cured)
                         GameBoardModels.CURESTATUS.BlueCure = GameBoardModels.Cures.CURESTATE.Sunset;                    
                     break;
                 case COLOR.yellow:
                     numberaftercure = GameBoardModels.CURESTATUS.YellowCure == GameBoardModels.Cures.CURESTATE.Cured ? 0 : numberaftercure;
-                    GameBoardModels.cubeCount.yellowCubes += (numberBeforeCure - numberaftercure);
+                    GameBoardModels.cubeCount.InfectionCubes.yellowCubes += (numberBeforeCure - numberaftercure);
                     city.yellowCubes = numberaftercure;
-                    if (GameBoardModels.cubeCount.yellowCubes == MAXCUBECOUNT && GameBoardModels.CURESTATUS.YellowCure == GameBoardModels.Cures.CURESTATE.Cured)
+                    if (GameBoardModels.cubeCount.InfectionCubes.yellowCubes == MAXCUBECOUNT && GameBoardModels.CURESTATUS.YellowCure == GameBoardModels.Cures.CURESTATE.Cured)
                         GameBoardModels.CURESTATUS.YellowCure = GameBoardModels.Cures.CURESTATE.Sunset;
                     break;
                 case COLOR.black:
                     numberaftercure = GameBoardModels.CURESTATUS.BlackCure == GameBoardModels.Cures.CURESTATE.Cured ? 0 : numberaftercure;
-                    GameBoardModels.cubeCount.blackCubes += (numberBeforeCure - numberaftercure);
+                    GameBoardModels.cubeCount.InfectionCubes.blackCubes += (numberBeforeCure - numberaftercure);
                     city.blackCubes = numberaftercure;
-                    if (GameBoardModels.cubeCount.blackCubes == MAXCUBECOUNT && GameBoardModels.CURESTATUS.BlackCure == GameBoardModels.Cures.CURESTATE.Cured)
+                    if (GameBoardModels.cubeCount.InfectionCubes.blackCubes == MAXCUBECOUNT && GameBoardModels.CURESTATUS.BlackCure == GameBoardModels.Cures.CURESTATE.Cured)
                         GameBoardModels.CURESTATUS.BlackCure = GameBoardModels.Cures.CURESTATE.Sunset;
                     break;
                 default:
