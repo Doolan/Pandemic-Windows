@@ -53,13 +53,13 @@ namespace SQADemicApp
                     break;
             }
             listBox1.Items.Clear();
-            listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].handStringList().ToArray());
+            listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].HandStringList().ToArray());
             List<object> allHands = new List<object>();
             foreach(var player in GameBoardModels.players)
             {
                 if (player.role != GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].role)
                 {
-                    allHands.AddRange(player.handStringList());
+                    allHands.AddRange(player.HandStringList());
                 }
                 
             }

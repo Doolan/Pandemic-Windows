@@ -19,7 +19,7 @@ namespace SQADemicApp
             InitializeComponent();
             this.board = board;
             listBox1.Items.Clear();
-            listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].handStringList().ToArray());
+            listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].HandStringList().ToArray());
         }
 
         private void Cure_Click(object sender, EventArgs e)

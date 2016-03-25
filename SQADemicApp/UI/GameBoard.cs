@@ -145,7 +145,7 @@ namespace SQADemicApp
             playerForm.progressBar1.Value = 100 * (boardModel.currentPlayerTurnCounter) / 4;
             playerForm.label1.Text = playerForm.label1.Text.Substring(0, playerForm.label1.Text.Length - 3) + (Convert.ToInt32(boardModel.currentPlayerTurnCounter)) + "/" + 4;
             playerForm.listBox1.Items.Clear();
-            playerForm.listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].handStringList().ToArray());
+            playerForm.listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].HandStringList().ToArray());
             if (GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].role == ROLE.Dispatcher)
             {
                 playerForm.DispatcherMove.Show();

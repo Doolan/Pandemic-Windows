@@ -21,7 +21,7 @@ namespace SQADemicApp
             currentCity = Create.cityDictionary["Atlanta"];
         }
 
-        public List<Object> handStringList()
+        public List<Object> HandStringList()
         {
             List<Object> stringHand = new List<Object>();
             if (hand.Equals(null))
@@ -63,6 +63,8 @@ namespace SQADemicApp
 
             return returnlist;
         }
+
+
 
     }
 }

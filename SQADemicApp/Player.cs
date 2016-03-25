@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace SQADemicApp
 {
-    public enum ROLE { Dispatcher, Medic, OpExpert, Researcher, Scientist };
     public class Player
     {
         public readonly ROLE role;
@@ -17,7 +16,7 @@ namespace SQADemicApp
             currentCity = Create.cityDictionary["Atlanta"];
         }
 
-        public List<Object> handStringList()
+        public List<Object> HandStringList()
         {
             List<Object> stringHand = new List<Object>();
             if(hand.Equals(null))
