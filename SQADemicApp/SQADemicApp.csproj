@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractPlayer.cs" />
     <Compile Include="Objects\Cures.cs" />
     <Compile Include="Objects\InfectionCubes.cs" />
     <Compile Include="Objects\InfectionCubesCity.cs" />

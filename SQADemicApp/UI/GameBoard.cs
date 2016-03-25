@@ -105,7 +105,7 @@ namespace SQADemicApp
                     }
                     break;
                 case STATE.Move:
-                    if (PlayerActionsBL.moveplayer(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], Create.cityDictionary[cityName]))
+                    if (PlayerActionsBL.MovePlayer(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], Create.cityDictionary[cityName]))
                     {
                         switch (GameBoardModels.CurrentPlayerIndex)
                         {

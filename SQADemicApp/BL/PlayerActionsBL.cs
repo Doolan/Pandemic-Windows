@@ -48,7 +48,7 @@ namespace SQADemicApp.BL
         /// <returns></returns>
         public static bool CharterFlightOption(List<Card> hand, City currentCity)
         {
-            return (hand.Where(c => c.CityName == currentCity.Name).Count() == 1);
+            return (hand.Count(c => c.CityName == currentCity.Name) == 1);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace SQADemicApp.BL
         /// <param name="player">Current Player or if dispatcher, player trying to move</param>
         /// <param name="city">City to move to</param>
         /// <returns>Success Flag/returns>
-        public static bool moveplayer(Player player, City city)
+        public static bool MovePlayer(Player player, City city)
         {
             if (DriveOptions(player.currentCity).Any(c => c.Name.Equals(city.Name))){
                 //Do Nothing
@@ -196,7 +196,7 @@ namespace SQADemicApp.BL
         /// <returns>Success Flag</returns>
         public static bool TreatDiseaseOption(Player player, COLOR color)
         {
-            int number =  getDiseaseCubes(player.currentCity, color);
+            int number =  GetDiseaseCubes(player.currentCity, color);
             if (number < 1)
                 return false;
             return SetDiseaseCubes(player.currentCity, color, player.role == ROLE.Medic ? 0 : (number - 1), number);
@@ -208,7 +208,7 @@ namespace SQADemicApp.BL
         /// <param name="city"></param>
         /// <param name="color"></param>
         /// <returns>number of disease cubes in the city</returns>
-        private static int getDiseaseCubes(City city, COLOR color)
+        private static int GetDiseaseCubes(City city, COLOR color)
         {
             return city.Cubes.GetCubeCount(color);
         }

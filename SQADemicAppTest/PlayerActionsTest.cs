@@ -189,7 +189,7 @@ namespace SQADemicAppTest
             scientist.currentCity = chicagoCity;
             hand = new List<Card> { airlift, chicagoCard, chennai };
             scientist.hand = hand;
-            PlayerActionsBL.moveplayer(scientist, sanFran);
+            PlayerActionsBL.MovePlayer(scientist, sanFran);
             Assert.AreEqual(scientist.currentCity.Name, sanFran.Name);
         }
 
@@ -200,7 +200,7 @@ namespace SQADemicAppTest
             hand = new List<Card> { airlift, chicagoCard, chennai };
             List<Card> correctHand =new List<Card> { airlift, chicagoCard, chennai };
             scientist.hand = hand;
-            PlayerActionsBL.moveplayer(scientist, chicagoCity);
+            PlayerActionsBL.MovePlayer(scientist, chicagoCity);
             Assert.AreEqual(scientist.currentCity.Name, chicagoCity.Name);
             CollectionAssert.AreEqual(correctHand, hand);
         }
@@ -212,7 +212,7 @@ namespace SQADemicAppTest
             hand = new List<Card> { airlift, chicagoCard, chennai, atlanta };
             pile = new List<Card>();
             scientist.hand = hand;
-            PlayerActionsBL.moveplayer(scientist, chicagoCity);
+            PlayerActionsBL.MovePlayer(scientist, chicagoCity);
             List<Card> correctHand = new List<Card> { airlift, chennai, atlanta };
             Assert.AreEqual(scientist.currentCity.Name, chicagoCity.Name);
             CollectionAssert.AreEqual(correctHand, hand);
@@ -225,7 +225,7 @@ namespace SQADemicAppTest
             hand = new List<Card> { airlift, chicagoCard, chennai };
             pile = new List<Card>();
             scientist.hand = hand;
-            PlayerActionsBL.moveplayer(scientist, bangkok);
+            PlayerActionsBL.MovePlayer(scientist, bangkok);
             List<Card> correctHand = new List<Card> { airlift, chennai };
             Assert.AreEqual(scientist.currentCity.Name, bangkok.Name);
             CollectionAssert.AreEqual(correctHand, hand);
@@ -240,7 +240,7 @@ namespace SQADemicAppTest
             hand = new List<Card> { airlift, atlanta, chennai, chicagoCard };
             pile = new List<Card>();
             scientist.hand = hand;
-            Assert.AreEqual(true, PlayerActionsBL.moveplayer(scientist, bangkok));
+            Assert.AreEqual(true, PlayerActionsBL.MovePlayer(scientist, bangkok));
             List<Card> correctHand = new List<Card> { airlift, atlanta, chennai, chicagoCard };
             Assert.AreEqual(scientist.currentCity.Name, bangkok.Name);
             CollectionAssert.AreEqual(correctHand, hand);
@@ -255,7 +255,7 @@ namespace SQADemicAppTest
             hand = new List<Card> { airlift, atlanta, chennai };
             pile = new List<Card>();
             scientist.hand = hand;
-            Assert.AreEqual(false, PlayerActionsBL.moveplayer(scientist, bangkok));
+            Assert.AreEqual(false, PlayerActionsBL.MovePlayer(scientist, bangkok));
             List<Card> correctHand = new List<Card> { airlift, atlanta, chennai };
             Assert.AreEqual(scientist.currentCity.Name, chicagoCity.Name);
             CollectionAssert.AreEqual(correctHand, hand);
