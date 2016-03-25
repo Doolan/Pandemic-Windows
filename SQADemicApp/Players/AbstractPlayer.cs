@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Windows.Forms;
 using SQADemicApp.BL;
 using SQADemicApp.Objects;
 using SQADemicApp.Players;
@@ -270,6 +272,11 @@ namespace SQADemicApp
         public override string ToString()
         {
             return GetType().Name;
+        }
+
+        public virtual Dictionary<Button, LambdaExpression> getAvailableButton()
+        {
+            return null;
         }
     }
 }
