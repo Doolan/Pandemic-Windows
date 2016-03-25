@@ -8,5 +8,10 @@ namespace SQADemicApp.Players
 {
     public class OpExpertPlayer : AbstractPlayer
     {
+        public override bool BuildAResearchStationOption()
+        {
+            currentCity.researchStation = true;
+            return true;
+        }
     }
 }

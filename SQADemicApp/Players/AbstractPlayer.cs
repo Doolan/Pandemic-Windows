@@ -162,15 +162,10 @@ namespace SQADemicApp
         ///  Builds a Research Station should the conditions be meet
         /// </summary>
         /// <returns>Success Flag</returns>
-        public bool BuildAResearchStationOption()
+        public virtual bool BuildAResearchStationOption()
         {
             if (CityBL.getCitiesWithResearchStations().Contains(currentCity))
                 return false;
-            if (GetType() == typeof(OpExpertPlayer))
-            {
-                currentCity.researchStation = true;
-                return true;
-            }
             if (hand.Any(c => c.CityName.Equals(currentCity.Name)))
             {
                 hand.RemoveAll(x => x.CityName.Equals(currentCity.Name));
