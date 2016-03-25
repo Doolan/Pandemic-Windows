@@ -8,7 +8,7 @@ namespace SQADemicApp
 {
     public enum ROLE { Dispatcher, Medic, OpExpert, Researcher, Scientist };
 
-    abstract class AbstractPlayer
+    public abstract class AbstractPlayer
     {
         public readonly ROLE role;
         private static int MAXCUBECOUNT = 24;
@@ -64,6 +64,39 @@ namespace SQADemicApp
             return returnlist;
         }
 
+        /// <summary>
+        /// Determins if the player can use a Charter Flight
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <param name="currentCity"></param>
+        /// <returns></returns>
+        public static bool CharterFlightOption(List<Card> hand, City currentCity)
+        {
+            return (hand.Count(c => c.CityName == currentCity.Name) == 1);
+        }
+
+        /// <summary>
+        /// Determines if the player can use a Shuttle Flight and returns list of possibilities
+        /// </summary>
+        /// <param name="currentCity"></param>
+        /// <returns></returns>
+        public static List<String> ShuttleFlightOption(City currentCity)
+        {
+            if (!currentCity.researchStation)
+            {
+                return new List<String>();
+            }
+            List<String> options = new List<String>();
+            List<City> stations = CityBL.getCitiesWithResearchStations();
+            foreach (var city in stations)
+            {
+                if (city.Name != currentCity.Name)
+                {
+                    options.Add(city.Name);
+                }
+            }
+            return options;
+        }
 
 
     }

@@ -59,7 +59,7 @@ namespace SQADemicAppTest
         [TestMethod]
         public void TestDriveOptions()
         {
-            HashSet<City> returnedSet = PlayerActionsBL.DriveOptions(chicagoCity);
+            HashSet<City> returnedSet = AbstractPlayer.DriveOptions(chicagoCity);
             HashSet<City> correctSet = chicagoCity.getAdjacentCities();
             CollectionAssert.AreEqual(returnedSet.ToArray(), correctSet.ToArray());
         }
@@ -69,7 +69,7 @@ namespace SQADemicAppTest
         public void TestDirectFlightOptionsNone()
         {
             hand = new List<Card>();
-            List<String> returnList = PlayerActionsBL.DirectFlightOption(hand, chicagoCity);
+            List<String> returnList = AbstractPlayer.DirectFlightOption(hand, chicagoCity);
             List<String> correctList = new List<String>();
             CollectionAssert.AreEqual(correctList, returnList);
         }
@@ -78,7 +78,7 @@ namespace SQADemicAppTest
         public void TestDirectFlightOptionNewYork()
         {
             hand = new List<Card> { newYork };
-            List<String> returnList = PlayerActionsBL.DirectFlightOption(hand, chicagoCity);
+            List<String> returnList = AbstractPlayer.DirectFlightOption(hand, chicagoCity);
             List<String> correctList = new List<String> { newYork.CityName };
             CollectionAssert.AreEqual(correctList, returnList);
         }
@@ -87,7 +87,7 @@ namespace SQADemicAppTest
         public void TestDirectFlightCurrentCityChicago()
         {
             hand = new List<Card> { chicagoCard };
-            List<String> returnList = PlayerActionsBL.DirectFlightOption(hand, chicagoCity);
+            List<String> returnList = AbstractPlayer.DirectFlightOption(hand, chicagoCity);
             List<String> correctList = new List<String>();
             CollectionAssert.AreEqual(correctList, returnList);
         }
@@ -96,7 +96,7 @@ namespace SQADemicAppTest
         public void TestDirectFlightMultipleCities()
         {
             hand = new List<Card> { chicagoCard, atlanta, chennai };
-            List<String> returnList = PlayerActionsBL.DirectFlightOption(hand, chicagoCity);
+            List<String> returnList = AbstractPlayer.DirectFlightOption(hand, chicagoCity);
             List<String> correctList = new List<String> { atlanta.CityName, chennai.CityName };
             CollectionAssert.AreEqual(correctList, returnList);
         }
@@ -105,7 +105,7 @@ namespace SQADemicAppTest
         public void TestDirectFlightWithNonCityCardInHand()
         {
             hand = new List<Card> { airlift, atlanta, chennai };
-            List<String> returnList = PlayerActionsBL.DirectFlightOption(hand, chicagoCity);
+            List<String> returnList = AbstractPlayer.DirectFlightOption(hand, chicagoCity);
             List<String> correctList = new List<String> { atlanta.CityName, chennai.CityName };
             CollectionAssert.AreEqual(correctList, returnList);
 
@@ -117,7 +117,7 @@ namespace SQADemicAppTest
         public void TestCharterFlightFalseOption()
         {
             hand = new List<Card> { airlift, atlanta, chennai };
-            bool returendBool = PlayerActionsBL.CharterFlightOption(hand, chicagoCity);
+            bool returendBool = AbstractPlayer.CharterFlightOption(hand, chicagoCity);
             bool correctBool = false;
             Assert.AreEqual(correctBool, returendBool);
         }
@@ -126,7 +126,7 @@ namespace SQADemicAppTest
         public void TestCharterFlightTrue()
         {
             hand = new List<Card> { airlift, atlanta, chicagoCard };
-            bool returendBool = PlayerActionsBL.CharterFlightOption(hand, chicagoCity);
+            bool returendBool = AbstractPlayer.CharterFlightOption(hand, chicagoCity);
             bool correctBool = true;
             Assert.AreEqual(correctBool, returendBool);
         }
@@ -137,7 +137,7 @@ namespace SQADemicAppTest
         public void TestShuttleFlightNotInStation()
         {
             scientist.currentCity = kolkata;
-            List<String> result = PlayerActionsBL.ShuttleFlightOption(kolkata);
+            List<String> result = AbstractPlayer.ShuttleFlightOption(kolkata);
             CollectionAssert.Equals(result, new List<String>());
         }
 
@@ -146,7 +146,7 @@ namespace SQADemicAppTest
         {
             scientist.currentCity = kolkata;
             kolkata.researchStation = true;
-            List<String> result = PlayerActionsBL.ShuttleFlightOption(kolkata);
+            List<String> result = AbstractPlayer.ShuttleFlightOption(kolkata);
             kolkata.researchStation = false;
             List<String> expected = new List<String> { "Atlanta"};
             CollectionAssert.AreEqual(expected, result);
@@ -158,7 +158,7 @@ namespace SQADemicAppTest
             scientist.currentCity = kolkata;
             kolkata.researchStation = true;
             bangkok.researchStation = true;
-            List<String> result = PlayerActionsBL.ShuttleFlightOption(kolkata);
+            List<String> result = AbstractPlayer.ShuttleFlightOption(kolkata);
             kolkata.researchStation = false;
             bangkok.researchStation = false;
             List<String> expected = new List<String> { "Atlanta", "Bangkok" };
@@ -173,7 +173,7 @@ namespace SQADemicAppTest
             chicagoCity.researchStation = true;
             kolkata.researchStation = true;
             bangkok.researchStation = true;
-            List<String> result = PlayerActionsBL.ShuttleFlightOption(chicagoCity);
+            List<String> result = AbstractPlayer.ShuttleFlightOption(chicagoCity);
             chicagoCity.researchStation = false;
             kolkata.researchStation = false;
             bangkok.researchStation = false;
