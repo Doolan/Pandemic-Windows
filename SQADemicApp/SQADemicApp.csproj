@@ -61,7 +61,6 @@
     </Compile>
     <Compile Include="BL\CityBL.cs" />
     <Compile Include="BL\HelperBL.cs" />
-    <Compile Include="BL\PlayerActionsBL.cs" />
     <Compile Include="BL\SpecialEventCardsBL.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="UI\CityPageForm.cs">

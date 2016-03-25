@@ -113,7 +113,7 @@ namespace SQADemicApp
         private void setUpPlayerHands()
         {
             int cardsPerPlayer = players.Count() == 4 ? 2 : players.Count() == 3 ? 3 : 4;
-            foreach (Player player in players)
+            foreach (AbstractPlayer player in players)
             {
                 for (int i = 0; i < cardsPerPlayer; i++)
                 {

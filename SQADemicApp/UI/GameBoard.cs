@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using SQADemicApp.BL;
 using System.Collections.Generic;
+using SQADemicApp.Players;
 
 namespace SQADemicApp
 {
@@ -82,16 +83,16 @@ namespace SQADemicApp
                         switch (dispatcherMoveIndex)
                         {
                             case 3:
-                                form2.Player4.Text = "Player 4\n" + GameBoardModels.players[3].role.ToString() + "\n" + cityName;
+                                form2.Player4.Text = "Player 4\n" + GameBoardModels.players[3] + "\n" + cityName;
                                 break;
                             case 2:
-                                form2.Player3.Text = "Player 3\n" + GameBoardModels.players[2].role.ToString() + "\n" + cityName;
+                                form2.Player3.Text = "Player 3\n" + GameBoardModels.players[2] + "\n" + cityName;
                                 break;
                             case 1:
-                                form2.Player2.Text = "Player 2\n" + GameBoardModels.players[1].role.ToString() + "\n" + cityName;
+                                form2.Player2.Text = "Player 2\n" + GameBoardModels.players[1] + "\n" + cityName;
                                 break;
                             default:
-                                form2.Player1.Text = "Player 1\n" + GameBoardModels.players[0].role.ToString() + "\n" + cityName;
+                                form2.Player1.Text = "Player 1\n" + GameBoardModels.players[0] + "\n" + cityName;
                                 break;
                         }
                         if (boardModel.incTurnCount())
@@ -110,16 +111,16 @@ namespace SQADemicApp
                         switch (GameBoardModels.CurrentPlayerIndex)
                         {
                             case 3:
-                                form2.Player4.Text = "Player 4\n" + GameBoardModels.players[3].role.ToString() + "\n" + cityName;
+                                form2.Player4.Text = "Player 4\n" + GameBoardModels.players[3] + "\n" + cityName;
                                 break;
                             case 2:
-                                form2.Player3.Text = "Player 3\n" + GameBoardModels.players[2].role.ToString() + "\n" + cityName;
+                                form2.Player3.Text = "Player 3\n" + GameBoardModels.players[2] + "\n" + cityName;
                                 break;
                             case 1:
-                                form2.Player2.Text = "Player 2\n" + GameBoardModels.players[1].role.ToString() + "\n" + cityName;
+                                form2.Player2.Text = "Player 2\n" + GameBoardModels.players[1] + "\n" + cityName;
                                 break;
                             default:
-                                form2.Player1.Text = "Player 1\n" + GameBoardModels.players[0].role.ToString() + "\n" + cityName;
+                                form2.Player1.Text = "Player 1\n" + GameBoardModels.players[0] + "\n" + cityName;
                                 break;
                         }
                         bool endofturn = boardModel.incTurnCount();
@@ -146,7 +147,7 @@ namespace SQADemicApp
             playerForm.label1.Text = playerForm.label1.Text.Substring(0, playerForm.label1.Text.Length - 3) + (Convert.ToInt32(boardModel.currentPlayerTurnCounter)) + "/" + 4;
             playerForm.listBox1.Items.Clear();
             playerForm.listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].HandStringList().ToArray());
-            if (GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].role == ROLE.Dispatcher)
+            if (GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].GetType() == typeof(DispatcherPlayer))
             {
                 playerForm.DispatcherMove.Show();
                 playerForm.AAButton.Location = new System.Drawing.Point(159, 82);
@@ -201,14 +202,14 @@ namespace SQADemicApp
             switch(GameBoardModels.players.Length)
             {
                 case 4:
-                    form2.Player4.Text = "Player 4\n" + GameBoardModels.players[3].role.ToString() + "\n" + GameBoardModels.players[3].currentCity.Name;
+                    form2.Player4.Text = "Player 4\n" + GameBoardModels.players[3] + "\n" + GameBoardModels.players[3].currentCity.Name;
                     goto case 3;
                 case 3:
-                    form2.Player3.Text = "Player 3\n" + GameBoardModels.players[2].role.ToString() + "\n" + GameBoardModels.players[2].currentCity.Name;
+                    form2.Player3.Text = "Player 3\n" + GameBoardModels.players[2] + "\n" + GameBoardModels.players[2].currentCity.Name;
                     goto case 2;
                 case 2:
-                    form2.Player1.Text = "Player 1\n" + GameBoardModels.players[0].role.ToString() + "\n" + GameBoardModels.players[0].currentCity.Name;
-                    form2.Player2.Text = "Player 2\n" + GameBoardModels.players[1].role.ToString() + "\n" + GameBoardModels.players[1].currentCity.Name;
+                    form2.Player1.Text = "Player 1\n" + GameBoardModels.players[0] + "\n" + GameBoardModels.players[0].currentCity.Name;
+                    form2.Player2.Text = "Player 2\n" + GameBoardModels.players[1] + "\n" + GameBoardModels.players[1].currentCity.Name;
                     break;       
             }
         }

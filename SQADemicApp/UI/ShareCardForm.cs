@@ -57,7 +57,7 @@ namespace SQADemicApp
             List<object> allHands = new List<object>();
             foreach(var player in GameBoardModels.players)
             {
-                if (player.role != GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].role)
+                if (player.GetType() != GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].GetType())
                 {
                     allHands.AddRange(player.HandStringList());
                 }

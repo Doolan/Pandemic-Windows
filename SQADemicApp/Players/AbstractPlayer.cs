@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SQADemicApp.BL;
 using SQADemicApp.Objects;
+using SQADemicApp.Players;
 
 namespace SQADemicApp
 {
@@ -10,7 +11,6 @@ namespace SQADemicApp
 
     public abstract class AbstractPlayer
     {
-        public readonly ROLE role;
         private static int MAXCUBECOUNT = 24;
 
         public List<Card> hand { get; set; }
@@ -166,7 +166,7 @@ namespace SQADemicApp
         {
             if (CityBL.getCitiesWithResearchStations().Contains(currentCity))
                 return false;
-            if (role == ROLE.OpExpert)
+            if (GetType() == typeof(OpExpertPlayer))
             {
                 currentCity.researchStation = true;
                 return true;
@@ -191,7 +191,7 @@ namespace SQADemicApp
             if (!currentCity.researchStation || GameBoardModels.CURESTATUS.GetCureStatus(color) != Cures.CURESTATE.NotCured)
                 return false;
             var cards = hand.Where(x => x.CityColor == color && cardsToSpend.Contains(x.CityName));
-            if (role == ROLE.Scientist)
+            if (GetType() == typeof(ScientistPlayer))
             {
                 if (cards.Count() != 4)
                     return false;
@@ -250,7 +250,7 @@ namespace SQADemicApp
             int number = GetDiseaseCubes(currentCity, color);
             if (number < 1)
                 return false;
-            return SetDiseaseCubes(currentCity, color, role == ROLE.Medic ? 0 : (number - 1), number);
+            return SetDiseaseCubes(currentCity, color, (GetType() == typeof(MedicPlayer)) ? 0 : (number - 1), number);
         }
 
         /// <summary>
@@ -262,7 +262,7 @@ namespace SQADemicApp
         public bool ShareKnowledgeOption(AbstractPlayer reciver, string cityname)
         {
             if (currentCity != reciver.currentCity ||
-                (!reciver.currentCity.Name.Equals(cityname) && role != ROLE.Researcher))
+                (!reciver.currentCity.Name.Equals(cityname) && GetType() != typeof(ResearcherPlayer)))
                 return false;
             int index = hand.FindIndex(x => x.CityName.Equals(cityname));
             if (index == -1)
@@ -272,5 +272,9 @@ namespace SQADemicApp
             return true;
         }
 
+        public override string ToString()
+        {
+            return GetType().Name;
+        }
     }
 }
