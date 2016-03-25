@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SQADemicApp.Players
 {
-    class ScientistPlayer : AbstractPlayer
+    public class ScientistPlayer : AbstractPlayer
     {
     }
 }

@@ -77,7 +77,7 @@ namespace SQADemicApp
                     SpecialEventCardsBL.GovernmentGrant(cityName);
                     break;
                 case STATE.Dispatcher:
-                    if (PlayerActionsBL.DispatcherMovePlayer(GameBoardModels.players[dispatcherMoveIndex],new List<Player>(GameBoardModels.players), Create.cityDictionary[cityName]))
+                    if (GameBoardModels.players[dispatcherMoveIndex].DispatcherMovePlayer(new List<AbstractPlayer>(GameBoardModels.players), Create.cityDictionary[cityName]))
                     {
                         switch (dispatcherMoveIndex)
                         {
@@ -105,7 +105,7 @@ namespace SQADemicApp
                     }
                     break;
                 case STATE.Move:
-                    if (PlayerActionsBL.MovePlayer(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], Create.cityDictionary[cityName]))
+                    if (GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].MovePlayer(Create.cityDictionary[cityName]))
                     {
                         switch (GameBoardModels.CurrentPlayerIndex)
                         {

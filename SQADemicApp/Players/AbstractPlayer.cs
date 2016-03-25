@@ -136,8 +136,9 @@ namespace SQADemicApp
         /// <param name="players">List of Players</param>
         /// <param name="destination">Name of the City to be moved to</param>
         /// <returns>Status Flag</returns>
-        public bool DispatcherMovePlayer(List<Player> players, City destination)
+        public bool DispatcherMovePlayer(List<AbstractPlayer> players, City destination)
         {
+            // TODO: Further refactoring is possible but has less priority.
             if (DriveOptions(currentCity).Any(p => p.Name.Equals(destination.Name)))
             {
                 //Do nothing
@@ -258,7 +259,7 @@ namespace SQADemicApp
         /// <param name="reciver">Player who will recive the card</param>
         /// <param name="cityname">Name on the card to be traded</param>
         /// <returns>Sucess Flag</returns>
-        public bool ShareKnowledgeOption(Player reciver, string cityname)
+        public bool ShareKnowledgeOption(AbstractPlayer reciver, string cityname)
         {
             if (currentCity != reciver.currentCity ||
                 (!reciver.currentCity.Name.Equals(cityname) && role != ROLE.Researcher))

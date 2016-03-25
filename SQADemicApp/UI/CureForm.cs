@@ -36,7 +36,7 @@ namespace SQADemicApp
             bool cured = false;
             try
             {
-                cured = PlayerActionsBL.Cure(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], cityNames, Create.cityDictionary[cityNames[0]].color);
+                cured = GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].Cure(cityNames, Create.cityDictionary[cityNames[0]].color);
             }
             catch (ArgumentException exe)
             {
