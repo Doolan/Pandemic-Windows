@@ -211,7 +211,7 @@ namespace SQADemicApp
         /// <param name="city"></param>
         /// <param name="color"></param>
         /// <returns>number of disease cubes in the city</returns>
-        private static int GetDiseaseCubes(City city, COLOR color)
+        public static int GetDiseaseCubes(City city, COLOR color)
         {
             return city.Cubes.GetCubeCount(color);
         }
@@ -223,7 +223,7 @@ namespace SQADemicApp
         /// <param name="color"></param>
         /// <param name="numberAfterCure"></param>
         /// <param name="numberBeforeCure"></param>
-        private static bool SetDiseaseCubes(City city, COLOR color, int numberAfterCure, int numberBeforeCure)
+        public static bool SetDiseaseCubes(City city, COLOR color, int numberAfterCure, int numberBeforeCure)
         {
             numberAfterCure = GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured ? 0 : numberAfterCure;
             GameBoardModels.cubeCount.AddCubes(color, numberBeforeCure - numberAfterCure);
@@ -239,12 +239,12 @@ namespace SQADemicApp
         /// <param name="player"></param>
         /// <param name="color"></param>
         /// <returns>Success Flag</returns>
-        public bool TreatDiseaseOption(COLOR color)
+        public virtual bool TreatDiseaseOption(COLOR color)
         {
             int number = GetDiseaseCubes(currentCity, color);
             if (number < 1)
                 return false;
-            return SetDiseaseCubes(currentCity, color, (GetType() == typeof(MedicPlayer)) ? 0 : (number - 1), number);
+            return SetDiseaseCubes(currentCity, color, number - 1, number);
         }
 
         /// <summary>
