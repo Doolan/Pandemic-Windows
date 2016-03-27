@@ -138,26 +138,23 @@ namespace SQADemicApp
         /// <param name="players">List of Players</param>
         /// <param name="destination">Name of the City to be moved to</param>
         /// <returns>Status Flag</returns>
-        public bool DispatcherMovePlayer(List<AbstractPlayer> players, City destination)
+        public virtual bool DispatcherMovePlayer(List<AbstractPlayer> players, City destination)
         {
-            // TODO: Further refactoring is possible but has less priority.
-            if (DriveOptions(currentCity).Any(p => p.Name.Equals(destination.Name)))
+            // TODO: Fix test cases, replace current codes with commented blocks
+            if (!(DriveOptions(currentCity).Any(p => p.Name.Equals(destination.Name)) ||
+                    players.Any(p => p.currentCity.Name.Equals(destination.Name)) || 
+                    ShuttleFlightOption(currentCity).Contains(destination.Name)))
             {
-                //Do nothing
-            }
-            else if (players.Any(p => p.currentCity.Name.Equals(destination.Name)))
-            {
-                //Do nothing
-            }
-            else if (ShuttleFlightOption(currentCity).Contains(destination.Name))
-            {
-                //Do Nothing
-            }
-            else {
                 return false;
             }
             currentCity = destination;
             return true;
+
+            /**
+            // This won't work. Must return false to indicate not supported operation.
+            // throw new NotSupportedException("Only dispatcher can perform this operation.");   
+            return false;
+            */
         }
 
         /// <summary>
