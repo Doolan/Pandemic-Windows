@@ -53,13 +53,13 @@ namespace SQADemicApp
                     break;
             }
             listBox1.Items.Clear();
-            listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].handStringList().ToArray());
+            listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].HandStringList().ToArray());
             List<object> allHands = new List<object>();
             foreach(var player in GameBoardModels.players)
             {
-                if (player.role != GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].role)
+                if (player.GetType() != GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].GetType())
                 {
-                    allHands.AddRange(player.handStringList());
+                    allHands.AddRange(player.HandStringList());
                 }
                 
             }
@@ -80,10 +80,10 @@ namespace SQADemicApp
             switch (GameBoardModels.CurrentPlayerIndex)
             {
                 case 0:
-                    success = PlayerActionsBL.ShareKnowledgeOption(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], GameBoardModels.players[1], selectedCard);
+                    success = GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].ShareKnowledgeOption(GameBoardModels.players[1], selectedCard);
                     break;
                 default:
-                    success = PlayerActionsBL.ShareKnowledgeOption(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], GameBoardModels.players[0], selectedCard);
+                    success = GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].ShareKnowledgeOption(GameBoardModels.players[0], selectedCard);
                     break;
             }
             if (success)
@@ -108,13 +108,13 @@ namespace SQADemicApp
             switch (GameBoardModels.CurrentPlayerIndex)
             {
                 case 0:
-                    success = PlayerActionsBL.ShareKnowledgeOption(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], GameBoardModels.players[2], selectedCard);
+                    success = GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].ShareKnowledgeOption(GameBoardModels.players[2], selectedCard);
                     break;
                 case 1:
-                    success = PlayerActionsBL.ShareKnowledgeOption(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], GameBoardModels.players[2], selectedCard);
+                    success = GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].ShareKnowledgeOption(GameBoardModels.players[2], selectedCard);
                     break;
                 default:
-                    success = PlayerActionsBL.ShareKnowledgeOption(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], GameBoardModels.players[1], selectedCard);
+                    success = GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].ShareKnowledgeOption(GameBoardModels.players[1], selectedCard);
                     break;            
             }
             if (success)
@@ -138,10 +138,10 @@ namespace SQADemicApp
             switch (GameBoardModels.CurrentPlayerIndex)
             {
                 case 3:
-                    success = PlayerActionsBL.ShareKnowledgeOption(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], GameBoardModels.players[3], selectedCard);
+                    success = GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].ShareKnowledgeOption(GameBoardModels.players[3], selectedCard);
                     break;
                 default:
-                    success = PlayerActionsBL.ShareKnowledgeOption(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], GameBoardModels.players[2], selectedCard);
+                    success = GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].ShareKnowledgeOption(GameBoardModels.players[2], selectedCard);
                     break;
             }
             if (success)
@@ -159,7 +159,7 @@ namespace SQADemicApp
             {
                 var selectedItem = listBox2.SelectedItem.ToString();
                 var selectedCard = selectedItem.Substring(0,selectedItem.IndexOf('(')-1);
-                Player SelectedCardHolder = GameBoardModels.players[GameBoardModels.CurrentPlayerIndex];
+                AbstractPlayer SelectedCardHolder = GameBoardModels.players[GameBoardModels.CurrentPlayerIndex];
                 foreach(var player in GameBoardModels.players)
                 {
                     if(player.hand.Any(c=>c.CityName == selectedCard))
@@ -168,7 +168,7 @@ namespace SQADemicApp
                         break;
                     }
                 }
-                if(PlayerActionsBL.ShareKnowledgeOption(SelectedCardHolder, GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], selectedCard))
+                if(SelectedCardHolder.ShareKnowledgeOption(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], selectedCard))
                 {
                     MessageBox.Show("Card Traded");
                     this.Close();

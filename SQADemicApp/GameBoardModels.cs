@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using SQADemicApp.BL;
 using SQADemicApp.Objects;
+using SQADemicApp.Players;
 
 namespace SQADemicApp
 {
@@ -15,7 +16,7 @@ namespace SQADemicApp
         public static Cures CURESTATUS;
         public static List<String> citiesWithResearchStations;
         public static int outbreakMarker = 0;
-        public static Player[] players;
+        public static AbstractPlayer[] players;
         public static int CurrentPlayerIndex;
         public static List<Card> eventCards;
         public static LinkedList<String> infectionDeck;
@@ -58,7 +59,7 @@ namespace SQADemicApp
             }
 
             //Players setup allows existing players to be overwritten
-            players = new Player[playersroles.Length];
+            players = new AbstractPlayer[playersroles.Length];
             currentPlayerTurnCounter = 0;
             CurrentPlayerIndex = 0;
             for (int i = 0; i < playersroles.Count(); i++)
@@ -66,19 +67,19 @@ namespace SQADemicApp
                 switch (playersroles[i])
                 {
                     case "Dispatcher":
-                        players[i] = new Player(ROLE.Dispatcher);
+                        players[i] = new DispatcherPlayer();
                         break;
                     case "Operations Expert":
-                        players[i] = new Player(ROLE.OpExpert);
+                        players[i] = new OpExpertPlayer();
                         break;
                     case "Scientist":
-                        players[i] = new Player(ROLE.Scientist);
+                        players[i] = new ScientistPlayer();
                         break;
                     case "Medic":
-                        players[i] = new Player(ROLE.Medic);
+                        players[i] = new MedicPlayer();
                         break;
                     case "Researcher":
-                        players[i] = new Player(ROLE.Researcher);
+                        players[i] = new ResearcherPlayer();
                         break;
                     default:
                         players[i] = null;
@@ -112,7 +113,7 @@ namespace SQADemicApp
         private void setUpPlayerHands()
         {
             int cardsPerPlayer = players.Count() == 4 ? 2 : players.Count() == 3 ? 3 : 4;
-            foreach (Player player in players)
+            foreach (AbstractPlayer player in players)
             {
                 for (int i = 0; i < cardsPerPlayer; i++)
                 {

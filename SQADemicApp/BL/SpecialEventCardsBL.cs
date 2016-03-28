@@ -29,7 +29,7 @@ namespace SQADemicApp.BL
         /// <param name="player"></param>
         /// <param name="destination"></param>
         /// <returns>status flag</returns>
-        public static bool Airlift(Player player, City destination)
+        public static bool Airlift(AbstractPlayer player, City destination)
         {
             if (player.currentCity.Equals(destination))
                 return false;
