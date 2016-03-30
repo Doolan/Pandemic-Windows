@@ -12,46 +12,71 @@ namespace SQADemicApp
 {
     public partial class SetupGameForm : Form
     {
+        private List<ComboBox> playerComboBoxes = new List<ComboBox>();
+        private List<CheckBox> playerCheckBoxes = new List<CheckBox>();
+        private List<String> playerStrings = new List<String>() // TODO: reroute this
+        {
+            "Dispatcher",
+            "Operations Expert",
+            "Scientist",
+            "Medic",
+            "Researcher"
+        };
+
         public SetupGameForm()
         {
             InitializeComponent();
+
+            Player1ComboBox.DataSource = playerStrings;
+            Player2ComboBox.DataSource = playerStrings;
+            Player3ComboBox.DataSource = playerStrings;
+            Player4ComboBox.DataSource = playerStrings;
         }
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            if(Player1CheckBox.Checked)
+            playerComboBoxes = new List<ComboBox>();
+            playerCheckBoxes = new List<CheckBox>();
+
+            playerComboBoxes.Add(Player1ComboBox);
+            playerComboBoxes.Add(Player2ComboBox);
+            playerComboBoxes.Add(Player3ComboBox);
+            playerComboBoxes.Add(Player4ComboBox);
+
+            playerCheckBoxes.Add(Player1CheckBox);
+            playerCheckBoxes.Add(Player2CheckBox);
+            playerCheckBoxes.Add(Player3CheckBox);
+            playerCheckBoxes.Add(Player4CheckBox);
+
+            List<String> rolesList = new List<String>();
+            for (int i = 0; i < playerCheckBoxes.Count; i++)
             {
-                sb.Append(Player1ComboBox.SelectedItem + ",");
+                if (playerCheckBoxes[i].Checked)
+                {
+                    rolesList.Add(playerComboBoxes[i].SelectedItem.ToString());
+                }
             }
-            if (Player2CheckBox.Checked)
-            {
-                sb.Append(Player2ComboBox.SelectedItem + ",");
-            }
-            if (Player3CheckBox.Checked)
-            {
-                sb.Append(Player3ComboBox.SelectedItem + ",");
-            }
-            if (Player4CheckBox.Checked)
-            {
-                sb.Append(Player4ComboBox.SelectedItem+",");
-            }
-            sb.Remove(sb.ToString().LastIndexOf(','),1);
-            string[] rolesArray = sb.ToString().Split(',');
-            var duplicates = rolesArray.GroupBy(z => z).Where(g => g.Count() > 1).Select(g => g.Key);
-            if(duplicates.Count() > 0)
+
+            CheckForDuplicateRoles(rolesList);
+
+            Program.rolesArray = rolesList.ToArray<String>();
+            this.Close();
+        }
+
+        private void CheckForDuplicateRoles(List<String> rolesList)
+        {
+            var duplicates = rolesList.GroupBy(z => z).Where(g => g.Count() > 1).Select(g => g.Key);
+            if (duplicates.Count() > 0)
             {
                 string duplicateWords = "";
-                foreach(var dup in duplicates)
+                foreach (var dup in duplicates)
                 {
                     duplicateWords += dup + ", ";
                 }
 
-                MessageBox.Show("You cannot have more than one: " + duplicateWords.Substring(0,duplicateWords.Length-2));
+                MessageBox.Show("You cannot have more than one: " + duplicateWords.Substring(0, duplicateWords.Length - 2));
                 return;
             }
-            Program.rolesArray = rolesArray;
-            this.Close();
         }
     }
 }
