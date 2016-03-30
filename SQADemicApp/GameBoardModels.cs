@@ -137,7 +137,7 @@ namespace SQADemicApp
 
         public bool incTurnCount()
         {
-            if (currentPlayerTurnCounter == 3)
+            if (currentPlayerTurnCounter >= GetCurrentPlayer().getMaxTurnCount() -1)
             {
                 //CurrentPlayerIndex = (CurrentPlayerIndex + 1) % players.Count();
                 currentPlayerTurnCounter = 0;
@@ -165,6 +165,12 @@ namespace SQADemicApp
         public int playerDeckSize()
         {
             return playerDeck.Count();
+        }
+
+        //GameBoardModels.players[GameBoardModels.CurrentPlayerIndex]
+        public static AbstractPlayer GetCurrentPlayer()
+        {
+            return players[CurrentPlayerIndex];
         }
     }
 }
