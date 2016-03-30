@@ -104,7 +104,7 @@ namespace SQADemicApp
         /// </summary>
         /// <param name="city">City to move to</param>
         /// <returns>Success Flag/returns>
-        public bool MovePlayer(City city)
+        public virtual bool MovePlayer(City city)
         {
             // TODO: Further refactoring is possible but has less priority.
             if (DriveOptions(currentCity).Any(c => c.Name.Equals(city.Name)))

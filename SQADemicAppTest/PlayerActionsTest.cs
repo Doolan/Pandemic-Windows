@@ -17,7 +17,7 @@ namespace SQADemicAppTest
         List<Card> hand, pile;
         List<AbstractPlayer> players;
         Card chennai, newYork, atlanta, chicagoCard, london, paris, milan, airlift;
-        AbstractPlayer dispatcher, medic, opExpert, researcher, scientist;
+        AbstractPlayer dispatcher, medic, opExpert, researcher, scientist, containmentSpecialst;
         GameBoardModels gameBoardModels;
 
 
@@ -54,6 +54,7 @@ namespace SQADemicAppTest
             opExpert = new OpExpertPlayer();
             researcher = new ResearcherPlayer();
             medic = new MedicPlayer();
+            containmentSpecialst = new ContainmentSpecialstPlayer();
             players = new List<AbstractPlayer> { scientist, opExpert, researcher, medic };
         }
 
@@ -735,6 +736,19 @@ namespace SQADemicAppTest
         }
 
         [TestMethod]
+        public void TestDiseaseContainmentOnMove()
+        {
+            containmentSpecialst.currentCity = chicagoCity;
+            GameBoardModels.cubeCount.SetCubeCount(COLOR.red, 10);
+            sanFran.Cubes.SetCubeCount(COLOR.red, 4);
+            Assert.AreEqual(4, sanFran.Cubes.GetCubeCount(COLOR.red));
+            bool success = containmentSpecialst.MovePlayer(sanFran);
+            Assert.IsTrue(success);
+            Assert.AreEqual(3, sanFran.Cubes.GetCubeCount(COLOR.red));
+
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void TestWinCon()
         {
@@ -761,7 +775,7 @@ namespace SQADemicAppTest
         //    Assert.AreEqual(GameBoardModels.cubeCount.InfectionCubesBoard.GetCubeCount(COLOR.red), (startingCount -1));
         //}
 
-
+       
 
     }
     /** PRINTING STUFF
