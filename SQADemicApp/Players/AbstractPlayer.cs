@@ -9,7 +9,6 @@ using SQADemicApp.Players;
 
 namespace SQADemicApp
 {
-    public enum ROLE { Dispatcher, Medic, OpExpert, Researcher, Scientist };
 
     public abstract class AbstractPlayer
     {
@@ -161,6 +160,7 @@ namespace SQADemicApp
         ///  Builds a Research Station should the conditions be meet
         /// </summary>
         /// <returns>Success Flag</returns>
+        /// TODO: If research stations on board = 6, call something to move research station
         public virtual bool BuildAResearchStationOption()
         {
             if (CityBL.getCitiesWithResearchStations().Contains(currentCity))
@@ -182,18 +182,39 @@ namespace SQADemicApp
         /// <returns>Success Flag</returns>
         public bool Cure(List<String> cardsToSpend, COLOR color)
         {
-            if (!currentCity.researchStation || GameBoardModels.CURESTATUS.GetCureStatus(color) != Cures.CURESTATE.NotCured)
-                return false;
             var cards = hand.Where(x => x.CityColor == color && cardsToSpend.Contains(x.CityName));
-            if (GetType() == typeof(ScientistPlayer))
-            {
-                if (cards.Count() != 4)
-                    return false;
-            }
-            else if (cards.Count() != 5)
+
+            if (!CanCure(cards.Count(), color))
                 return false;
+
             hand.RemoveAll(x => cards.Contains(x));
             GameBoardModels.CURESTATUS.SetCureStatus(color, Cures.CURESTATE.Cured);
+            AllCureCheck();
+
+            return true;
+        }
+
+        public bool CanCure(int numberOfAvailableCards, COLOR color)
+        {
+            if (!currentCity.researchStation || GameBoardModels.CURESTATUS.GetCureStatus(color) != Cures.CURESTATE.NotCured)
+                return false;
+            if (GetType() == typeof(ScientistPlayer))
+            {
+                if (numberOfAvailableCards != 4)
+                    return false;
+            }
+            else if (numberOfAvailableCards != 5)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if every disease has been cured and throws the win exception if true,
+        /// otherwise, do nothing.
+        /// </summary>
+        public void AllCureCheck()
+        {
             if (GameBoardModels.CURESTATUS.GetCureStatus(COLOR.black) != Cures.CURESTATE.NotCured &&
                    GameBoardModels.CURESTATUS.GetCureStatus(COLOR.blue) != Cures.CURESTATE.NotCured &&
                    GameBoardModels.CURESTATUS.GetCureStatus(COLOR.red) != Cures.CURESTATE.NotCured &&
@@ -201,8 +222,6 @@ namespace SQADemicApp
             {
                 throw new InvalidOperationException("Game Over You Win");
             }
-
-            return true;
         }
 
         /// <summary>
