@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SQADemicApp.BL;
 using SQADemicApp;
 using System.IO;
+using SQADemicApp.Players;
 
 
 namespace SQADemicAppTest
@@ -14,7 +15,7 @@ namespace SQADemicAppTest
     {
         City chicagoCity, bangkok, kolkata, sanFran;
         LinkedList<String> deck, pile, answer;
-        Player dispatcher;
+        AbstractPlayer dispatcher;
 
         [TestInitialize]
         public void setUpCitiesandStations()
@@ -35,7 +36,7 @@ namespace SQADemicAppTest
                 throw new InvalidOperationException("Set up failed");
             }
             //players
-            dispatcher = new Player(ROLE.Dispatcher);
+            dispatcher = new DispatcherPlayer();
             pile = new LinkedList<String>();
         }
 

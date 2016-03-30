@@ -19,7 +19,7 @@ namespace SQADemicApp
             InitializeComponent();
             this.board = board;
             listBox1.Items.Clear();
-            listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].handStringList().ToArray());
+            listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].HandStringList().ToArray());
         }
 
         private void Cure_Click(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace SQADemicApp
             bool cured = false;
             try
             {
-                cured = PlayerActionsBL.Cure(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], cityNames, Create.cityDictionary[cityNames[0]].color);
+                cured = GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].Cure(cityNames, Create.cityDictionary[cityNames[0]].color);
             }
             catch (ArgumentException exe)
             {
