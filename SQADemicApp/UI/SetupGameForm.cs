@@ -26,11 +26,16 @@ namespace SQADemicApp
         public SetupGameForm()
         {
             InitializeComponent();
+            String[] playerStringArray = playerStrings.ToArray();
 
-            Player1ComboBox.DataSource = playerStrings;
-            Player2ComboBox.DataSource = playerStrings;
-            Player3ComboBox.DataSource = playerStrings;
-            Player4ComboBox.DataSource = playerStrings;
+            Player1ComboBox.Items.Clear();
+            Player2ComboBox.Items.Clear();
+            Player3ComboBox.Items.Clear();
+            Player4ComboBox.Items.Clear();
+            Player1ComboBox.Items.AddRange(playerStrings.ToArray());
+            Player2ComboBox.Items.AddRange(playerStrings.ToArray());
+            Player3ComboBox.Items.AddRange(playerStrings.ToArray());
+            Player4ComboBox.Items.AddRange(playerStrings.ToArray());
         }
 
         private void SubmitButton_Click(object sender, EventArgs e)
