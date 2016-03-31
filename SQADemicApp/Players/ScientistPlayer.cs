@@ -8,5 +8,6 @@ namespace SQADemicApp.Players
 {
     public class ScientistPlayer : AbstractPlayer
     {
+        
     }
 }
