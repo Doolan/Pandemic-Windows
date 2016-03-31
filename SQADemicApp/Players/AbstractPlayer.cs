@@ -13,6 +13,12 @@ namespace SQADemicApp
     public abstract class AbstractPlayer
     {
         private static int MAXCUBECOUNT = 24;
+        protected int MAXTURNCOUNT = 4;
+
+        public int getMaxTurnCount()
+        {
+            return MAXTURNCOUNT;
+        }
 
         public List<Card> hand { get; set; }
         public City currentCity { get; set; }
