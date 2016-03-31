@@ -49,6 +49,7 @@
     <Compile Include="Objects\InfectionCubes.cs" />
     <Compile Include="Objects\InfectionCubesCity.cs" />
     <Compile Include="Players\DispatcherPlayer.cs" />
+    <Compile Include="Players\GeneralistPlayer.cs" />
     <Compile Include="Players\MedicPlayer.cs" />
     <Compile Include="Players\OpExpertPlayer.cs" />
     <Compile Include="Players\ResearcherPlayer.cs" />
