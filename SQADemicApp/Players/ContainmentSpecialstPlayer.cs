@@ -8,6 +8,7 @@ namespace SQADemicApp.Players
 {
     public class ContainmentSpecialstPlayer : AbstractPlayer
     {
+
         public override bool MovePlayer(City city) 
         {
             if(base.MovePlayer(city)) {

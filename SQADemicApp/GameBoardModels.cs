@@ -62,6 +62,7 @@ namespace SQADemicApp
             players = new AbstractPlayer[playersroles.Length];
             currentPlayerTurnCounter = 0;
             CurrentPlayerIndex = 0;
+
             for (int i = 0; i < playersroles.Count(); i++)
             {
                 switch (playersroles[i])

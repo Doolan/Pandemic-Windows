@@ -15,13 +15,14 @@ namespace SQADemicApp
     {
         private static int MAXCUBECOUNT = 24;
         protected int MAXTURNCOUNT = 4;
-
-        private Dictionary<String, AbstractSpecialAction> specialActions;
+        protected int MAXHANDSIZE = 7;
 
         public int getMaxTurnCount()
         {
             return MAXTURNCOUNT;
         }
+
+        private Dictionary<String, AbstractSpecialAction> specialActions;
 
         public List<Card> hand { get; set; }
         public City currentCity { get; set; }
@@ -313,6 +314,24 @@ namespace SQADemicApp
             }
 
             return false;
+        }
+
+        public bool addCardToHand(Card card)
+        {
+            //right now the drawn card will just be discarded if there is not enough room for it.
+            //This should be changed... right?
+            if (this.hand.Count < MAXHANDSIZE)
+            {
+                this.hand.Add(card);
+                return true;
+            }
+            return false;
+        }
+
+
+        public int GetMaxHandSize()
+        {
+            return this.MAXHANDSIZE;
         }
 
         public virtual Dictionary<Button, LambdaExpression> getAvailableButton()

@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace SQADemicApp.Players
 {
-    public class ScientistPlayer : AbstractPlayer
+    class ArchivistPlayer : AbstractPlayer
     {
-        
+        public ArchivistPlayer() {
+            base.MAXHANDSIZE = 8;
+
+        }
     }
 }
