@@ -32,6 +32,7 @@ namespace SQADemicApp
         #region private vars
         private static bool alreadySetUp = false;
         public static Stack<Card> playerDeck;
+        public static Stack<Card> discardPlayerDeck;
         private static int MAXCUBECOUNT = 24;
         #endregion
 

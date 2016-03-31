@@ -8,17 +8,27 @@ namespace SQADemicApp.SpecialActions
 {
     class ReclaimCityCardAction : AbstractSpecialAction
     {
+        public ReclaimCityCardAction(AbstractPlayer player) : base(player) { }
+
         public bool PreformAction()
         {
-            GameBoardModels.playerDeck
+            if (discardPlayerDeckContain(player.currentCity.Name))
+            {
+                player.addCardToHand(GameBoardModels.discardPlayerDeck.First(c => c.CityName.Equals(player.currentCity.Name)));
+                return true;
+            }
             return false;
         }
 
-        private bool playerDeckContain(String cityName)
+        private bool discardPlayerDeckContain(String cityName)
         {
-            foreach(Card card in GameBoardModels.playerDeck) {
-
+            foreach(Card card in GameBoardModels.discardPlayerDeck) {
+                if (card.CityName.Equals(cityName))
+                {
+                    return true;
+                }
             }
+            return false;
         }
     }
 
