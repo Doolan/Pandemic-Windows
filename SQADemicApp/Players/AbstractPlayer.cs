@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using SQADemicApp.BL;
 using SQADemicApp.Objects;
 using SQADemicApp.Players;
+using SQADemicApp.SpecialActions;
 
 namespace SQADemicApp
 {
@@ -14,6 +15,8 @@ namespace SQADemicApp
     {
         private static int MAXCUBECOUNT = 24;
         protected int MAXTURNCOUNT = 4;
+
+        private Dictionary<String, AbstractSpecialAction> specialActions;
 
         public int getMaxTurnCount()
         {
@@ -26,6 +29,7 @@ namespace SQADemicApp
         {
             hand = new List<Card>();
             currentCity = Create.cityDictionary["Atlanta"];
+            specialActions = new Dictionary<string, AbstractSpecialAction>();
         }
 
         public List<Object> HandStringList()
@@ -294,6 +298,21 @@ namespace SQADemicApp
         public override string ToString()
         {
             return GetType().Name;
+        }
+
+        public List<String> GetSpecialActions()
+        {
+            return new List<String>(this.specialActions.Keys);
+        }
+
+        public bool PreformSpecialAction(String actionName)
+        {
+            if (this.specialActions.ContainsKey(actionName))
+            {
+                return this.specialActions[actionName].PreformAction();
+            }
+
+            return false;
         }
 
         public virtual Dictionary<Button, LambdaExpression> getAvailableButton()

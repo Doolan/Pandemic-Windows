@@ -54,6 +54,7 @@
     <Compile Include="Players\OpExpertPlayer.cs" />
     <Compile Include="Players\ResearcherPlayer.cs" />
     <Compile Include="Players\ScientistPlayer.cs" />
+    <Compile Include="SpecialActions\AbstractSpecialAction.cs" />
     <Compile Include="UI\AdvancedActions.cs">
       <SubType>Form</SubType>
     </Compile>
