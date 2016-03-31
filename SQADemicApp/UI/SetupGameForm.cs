@@ -62,13 +62,12 @@ namespace SQADemicApp
                 }
             }
 
-            CheckForDuplicateRoles(rolesList);
 
             Program.rolesArray = rolesList.ToArray<String>();
             this.Close();
         }
 
-        private void CheckForDuplicateRoles(List<String> rolesList)
+        public bool CheckForDuplicateRoles(List<String> rolesList)
         {
             var duplicates = rolesList.GroupBy(z => z).Where(g => g.Count() > 1).Select(g => g.Key);
             if (duplicates.Count() > 0)
@@ -80,8 +79,9 @@ namespace SQADemicApp
                 }
 
                 MessageBox.Show("You cannot have more than one: " + duplicateWords.Substring(0, duplicateWords.Length - 2));
-                return;
+                return true;
             }
+            return false;
         }
     }
 }
