@@ -8,7 +8,7 @@ namespace SQADemicApp
 {
     public abstract class AbstractSpecialAction
     {
-        public AbstractPlayer player;
+        protected AbstractPlayer player;
 
         public AbstractSpecialAction(AbstractPlayer player)
         {
