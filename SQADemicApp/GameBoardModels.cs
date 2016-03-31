@@ -81,6 +81,12 @@ namespace SQADemicApp
                     case "Researcher":
                         players[i] = new ResearcherPlayer();
                         break;
+                    case "Containment Specialist":
+                        players[i] = new ContainmentSpecialstPlayer();
+                        break;
+                    case "Generalist":
+                        players[i] = new GeneralistPlayer();
+                        break;
                     default:
                         players[i] = null;
                         break;
