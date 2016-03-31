@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SQADemicApp.SpecialActions
+namespace SQADemicApp
 {
-    abstract class AbstractSpecialAction
+    public abstract class AbstractSpecialAction
     {
-        protected AbstractPlayer player;
+        public AbstractPlayer player;
 
         public AbstractSpecialAction(AbstractPlayer player)
         {

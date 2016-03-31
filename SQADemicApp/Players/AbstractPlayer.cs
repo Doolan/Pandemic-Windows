@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using SQADemicApp.BL;
 using SQADemicApp.Objects;
 using SQADemicApp.Players;
-using SQADemicApp.SpecialActions;
+using SQADemicApp;
 
 namespace SQADemicApp
 {
@@ -22,7 +22,7 @@ namespace SQADemicApp
             return MAXTURNCOUNT;
         }
 
-        protected Dictionary<String, AbstractSpecialAction> specialActions;
+        public Dictionary<String, AbstractSpecialAction> specialActions = new Dictionary<String, AbstractSpecialAction>();
 
         public List<Card> hand { get; set; }
         public City currentCity { get; set; }
@@ -30,7 +30,6 @@ namespace SQADemicApp
         {
             hand = new List<Card>();
             currentCity = Create.cityDictionary["Atlanta"];
-            specialActions = new Dictionary<string, AbstractSpecialAction>();
         }
 
         public List<Object> HandStringList()
@@ -311,6 +310,7 @@ namespace SQADemicApp
         {
             return new List<String>(this.specialActions.Keys);
         }
+
 
         public bool PreformSpecialAction(String actionName)
         {

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SQADemicApp.SpecialActions
+namespace SQADemicApp.specialActions
 {
-    class ReclaimCityCardAction : AbstractSpecialAction
+    public class ReclaimCityCardAction : AbstractSpecialAction
     {
         public ReclaimCityCardAction(AbstractPlayer player) : base(player) { }
 
-        public bool PreformAction()
+        public override bool PreformAction()
         {
             if (discardPlayerDeckContain(player.currentCity.Name))
             {

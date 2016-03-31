@@ -54,6 +54,7 @@ namespace SQADemicApp
                 List<String> infectionDeckList;
                 Create.setUpCreate(out playerDeckArray, out infectionDeckList);
                 playerDeck = new Stack<Card>(playerDeckArray);
+                discardPlayerDeck = new Stack<Card>();
                 eventCards = new List<Card>();
                 infectionPile = new LinkedList<String>();
                 infectionDeck = new LinkedList<string>(Create.makeInfectionDeck(new StringReader(SQADemicApp.Properties.Resources.InfectionDeck)));
