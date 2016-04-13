@@ -111,7 +111,8 @@ namespace SQADemicApp
             else if (drawCard1.CardType == Card.CARDTYPE.Special)
                 GameBoardModels.eventCards.Add(drawCard1);
             else
-                GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].hand.Add(drawCard1);
+                GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].addCardToHand(drawCard1);
+                
 
             if (drawCard2.CardType.Equals(Card.CARDTYPE.EPIDEMIC))
             {
@@ -125,7 +126,7 @@ namespace SQADemicApp
             else if (drawCard2.CardType == Card.CARDTYPE.Special)
                 GameBoardModels.eventCards.Add(drawCard2);
             else
-                GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].hand.Add(drawCard2);
+                GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].addCardToHand(drawCard2);
 
             //Move to infection phase
             if (!quietNight)

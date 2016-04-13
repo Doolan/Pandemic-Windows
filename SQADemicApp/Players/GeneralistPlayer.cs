@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace SQADemicApp.Players
 {
-    public class ScientistPlayer : AbstractPlayer
+    class GeneralistPlayer : AbstractPlayer
     {
-        
+        public GeneralistPlayer()
+        {
+            base.MAXTURNCOUNT = 5;
+        }
     }
 }

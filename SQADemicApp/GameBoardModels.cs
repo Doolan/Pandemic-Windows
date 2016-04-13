@@ -32,6 +32,7 @@ namespace SQADemicApp
         #region private vars
         private static bool alreadySetUp = false;
         public static Stack<Card> playerDeck;
+        public static Stack<Card> discardPlayerDeck;
         private static int MAXCUBECOUNT = 24;
         #endregion
 
@@ -53,6 +54,7 @@ namespace SQADemicApp
                 List<String> infectionDeckList;
                 Create.setUpCreate(out playerDeckArray, out infectionDeckList);
                 playerDeck = new Stack<Card>(playerDeckArray);
+                discardPlayerDeck = new Stack<Card>();
                 eventCards = new List<Card>();
                 infectionPile = new LinkedList<String>();
                 infectionDeck = new LinkedList<string>(Create.makeInfectionDeck(new StringReader(SQADemicApp.Properties.Resources.InfectionDeck)));
@@ -62,6 +64,7 @@ namespace SQADemicApp
             players = new AbstractPlayer[playersroles.Length];
             currentPlayerTurnCounter = 0;
             CurrentPlayerIndex = 0;
+
             for (int i = 0; i < playersroles.Count(); i++)
             {
                 switch (playersroles[i])
@@ -80,6 +83,15 @@ namespace SQADemicApp
                         break;
                     case "Researcher":
                         players[i] = new ResearcherPlayer();
+                        break;
+                    case "Containment Specialist":
+                        players[i] = new ContainmentSpecialstPlayer();
+                        break;
+                    case "Generalist":
+                        players[i] = new GeneralistPlayer();
+                        break;
+                    case "Archivist":
+                        players[i] = new ArchivistPlayer();
                         break;
                     default:
                         players[i] = null;
@@ -130,14 +142,14 @@ namespace SQADemicApp
                     else if (card.CardType == Card.CARDTYPE.Special)
                         eventCards.Add(card);
                     else
-                        player.hand.Add(card);
+                        player.addCardToHand(card);
                 }
             }
         }
 
         public bool incTurnCount()
         {
-            if (currentPlayerTurnCounter == 3)
+            if (currentPlayerTurnCounter >= GetCurrentPlayer().getMaxTurnCount() -1)
             {
                 //CurrentPlayerIndex = (CurrentPlayerIndex + 1) % players.Count();
                 currentPlayerTurnCounter = 0;
@@ -165,6 +177,12 @@ namespace SQADemicApp
         public int playerDeckSize()
         {
             return playerDeck.Count();
+        }
+
+        //GameBoardModels.players[GameBoardModels.CurrentPlayerIndex]
+        public static AbstractPlayer GetCurrentPlayer()
+        {
+            return players[CurrentPlayerIndex];
         }
     }
 }

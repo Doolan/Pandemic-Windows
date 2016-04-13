@@ -143,11 +143,9 @@ namespace SQADemicApp
         }
         public void UpdatePlayerForm()
         {
-            playerForm.progressBar1.Value = 100 * (boardModel.currentPlayerTurnCounter) / 4;
-            playerForm.label1.Text = playerForm.label1.Text.Substring(0, playerForm.label1.Text.Length - 3) + (Convert.ToInt32(boardModel.currentPlayerTurnCounter)) + "/" + 4;
-            playerForm.listBox1.Items.Clear();
-            playerForm.listBox1.Items.AddRange(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].HandStringList().ToArray());
-            if (GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].GetType() == typeof(DispatcherPlayer))
+            UpdateTurnProgressBoard();
+            UpdatePlayerHand();
+            if (GameBoardModels.GetCurrentPlayer().GetType() == typeof(DispatcherPlayer))
             {
                 playerForm.DispatcherMove.Show();
                 playerForm.AAButton.Location = new System.Drawing.Point(159, 82);
@@ -176,6 +174,20 @@ namespace SQADemicApp
             updateCounters();
             updateCureStatus();
             ECForm.UpdateEventCards();
+        }
+
+        private void UpdatePlayerHand()
+        {
+            playerForm.listBox1.Items.Clear();
+            playerForm.listBox1.Items.AddRange(
+                GameBoardModels.GetCurrentPlayer().HandStringList().ToArray());
+        }
+
+        private void UpdateTurnProgressBoard()
+        {
+            playerForm.MoveProgressBar.Value = 100*(boardModel.currentPlayerTurnCounter)/GameBoardModels.GetCurrentPlayer().getMaxTurnCount();
+            playerForm.MoveProgressBarLabel.Text = playerForm.MoveProgressBarLabel.Text.Substring(0, playerForm.MoveProgressBarLabel.Text.Length - 3) +
+                                     (Convert.ToInt32(boardModel.currentPlayerTurnCounter)) + "/" + GameBoardModels.GetCurrentPlayer().getMaxTurnCount();
         }
 
         private void updateCharacterForm(int p)

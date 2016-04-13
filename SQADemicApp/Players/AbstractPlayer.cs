@@ -6,14 +6,23 @@ using System.Windows.Forms;
 using SQADemicApp.BL;
 using SQADemicApp.Objects;
 using SQADemicApp.Players;
+using SQADemicApp;
 
 namespace SQADemicApp
 {
-    public enum ROLE { Dispatcher, Medic, OpExpert, Researcher, Scientist };
 
     public abstract class AbstractPlayer
     {
         private static int MAXCUBECOUNT = 24;
+        protected int MAXTURNCOUNT = 4;
+        protected int MAXHANDSIZE = 7;
+
+        public int getMaxTurnCount()
+        {
+            return MAXTURNCOUNT;
+        }
+
+        public Dictionary<String, AbstractSpecialAction> specialActions = new Dictionary<String, AbstractSpecialAction>();
 
         public List<Card> hand { get; set; }
         public City currentCity { get; set; }
@@ -105,7 +114,7 @@ namespace SQADemicApp
         /// </summary>
         /// <param name="city">City to move to</param>
         /// <returns>Success Flag/returns>
-        public bool MovePlayer(City city)
+        public virtual bool MovePlayer(City city)
         {
             // TODO: Further refactoring is possible but has less priority.
             if (DriveOptions(currentCity).Any(c => c.Name.Equals(city.Name)))
@@ -118,10 +127,12 @@ namespace SQADemicApp
             }
             else if (DirectFlightOption(hand, currentCity).Contains(city.Name))
             {
+                GameBoardModels.discardPlayerDeck.Push(hand.First(c => c.CityName.Equals(city.Name)));
                 hand.RemoveAll(x => x.CityName.Equals(city.Name));
             }
             else if (CharterFlightOption(hand, currentCity))
             {
+                GameBoardModels.discardPlayerDeck.Push(hand.First(c => c.CityName.Equals(currentCity.Name)));
                 hand.RemoveAll(x => x.CityName.Equals(currentCity.Name));
             }
             else
@@ -161,6 +172,7 @@ namespace SQADemicApp
         ///  Builds a Research Station should the conditions be meet
         /// </summary>
         /// <returns>Success Flag</returns>
+        /// TODO: If research stations on board = 6, call something to move research station
         public virtual bool BuildAResearchStationOption()
         {
             if (CityBL.getCitiesWithResearchStations().Contains(currentCity))
@@ -182,18 +194,43 @@ namespace SQADemicApp
         /// <returns>Success Flag</returns>
         public bool Cure(List<String> cardsToSpend, COLOR color)
         {
-            if (!currentCity.researchStation || GameBoardModels.CURESTATUS.GetCureStatus(color) != Cures.CURESTATE.NotCured)
-                return false;
             var cards = hand.Where(x => x.CityColor == color && cardsToSpend.Contains(x.CityName));
-            if (GetType() == typeof(ScientistPlayer))
-            {
-                if (cards.Count() != 4)
-                    return false;
-            }
-            else if (cards.Count() != 5)
+
+            if (!CanCure(cards.Count(), color))
                 return false;
+
+            var discard = hand.Where(c => cards.Contains(c));
+            foreach (Card card in discard)
+                GameBoardModels.discardPlayerDeck.Push(card);
+
             hand.RemoveAll(x => cards.Contains(x));
             GameBoardModels.CURESTATUS.SetCureStatus(color, Cures.CURESTATE.Cured);
+            AllCureCheck();
+
+            return true;
+        }
+
+        public bool CanCure(int numberOfAvailableCards, COLOR color)
+        {
+            if (!currentCity.researchStation || GameBoardModels.CURESTATUS.GetCureStatus(color) != Cures.CURESTATE.NotCured)
+                return false;
+            if (GetType() == typeof(ScientistPlayer))
+            {
+                if (numberOfAvailableCards != 4)
+                    return false;
+            }
+            else if (numberOfAvailableCards != 5)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if every disease has been cured and throws the win exception if true,
+        /// otherwise, do nothing.
+        /// </summary>
+        public void AllCureCheck()
+        {
             if (GameBoardModels.CURESTATUS.GetCureStatus(COLOR.black) != Cures.CURESTATE.NotCured &&
                    GameBoardModels.CURESTATUS.GetCureStatus(COLOR.blue) != Cures.CURESTATE.NotCured &&
                    GameBoardModels.CURESTATUS.GetCureStatus(COLOR.red) != Cures.CURESTATE.NotCured &&
@@ -201,8 +238,6 @@ namespace SQADemicApp
             {
                 throw new InvalidOperationException("Game Over You Win");
             }
-
-            return true;
         }
 
         /// <summary>
@@ -269,6 +304,34 @@ namespace SQADemicApp
         public override string ToString()
         {
             return GetType().Name;
+        }
+
+        public List<String> GetSpecialActions()
+        {
+            return new List<String>(this.specialActions.Keys);
+        }
+
+
+        public bool PreformSpecialAction(String actionName)
+        {
+            if (this.specialActions.ContainsKey(actionName))
+            {
+                return this.specialActions[actionName].PreformAction();
+            }
+
+            return false;
+        }
+
+        public bool addCardToHand(Card card)
+        {
+            //right now the drawn card will just be discarded if there is not enough room for it.
+            //This should be changed... right?
+            if (this.hand.Count < MAXHANDSIZE)
+            {
+                this.hand.Add(card);
+                return true;
+            }
+            return false;
         }
 
         public virtual Dictionary<Button, LambdaExpression> getAvailableButton()

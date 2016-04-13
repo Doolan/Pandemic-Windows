@@ -48,11 +48,16 @@
     <Compile Include="Objects\Cures.cs" />
     <Compile Include="Objects\InfectionCubes.cs" />
     <Compile Include="Objects\InfectionCubesCity.cs" />
+    <Compile Include="Players\ArchivistPlayer.cs" />
+    <Compile Include="Players\ContainmentSpecialstPlayer.cs" />
     <Compile Include="Players\DispatcherPlayer.cs" />
+    <Compile Include="Players\GeneralistPlayer.cs" />
     <Compile Include="Players\MedicPlayer.cs" />
     <Compile Include="Players\OpExpertPlayer.cs" />
     <Compile Include="Players\ResearcherPlayer.cs" />
     <Compile Include="Players\ScientistPlayer.cs" />
+    <Compile Include="SpecialActions\AbstractSpecialAction.cs" />
+    <Compile Include="SpecialActions\ReclaimCityCardAction.cs" />
     <Compile Include="UI\AdvancedActions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +154,7 @@
     </Compile>
     <EmbeddedResource Include="UI\AdvancedActions.resx">
       <DependentUpon>AdvancedActions.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CityPageForm.resx">
       <DependentUpon>CityPageForm.cs</DependentUpon>
@@ -173,6 +179,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CharacterPane.resx">
       <DependentUpon>CharacterPane.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\PicForm.resx">
       <DependentUpon>PicForm.cs</DependentUpon>

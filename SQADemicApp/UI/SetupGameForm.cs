@@ -20,7 +20,10 @@ namespace SQADemicApp
             "Operations Expert",
             "Scientist",
             "Medic",
-            "Researcher"
+            "Researcher",
+            "Archivist",
+            "Generalist",
+            "Containment Specialist"
         };
 
         public SetupGameForm()

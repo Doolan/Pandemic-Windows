@@ -29,8 +29,8 @@ namespace SQADemicApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label1 = new System.Windows.Forms.Label();
+            this.MoveProgressBar = new System.Windows.Forms.ProgressBar();
+            this.MoveProgressBarLabel = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.MoveButton = new System.Windows.Forms.Button();
             this.CureCityButton = new System.Windows.Forms.Button();
@@ -53,21 +53,21 @@ namespace SQADemicApp
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // progressBar1
+            // MoveProgressBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(28, 541);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(232, 23);
-            this.progressBar1.TabIndex = 0;
+            this.MoveProgressBar.Location = new System.Drawing.Point(28, 541);
+            this.MoveProgressBar.Name = "MoveProgressBar";
+            this.MoveProgressBar.Size = new System.Drawing.Size(232, 23);
+            this.MoveProgressBar.TabIndex = 0;
             // 
-            // label1
+            // MoveProgressBarLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(88, 567);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Move Count: 0/4";
+            this.MoveProgressBarLabel.AutoSize = true;
+            this.MoveProgressBarLabel.Location = new System.Drawing.Point(88, 567);
+            this.MoveProgressBarLabel.Name = "MoveProgressBarLabel";
+            this.MoveProgressBarLabel.Size = new System.Drawing.Size(88, 13);
+            this.MoveProgressBarLabel.TabIndex = 1;
+            this.MoveProgressBarLabel.Text = "Move Count: 0/4";
             // 
             // listBox1
             // 
@@ -264,8 +264,8 @@ namespace SQADemicApp
             this.Controls.Add(this.CureCityButton);
             this.Controls.Add(this.MoveButton);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.MoveProgressBarLabel);
+            this.Controls.Add(this.MoveProgressBar);
             this.Name = "PlayerPanel";
             this.Text = "Player Turn";
             this.groupBox1.ResumeLayout(false);
@@ -279,8 +279,8 @@ namespace SQADemicApp
 
         #endregion
 
-        public System.Windows.Forms.ProgressBar progressBar1;
-        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.ProgressBar MoveProgressBar;
+        public System.Windows.Forms.Label MoveProgressBarLabel;
         public System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button MoveButton;
         private System.Windows.Forms.Button CureCityButton;
