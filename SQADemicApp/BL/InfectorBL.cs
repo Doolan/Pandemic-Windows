@@ -79,7 +79,7 @@ namespace SQADemicApp.BL
         {
             if (!causedByOutbreak)
             {
-                if (GameBoardModels.CURESTATUS.GetCureStatus(city.color) == Cures.CURESTATE.Sunset)
+                if (GameBoardModels.GetCureStatus(city.color) == Cures.CURESTATE.Sunset)
                     return city.Cubes.GetCubeCount(city.color);
                 if (city.Cubes.GetCubeCount(city.color) < 3)
                 {
@@ -91,7 +91,7 @@ namespace SQADemicApp.BL
             } 
                 // will reach here if this infection was caused by an outbreak.
                 //need to increment cubes of outbreak color, which aren't necessarily the city color
-                if (GameBoardModels.CURESTATUS.GetCureStatus(outbreakColor) == Cures.CURESTATE.Sunset)
+                if (GameBoardModels.GetCureStatus(outbreakColor) == Cures.CURESTATE.Sunset)
                     return city.Cubes.GetCubeCount(outbreakColor);
                 if (city.Cubes.GetCubeCount(outbreakColor) < 3)
                 {

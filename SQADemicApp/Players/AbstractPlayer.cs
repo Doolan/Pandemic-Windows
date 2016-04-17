@@ -204,7 +204,7 @@ namespace SQADemicApp
                 GameBoardModels.discardPlayerDeck.Push(card);
 
             hand.RemoveAll(x => cards.Contains(x));
-            GameBoardModels.CURESTATUS.SetCureStatus(color, Cures.CURESTATE.Cured);
+            GameBoardModels.SetCureStatus(color, Cures.CURESTATE.Cured);
             AllCureCheck();
 
             return true;
@@ -212,7 +212,7 @@ namespace SQADemicApp
 
         public bool CanCure(int numberOfAvailableCards, COLOR color)
         {
-            if (!currentCity.researchStation || GameBoardModels.CURESTATUS.GetCureStatus(color) != Cures.CURESTATE.NotCured)
+            if (!currentCity.researchStation || GameBoardModels.GetCureStatus(color) != Cures.CURESTATE.NotCured)
                 return false;
             if (GetType() == typeof(ScientistPlayer))
             {
@@ -231,10 +231,10 @@ namespace SQADemicApp
         /// </summary>
         public void AllCureCheck()
         {
-            if (GameBoardModels.CURESTATUS.GetCureStatus(COLOR.black) != Cures.CURESTATE.NotCured &&
-                   GameBoardModels.CURESTATUS.GetCureStatus(COLOR.blue) != Cures.CURESTATE.NotCured &&
-                   GameBoardModels.CURESTATUS.GetCureStatus(COLOR.red) != Cures.CURESTATE.NotCured &&
-                   GameBoardModels.CURESTATUS.GetCureStatus(COLOR.yellow) != Cures.CURESTATE.NotCured)
+            if (GameBoardModels.GetCureStatus(COLOR.black) != Cures.CURESTATE.NotCured &&
+                   GameBoardModels.GetCureStatus(COLOR.blue) != Cures.CURESTATE.NotCured &&
+                   GameBoardModels.GetCureStatus(COLOR.red) != Cures.CURESTATE.NotCured &&
+                   GameBoardModels.GetCureStatus(COLOR.yellow) != Cures.CURESTATE.NotCured)
             {
                 throw new InvalidOperationException("Game Over You Win");
             }
@@ -260,11 +260,11 @@ namespace SQADemicApp
         /// <param name="numberBeforeCure"></param>
         public static bool SetDiseaseCubes(City city, COLOR color, int numberAfterCure, int numberBeforeCure)
         {
-            numberAfterCure = GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured ? 0 : numberAfterCure;
+            numberAfterCure = GameBoardModels.GetCureStatus(color) == Cures.CURESTATE.Cured ? 0 : numberAfterCure;
             GameBoardModels.AddInfectionCubes(color, numberBeforeCure - numberAfterCure);
             city.Cubes.SetCubeCount(color, numberAfterCure);
-            if (GameBoardModels.GetInfectionCubeCount(color) == MAXCUBECOUNT && GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured)
-                GameBoardModels.CURESTATUS.SetCureStatus(color, Cures.CURESTATE.Sunset);
+            if (GameBoardModels.GetInfectionCubeCount(color) == MAXCUBECOUNT && GameBoardModels.GetCureStatus(color) == Cures.CURESTATE.Cured)
+                GameBoardModels.SetCureStatus(color, Cures.CURESTATE.Sunset);
             return true;
         }
 

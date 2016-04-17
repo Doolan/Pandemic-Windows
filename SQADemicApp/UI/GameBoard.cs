@@ -241,10 +241,10 @@ namespace SQADemicApp
         {
             // set value of cure label to status in game board
             // if status is NotCured, change to No Cure for nicer appearance
-            playerForm.RedCure.Text = String.Format(   "Red:  {0}", GameBoardModels.CURESTATUS.GetCureStatus(COLOR.red).ToString().Replace("NotCured", "No Cure"));
-            playerForm.BlueCure.Text = String.Format(  "Blue: {0}", GameBoardModels.CURESTATUS.GetCureStatus(COLOR.blue).ToString().Replace("NotCured", "No Cure"));
-            playerForm.BlackCure.Text = String.Format( "Black:  {0}", GameBoardModels.CURESTATUS.GetCureStatus(COLOR.black).ToString().Replace("NotCured", "No Cure"));
-            playerForm.YellowCure.Text = String.Format("Yellow: {0}", GameBoardModels.CURESTATUS.GetCureStatus(COLOR.yellow).ToString().Replace("NotCured", "No Cure"));
+            playerForm.RedCure.Text = String.Format(   "Red:  {0}", GameBoardModels.GetCureStatus(COLOR.red).ToString().Replace("NotCured", "No Cure"));
+            playerForm.BlueCure.Text = String.Format(  "Blue: {0}", GameBoardModels.GetCureStatus(COLOR.blue).ToString().Replace("NotCured", "No Cure"));
+            playerForm.BlackCure.Text = String.Format( "Black:  {0}", GameBoardModels.GetCureStatus(COLOR.black).ToString().Replace("NotCured", "No Cure"));
+            playerForm.YellowCure.Text = String.Format("Yellow: {0}", GameBoardModels.GetCureStatus(COLOR.yellow).ToString().Replace("NotCured", "No Cure"));
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -14,7 +14,7 @@ namespace SQADemicApp
     {
         #region Public Static Vars
         
-        public static Cures CURESTATUS;
+        
         public static List<String> citiesWithResearchStations;
         public static int outbreakMarker = 0;
         public static AbstractPlayer[] players;
@@ -31,6 +31,7 @@ namespace SQADemicApp
         #endregion
 
         #region private vars
+        private static Cures CURESTATUS;
         private static InfectionCubes cubeCount;
         private static bool alreadySetUp = false;
         public static Stack<Card> playerDeck;
@@ -49,7 +50,7 @@ namespace SQADemicApp
             {
                 //set vars
                 outbreakMarker = 0;
-                cubeCount = new InfectionCubesBoard(MAXCUBECOUNT);
+                CreateInfectionCubes(MAXCUBECOUNT);
                 CURESTATUS = new Cures();
               //  CURESTATUS.BlackCure = CURESTATUS.BlueCure = CURESTATUS.RedCure = CURESTATUS.YellowCure = Cures.CURESTATE.NotCured;
                 Card[] playerDeckArray;
@@ -161,11 +162,30 @@ namespace SQADemicApp
 
         /** BEGIN Command Pattern Methods **/
 
+
+        #region CureStatus
+
+        private static void GenerateCures()
+        {
+            CURESTATUS = new Cures(Cures.CURESTATE.NotCured);
+        }
+
+        public static Cures.CURESTATE GetCureStatus(COLOR color)
+        {
+            return CURESTATUS.GetCureStatus(color);
+        }
+
+        public static void SetCureStatus(COLOR color, Cures.CURESTATE curestate)
+        {
+            CURESTATUS.SetCureStatus(color, curestate);
+        }
+        #endregion
+
         #region Infection Cubes 
 
         private static void CreateInfectionCubes(int startingValue)
         {
-            cubeCount = new InfectionCubesCity(startingValue);
+            cubeCount = new InfectionCubesBoard(startingValue);
         }
 
         public static void IncrementInfectionCubes(COLOR color)
@@ -192,8 +212,7 @@ namespace SQADemicApp
         {
             return cubeCount.GetCubeCount(color);
         }
-#endregion
-
+        #endregion
 
 
 
