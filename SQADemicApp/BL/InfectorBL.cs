@@ -83,7 +83,7 @@ namespace SQADemicApp.BL
                     return city.Cubes.GetCubeCount(city.color);
                 if (city.Cubes.GetCubeCount(city.color) < 3)
                 {
-                    GameBoardModels.cubeCount.DecrementCubeCount(city.color);
+                    GameBoardModels.DecrementInfectionCubeCount(city.color);
                     city.Cubes.IncrementCubes(city.color);
                     return city.Cubes.GetCubeCount(city.color);
                 }
@@ -95,7 +95,7 @@ namespace SQADemicApp.BL
                     return city.Cubes.GetCubeCount(outbreakColor);
                 if (city.Cubes.GetCubeCount(outbreakColor) < 3)
                 {
-                    GameBoardModels.cubeCount.DecrementCubeCount(outbreakColor);
+                GameBoardModels.DecrementInfectionCubeCount(outbreakColor);
                     city.Cubes.IncrementCubes(outbreakColor);
                     return city.Cubes.GetCubeCount(outbreakColor);
                 }

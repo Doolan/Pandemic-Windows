@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Runtime.CompilerServices;
 using SQADemicApp.BL;
 using SQADemicApp.Objects;
 using SQADemicApp.Players;
@@ -12,7 +13,7 @@ namespace SQADemicApp
     public class GameBoardModels
     {
         #region Public Static Vars
-        public static InfectionCubes cubeCount;
+        
         public static Cures CURESTATUS;
         public static List<String> citiesWithResearchStations;
         public static int outbreakMarker = 0;
@@ -30,6 +31,7 @@ namespace SQADemicApp
         #endregion
 
         #region private vars
+        private static InfectionCubes cubeCount;
         private static bool alreadySetUp = false;
         public static Stack<Card> playerDeck;
         public static Stack<Card> discardPlayerDeck;
@@ -65,6 +67,7 @@ namespace SQADemicApp
             CurrentPlayerIndex = 0;
             
             GameBoardModels.players = CreatePlayers(playersroles);
+            
             InfectionRate = 2;
             InfectionRateIndex = 0;
             if (!alreadySetUp)
@@ -76,6 +79,9 @@ namespace SQADemicApp
             alreadySetUp = true;
 
         }
+
+
+        #region Setup & Config
 
         private static AbstractPlayer[] CreatePlayers(IReadOnlyList<string> playersroles)
         {
@@ -113,8 +119,6 @@ namespace SQADemicApp
             }
             return abstractPlayers;
         }
-
-        #region Setup & Config
 
         private void startGameInfection()
         {
@@ -155,7 +159,45 @@ namespace SQADemicApp
 
         #endregion
 
-        
+        /** BEGIN Command Pattern Methods **/
+
+        #region Infection Cubes 
+
+        private static void CreateInfectionCubes(int startingValue)
+        {
+            cubeCount = new InfectionCubesCity(startingValue);
+        }
+
+        public static void IncrementInfectionCubes(COLOR color)
+        {
+            cubeCount.IncrementCubes(color);
+        }
+
+        public static void DecrementInfectionCubeCount(COLOR color)
+        {
+            cubeCount.DecrementCubeCount(color);
+        }
+
+        public static void AddInfectionCubes(COLOR color, int value)
+        {
+            cubeCount.AddCubes(color, value);
+        }
+
+        public static void SetInfectionCubeCount(COLOR color, int value)
+        {
+            cubeCount.SetCubeCount(color, value);
+        }
+
+        public static int GetInfectionCubeCount(COLOR color)
+        {
+            return cubeCount.GetCubeCount(color);
+        }
+#endregion
+
+
+
+
+
         public bool incTurnCount()
         {
             if (currentPlayerTurnCounter >= GetCurrentPlayer().getMaxTurnCount() -1)

@@ -706,40 +706,40 @@ namespace SQADemicAppTest
         public void TestIncrementAfterCureDiseaseBasicBlue()
         {
             opExpert.currentCity = chicagoCity;
-            GameBoardModels.cubeCount.SetCubeCount(COLOR.blue, 22);
+            GameBoardModels.SetInfectionCubeCount(COLOR.blue, 22);
             chicagoCity.Cubes.SetCubeCount(COLOR.blue, 2);
             Assert.AreEqual(true, opExpert.TreatDiseaseOption(COLOR.blue));
             Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.blue), 1);
-            Assert.AreEqual(GameBoardModels.cubeCount.GetCubeCount(COLOR.blue), 23);
+            Assert.AreEqual(GameBoardModels.GetInfectionCubeCount(COLOR.blue), 23);
         }
 
         [TestMethod]
         public void TestIncrementAfterCureDiseaseRed()
         {
             opExpert.currentCity = chicagoCity;
-            GameBoardModels.cubeCount.SetCubeCount(COLOR.red, 22);
+            GameBoardModels.SetInfectionCubeCount(COLOR.red, 22);
             chicagoCity.Cubes.SetCubeCount(COLOR.red, 2);
             Assert.AreEqual(true, opExpert.TreatDiseaseOption(COLOR.red));
             Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.red), 1);
-            Assert.AreEqual(GameBoardModels.cubeCount.GetCubeCount(COLOR.red), 23);
+            Assert.AreEqual(GameBoardModels.GetInfectionCubeCount(COLOR.red), 23);
         }
 
         [TestMethod]
         public void TestIncrementAfterMedicCureDiseaseRed()
         {
             medic.currentCity = chicagoCity;
-            GameBoardModels.cubeCount.SetCubeCount(COLOR.red, 22);
+            GameBoardModels.SetInfectionCubeCount(COLOR.red, 22);
             chicagoCity.Cubes.SetCubeCount(COLOR.red, 2);
             Assert.AreEqual(true, medic.TreatDiseaseOption(COLOR.red));
             Assert.AreEqual(chicagoCity.Cubes.GetCubeCount(COLOR.red), 0);
-            Assert.AreEqual(GameBoardModels.cubeCount.GetCubeCount(COLOR.red), 24);
+            Assert.AreEqual(GameBoardModels.GetInfectionCubeCount(COLOR.red), 24);
         }
 
         [TestMethod]
         public void TestDiseaseContainmentOnMove()
         {
             containmentSpecialst.currentCity = chicagoCity;
-            GameBoardModels.cubeCount.SetCubeCount(COLOR.red, 10);
+            GameBoardModels.SetInfectionCubeCount(COLOR.red, 10);
             sanFran.Cubes.SetCubeCount(COLOR.red, 4);
             Assert.AreEqual(4, sanFran.Cubes.GetCubeCount(COLOR.red));
             bool success = containmentSpecialst.MovePlayer(sanFran);

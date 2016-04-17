@@ -261,9 +261,9 @@ namespace SQADemicApp
         public static bool SetDiseaseCubes(City city, COLOR color, int numberAfterCure, int numberBeforeCure)
         {
             numberAfterCure = GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured ? 0 : numberAfterCure;
-            GameBoardModels.cubeCount.AddCubes(color, numberBeforeCure - numberAfterCure);
+            GameBoardModels.AddInfectionCubes(color, numberBeforeCure - numberAfterCure);
             city.Cubes.SetCubeCount(color, numberAfterCure);
-            if (GameBoardModels.cubeCount.GetCubeCount(color) == MAXCUBECOUNT && GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured)
+            if (GameBoardModels.GetInfectionCubeCount(color) == MAXCUBECOUNT && GameBoardModels.CURESTATUS.GetCureStatus(color) == Cures.CURESTATE.Cured)
                 GameBoardModels.CURESTATUS.SetCureStatus(color, Cures.CURESTATE.Sunset);
             return true;
         }
