@@ -59,9 +59,9 @@ namespace SQADemicApp
 
         //private void DrawBtn_Click(object sender, EventArgs e)
         //{
-        //    Card drawnCard = boardModel.drawCard();
+        //    Card drawnCard = boardModel.DrawCard();
         //    GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].hand.Add(drawnCard);
-        //    button49.Text = String.Format("Draw\n{0}", boardModel.playerDeckSize());
+        //    button49.Text = String.Format("Draw\n{0}", boardModel.GetPlayerDeckSize());
         //    UpdatePlayerForm();
         //}
 
