@@ -71,7 +71,7 @@ namespace SQADemicApp
             else
                 quietNight = true;
             GameBoard.turnpart = GameBoard.TURNPART.Action;
-            GameBoardModels.CurrentPlayerIndex = (GameBoardModels.CurrentPlayerIndex + 1) % GameBoardModels.players.Count();
+            GameBoardModels.CurrentPlayerIndex = (GameBoardModels.CurrentPlayerIndex + 1) % GameBoardModels.GetPlayerCount();
             board.UpdateCityButtons(false);
         }
 
@@ -94,7 +94,7 @@ namespace SQADemicApp
             else if (drawCard1.CardType == Card.CARDTYPE.Special)
                 GameBoardModels.eventCards.Add(drawCard1);
             else
-                GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].addCardToHand(drawCard1);
+                GameBoardModels.GetCurrentPlayer().addCardToHand(drawCard1);
                 
 
             if (drawCard2.CardType.Equals(Card.CARDTYPE.EPIDEMIC))
@@ -109,7 +109,7 @@ namespace SQADemicApp
             else if (drawCard2.CardType == Card.CARDTYPE.Special)
                 GameBoardModels.eventCards.Add(drawCard2);
             else
-                GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].addCardToHand(drawCard2);
+                GameBoardModels.GetCurrentPlayer().addCardToHand(drawCard2);
 
             //Move to infection phase
             if (!quietNight)
@@ -118,7 +118,7 @@ namespace SQADemicApp
             {
                 quietNight = false;
                 GameBoard.turnpart = GameBoard.TURNPART.Action;
-                GameBoardModels.CurrentPlayerIndex = (GameBoardModels.CurrentPlayerIndex + 1) % GameBoardModels.players.Count();
+                GameBoardModels.CurrentPlayerIndex = (GameBoardModels.CurrentPlayerIndex + 1) % GameBoardModels.GetPlayerCount();
             }
         }
     }

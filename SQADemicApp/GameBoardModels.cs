@@ -12,12 +12,10 @@ namespace SQADemicApp
     public enum COLOR { red, black, blue, yellow }
     public class GameBoardModels
     {
-        #region Public Static Vars
-        
-        
+        #region Public Static Vars 
         public static List<String> citiesWithResearchStations;
         public static int outbreakMarker = 0;
-        public static AbstractPlayer[] players;
+        
         public static int CurrentPlayerIndex;
         public static List<Card> eventCards;
         public static LinkedList<String> infectionDeck;
@@ -31,6 +29,7 @@ namespace SQADemicApp
         #endregion
 
         #region private vars
+        private static AbstractPlayer[] players;
         private static Cures CURESTATUS;
         private static InfectionCubes cubeCount;
         private static bool alreadySetUp = false;
@@ -161,8 +160,6 @@ namespace SQADemicApp
         #endregion
 
         /** BEGIN Command Pattern Methods **/
-
-
         #region CureStatus
 
         private static void GenerateCures()
@@ -214,7 +211,27 @@ namespace SQADemicApp
         }
         #endregion
 
+        #region Players
+        public static AbstractPlayer GetCurrentPlayer()
+        {
+            return players[CurrentPlayerIndex];
+        }
 
+        public static AbstractPlayer[] GetPlayers()
+        {
+            return players;
+        }
+
+        public static AbstractPlayer GetPlayerByIndex(int index)
+        {
+            return players[index];
+        }
+
+        public static int GetPlayerCount()
+        {
+            return players.Length;
+        }
+        #endregion
 
 
         public bool incTurnCount()
@@ -247,12 +264,6 @@ namespace SQADemicApp
         public int GetPlayerDeckSize()
         {
             return playerDeck.Count();
-        }
-
-        //GameBoardModels.players[GameBoardModels.CurrentPlayerIndex]
-        public static AbstractPlayer GetCurrentPlayer()
-        {
-            return players[CurrentPlayerIndex];
         }
     }
 }
