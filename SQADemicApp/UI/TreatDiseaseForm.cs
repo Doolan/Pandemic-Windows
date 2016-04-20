@@ -39,7 +39,7 @@ namespace SQADemicApp
                     colorChoice = COLOR.yellow;
                     break;
             }
-            GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].TreatDiseaseOption(colorChoice);
+            GameBoardModels.GetCurrentPlayer().TreatDiseaseOption(colorChoice);
 
             if (this.board.boardModel.incTurnCount())
                 GameBoard.turnpart = GameBoard.TURNPART.Draw;
