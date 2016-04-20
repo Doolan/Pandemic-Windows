@@ -14,7 +14,7 @@ namespace SQADemicApp.Players
             this.specialActions.Add("PeekAtTopThreeAction", new PeekAtTopThreeAction(this));
         }
 
-        /**
+        
         public override List<String> DirectFlightOption(List<Card> hand, City currentCity)
         {
             //Question here, why do we need to return a List<String> here?
@@ -26,6 +26,6 @@ namespace SQADemicApp.Players
 
             return returnlist;
         }
-        */
+        
     }
 }
