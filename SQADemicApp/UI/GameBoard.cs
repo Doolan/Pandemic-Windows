@@ -147,13 +147,11 @@ namespace SQADemicApp
             UpdatePlayerHand();
             if (GameBoardModels.GetCurrentPlayer().GetType() == typeof(DispatcherPlayer))
             {
-                playerForm.DispatcherMove.Show();
-                playerForm.AAButton.Location = new System.Drawing.Point(159, 82);
+                playerForm.addDispatcherButton();
             }
             else
             {
-                playerForm.DispatcherMove.Hide();
-                playerForm.AAButton.Location = new System.Drawing.Point(91, 81);
+                playerForm.removeDispatcherButton();
             }
             if (turnpart == TURNPART.Draw)
             {
