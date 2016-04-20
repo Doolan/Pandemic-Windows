@@ -23,7 +23,8 @@ namespace SQADemicApp
             "Researcher",
             "Archivist",
             "Generalist",
-            "Containment Specialist"
+            "Containment Specialist",
+            "Troubleshooter"
         };
 
         public SetupGameForm()

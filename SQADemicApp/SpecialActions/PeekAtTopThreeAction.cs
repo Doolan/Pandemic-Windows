@@ -15,13 +15,15 @@ namespace SQADemicApp.SpecialActions
         {
             Stack<Card> deck = GameBoardModels.playerDeck;
             String cards = "";
-            while (deck.Count != 0)
+            for (int i = 0; i < 3; i++ )
             {
-                cards = cards + deck.Pop().ToString() + "\n";
+                cards = cards + deck.Pop().CityName + "\n";
             }
-            MessageBox.Show("Top 3 Cards", cards, MessageBoxButtons.OK, MessageBoxIcon.None);
+            MessageBox.Show(cards, "Top 3 Cards", MessageBoxButtons.OK, MessageBoxIcon.None);
             return true;
         }
+
+        
 
     }
 }

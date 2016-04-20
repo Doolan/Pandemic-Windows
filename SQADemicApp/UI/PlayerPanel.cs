@@ -50,15 +50,11 @@ namespace SQADemicApp
                 newButton.Text = action;
 
                 //Small note: I have no idea why this syntax works
-                newButton.Click += (s, e) => { GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].PreformSpecialAction(action); };
+                newButton.Click += (s, e) => { GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].PreformSpecialAction(action); newButton.Enabled = false; };
+                newButton.AutoSize = true;
                 buttons.Add(newButton);
                 AAForm.ButtonPanel.Controls.Add(newButton);
             }
-        }
-
-        private void DynamicSpecialActionEvent_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void DispatcherMove_Click(object sender, EventArgs e)
