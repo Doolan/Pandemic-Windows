@@ -143,49 +143,35 @@ namespace SQADemicApp
         }
         public void UpdatePlayerForm()
         {
-            UpdateTurnProgressBoard();
-            UpdatePlayerHand();
+            playerForm.UpdateTurnProgressBoard(boardModel.currentPlayerTurnCounter, GameBoardModels.GetCurrentPlayer().getMaxTurnCount());
+            playerForm.UpdatePlayerHand(GameBoardModels.GetCurrentPlayer().HandStringList().ToArray());
             if (GameBoardModels.GetCurrentPlayer().GetType() == typeof(DispatcherPlayer))
             {
-                playerForm.addDispatcherButton();
+                playerForm.AddDispatcherButton();
             }
             else
             {
-                playerForm.removeDispatcherButton();
+                playerForm.RemoveDispatcherButton();
             }
             if (turnpart == TURNPART.Draw)
             {
-                playerForm.EndSequenceBtn.Text = "Draw Cards";
-                playerForm.EndSequenceBtn.Show();
+                playerForm.ShowDrawButton();
             }
             else if (turnpart == TURNPART.Infect)
             {
-                playerForm.EndSequenceBtn.Text = "Infect";
-                playerForm.EndSequenceBtn.Show();
+                playerForm.ShowInfectButton();
             }
             else
             {
-                playerForm.EndSequenceBtn.Hide();
+                playerForm.HideDrawInfectButton();
             }
             updateCharacterForm(GameBoardModels.CurrentPlayerIndex);
-            updateCubeCounts();
-            updateCounters();
-            updateCureStatus();
+            playerForm.updateCubeCounts(GameBoardModels.cubeCount.GetCubeCount(COLOR.red), GameBoardModels.cubeCount.GetCubeCount(COLOR.blue),
+                GameBoardModels.cubeCount.GetCubeCount(COLOR.black), GameBoardModels.cubeCount.GetCubeCount(COLOR.yellow));
+            playerForm.updateCounters(GameBoardModels.InfectionRate, GameBoardModels.outbreakMarker);
+            playerForm.updateCureStatus(GameBoardModels.CURESTATUS.GetCureStatus(COLOR.red).ToString(), GameBoardModels.CURESTATUS.GetCureStatus(COLOR.blue).ToString(),
+                GameBoardModels.CURESTATUS.GetCureStatus(COLOR.black).ToString(), GameBoardModels.CURESTATUS.GetCureStatus(COLOR.yellow).ToString());
             ECForm.UpdateEventCards();
-        }
-
-        private void UpdatePlayerHand()
-        {
-            playerForm.listBox1.Items.Clear();
-            playerForm.listBox1.Items.AddRange(
-                GameBoardModels.GetCurrentPlayer().HandStringList().ToArray());
-        }
-
-        private void UpdateTurnProgressBoard()
-        {
-            playerForm.MoveProgressBar.Value = 100*(boardModel.currentPlayerTurnCounter)/GameBoardModels.GetCurrentPlayer().getMaxTurnCount();
-            playerForm.MoveProgressBarLabel.Text = playerForm.MoveProgressBarLabel.Text.Substring(0, playerForm.MoveProgressBarLabel.Text.Length - 3) +
-                                     (Convert.ToInt32(boardModel.currentPlayerTurnCounter)) + "/" + GameBoardModels.GetCurrentPlayer().getMaxTurnCount();
         }
 
         private void updateCharacterForm(int p)
@@ -222,27 +208,6 @@ namespace SQADemicApp
                     form2.Player2.Text = "Player 2\n" + GameBoardModels.players[1] + "\n" + GameBoardModels.players[1].currentCity.Name;
                     break;       
             }
-        }
-        private void updateCubeCounts()
-        {
-            playerForm.RedCubes.Text = String.Format("Red Cubes Remaining:    {0,-2}/24", GameBoardModels.cubeCount.GetCubeCount(COLOR.red));
-            playerForm.BlueCubes.Text = String.Format("Blue Cubes Remaining:   {0,-2}/24", GameBoardModels.cubeCount.GetCubeCount(COLOR.blue));
-            playerForm.BlackCubes.Text = String.Format("Black Cubes Remaining:  {0,-2}/24", GameBoardModels.cubeCount.GetCubeCount(COLOR.black));
-            playerForm.YellowCubes.Text = String.Format("Yellow Cubes Remaining: {0,-2}/24", GameBoardModels.cubeCount.GetCubeCount(COLOR.yellow));
-        }
-        private void updateCounters()
-        {
-            playerForm.InfectionRate.Text = string.Format("Infection Rate: {0}", GameBoardModels.InfectionRate);
-            playerForm.OutbreakCount.Text = string.Format("Outbreak Count: {0}", GameBoardModels.outbreakMarker);
-        }
-        private void updateCureStatus()
-        {
-            // set value of cure label to status in game board
-            // if status is NotCured, change to No Cure for nicer appearance
-            playerForm.RedCure.Text = String.Format(   "Red:  {0}", GameBoardModels.CURESTATUS.GetCureStatus(COLOR.red).ToString().Replace("NotCured", "No Cure"));
-            playerForm.BlueCure.Text = String.Format(  "Blue: {0}", GameBoardModels.CURESTATUS.GetCureStatus(COLOR.blue).ToString().Replace("NotCured", "No Cure"));
-            playerForm.BlackCure.Text = String.Format( "Black:  {0}", GameBoardModels.CURESTATUS.GetCureStatus(COLOR.black).ToString().Replace("NotCured", "No Cure"));
-            playerForm.YellowCure.Text = String.Format("Yellow: {0}", GameBoardModels.CURESTATUS.GetCureStatus(COLOR.yellow).ToString().Replace("NotCured", "No Cure"));
         }
 
         private void button1_Click(object sender, EventArgs e)
