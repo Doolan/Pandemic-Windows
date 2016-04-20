@@ -61,6 +61,7 @@
             this.SelectButton.TabIndex = 4;
             this.SelectButton.Text = "Select";
             this.SelectButton.UseVisualStyleBackColor = true;
+            this.SelectButton.Click += new System.EventHandler(this.SelectButton_Click);
             // 
             // CubeSelector
             // 

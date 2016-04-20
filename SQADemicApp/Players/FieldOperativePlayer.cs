@@ -4,34 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQADemicApp.Objects;
+using SQADemicApp.SpecialActions;
 
 namespace SQADemicApp.Players
 {
     
     class FieldOperativePlayer : AbstractPlayer
     {
-        Dictionary<String, int> cubes;
-
+        private MoveCubeToCard action;
         public FieldOperativePlayer()
         {
-            cubes = new Dictionary<string, int>();
-            cubes.Add("Black", 0);
-            cubes.Add("Red", 0);
-            cubes.Add("Yellow", 0);
-            cubes.Add("Blue", 0);            
+            action = new MoveCubeToCard(this);
+            this.specialActions.Add("Add Cube to Card", action);
         }
 
-        public bool AddCubeToCard(String cube) 
+        public override bool CanCure(int numberOfAvailableCards, COLOR color)
         {
-            if (this.cubes[cube] >= 3) { return false; }
+            Dictionary<COLOR, String> colorToString = new Dictionary<COLOR, string>();
+            colorToString.Add(COLOR.black, "Black");
+            colorToString.Add(COLOR.blue, "Blue");
+            colorToString.Add(COLOR.red, "Red");
+            colorToString.Add(COLOR.yellow, "Yellow");
 
-            this.cubes[cube] = this.cubes[cube] + 1;
-            return true;
+            if (!IsCurable(color))
+                return false;
+            if (HaveEnoughCardsToCure(numberOfAvailableCards))
+                return true;
+            return numberOfAvailableCards == 3 && action.haveEnoughCubes(colorToString[color]);
         }
-
-        public int getCubeCount(String color)
-        {
-            return this.cubes[color];
-        }
+        
     }
 }

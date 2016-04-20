@@ -59,6 +59,7 @@
     <Compile Include="Players\ScientistPlayer.cs" />
     <Compile Include="Players\TroubleshooterPlayer.cs" />
     <Compile Include="SpecialActions\AbstractSpecialAction.cs" />
+    <Compile Include="SpecialActions\MoveCubeToCard.cs" />
     <Compile Include="SpecialActions\PeekAtTopThreeAction.cs" />
     <Compile Include="SpecialActions\ReclaimCityCardAction.cs" />
     <Compile Include="UI\AdvancedActions.cs">
@@ -76,6 +77,12 @@
     </Compile>
     <Compile Include="UI\CityPageForm.Designer.cs">
       <DependentUpon>CityPageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CubeSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CubeSelector.Designer.cs">
+      <DependentUpon>CubeSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forecast.cs">
       <SubType>Form</SubType>
@@ -161,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CityPageForm.resx">
       <DependentUpon>CityPageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CubeSelector.resx">
+      <DependentUpon>CubeSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forecast.resx">
       <DependentUpon>Forecast.cs</DependentUpon>

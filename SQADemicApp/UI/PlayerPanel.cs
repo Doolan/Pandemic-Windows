@@ -38,7 +38,7 @@ namespace SQADemicApp
             
             AddAdvancedActionButtonsForRole(AAForm);
 
-            AAForm.Show();
+            AAForm.ShowDialog();
         }
 
         private void AddAdvancedActionButtonsForRole(AdvancedActions AAForm)
@@ -50,7 +50,7 @@ namespace SQADemicApp
                 newButton.Text = action;
 
                 //Small note: I have no idea why this syntax works
-                newButton.Click += (s, e) => { GameBoardModels.GetCurrentPlayer().PreformSpecialAction(action); newButton.Enabled = false; };
+                newButton.Click += (s, e) => { GameBoardModels.GetCurrentPlayer().PreformSpecialAction(action, board); newButton.Enabled = false; };
                 newButton.AutoSize = true;
                 buttons.Add(newButton);
                 AAForm.ButtonPanel.Controls.Add(newButton);
