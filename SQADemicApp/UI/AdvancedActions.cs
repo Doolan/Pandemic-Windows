@@ -29,7 +29,7 @@ namespace SQADemicApp
 
         private void BuildResearchStation_Click(object sender, EventArgs e)
         {
-            if (!GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].BuildAResearchStationOption())
+            if (!GameBoardModels.GetCurrentPlayer().BuildAResearchStationOption())
             {
                 MessageBox.Show("Research Station unable to be built");
             }
