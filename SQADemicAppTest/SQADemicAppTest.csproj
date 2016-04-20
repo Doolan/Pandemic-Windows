@@ -49,7 +49,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -63,6 +65,7 @@
     <Compile Include="SpecialEventCardsTest.cs" />
     <Compile Include="TestFormActions.cs" />
     <Compile Include="UITest.cs" />
+    <Compile Include="SetupGameFormTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SQADemicApp\SQADemicApp.csproj">
