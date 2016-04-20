@@ -7,6 +7,7 @@ using System.Drawing;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UITest.Extension;
+using SQADemicApp;
 using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 
 
@@ -15,10 +16,16 @@ namespace SQADemicAppTest
     /// <summary>
     /// Summary description for UITest
     /// </summary>
-    [CodedUITest]
+    [TestClass]
     public class UITest
     {
+        
         public UITest()
+        {
+        }
+
+        [TestInitialize]
+        public void setUp()
         {
         }
 
@@ -46,6 +53,37 @@ namespace SQADemicAppTest
         //    // To generate code for this test, select "Generate Code for Coded UI Test" from the shortcut menu and select one of the menu items.
         //}
 
+        #endregion
+
+        #region CharacterPane
+
+        public void AssertHidePlayerButtonIsCorrect(int playerCount)
+        {
+            CharacterPane pane = new CharacterPane();
+            pane.HidePlayersByCount(playerCount);
+            for (int i = playerCount; i < 4; i++)
+            {
+                Assert.AreEqual(false, pane.getPlayerBtns()[i].Visible);
+            }
+        }
+
+        [TestMethod]
+        public void testOnePlayer()
+        {
+            AssertHidePlayerButtonIsCorrect(1);
+        }
+
+        [TestMethod]
+        public void testTwoPlayers()
+        {
+            AssertHidePlayerButtonIsCorrect(2);
+        }
+
+        [TestMethod]
+        public void testThreePlayers()
+        {
+            AssertHidePlayerButtonIsCorrect(3);
+        }
         #endregion
 
         /// <summary>
