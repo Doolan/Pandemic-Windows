@@ -111,6 +111,9 @@ namespace SQADemicApp
                     case "Generalist":
                         abstractPlayers[i] = new GeneralistPlayer();
                         break;
+                    case "Archivist":
+                        players[i] = new ArchivistPlayer();
+                        break;
                     default:
                         abstractPlayers[i] = null;
                         break;
@@ -151,7 +154,7 @@ namespace SQADemicApp
                     else if (card.CardType == Card.CARDTYPE.Special)
                         eventCards.Add(card);
                     else
-                        player.hand.Add(card);
+                        player.addCardToHand(card);
                 }
             }
         }

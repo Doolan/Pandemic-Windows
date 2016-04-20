@@ -35,7 +35,24 @@ namespace SQADemicApp
         private void AAButton_Click(object sender, EventArgs e)
         {
             AdvancedActions AAForm = new AdvancedActions(board);
+
+            // TODO check and get list of actions
+            String[] buttonLabels = { "button test 1", "button test 2" };
+            AddAdvancedActionButtonsForRole(AAForm, buttonLabels);
+
             AAForm.Show();
+        }
+
+        private void AddAdvancedActionButtonsForRole(AdvancedActions AAForm, String[] buttonLabels)
+        {
+            List<Button> buttons = new List<Button>();
+            foreach (String s in buttonLabels)
+            {
+                Button newButton = new Button();
+                newButton.Text = s;
+                buttons.Add(newButton);
+                AAForm.ButtonPanel.Controls.Add(newButton);
+            }
         }
 
         private void DispatcherMove_Click(object sender, EventArgs e)
@@ -120,6 +137,18 @@ namespace SQADemicApp
                 GameBoard.turnpart = GameBoard.TURNPART.Action;
                 GameBoardModels.CurrentPlayerIndex = (GameBoardModels.CurrentPlayerIndex + 1) % GameBoardModels.GetPlayerCount();
             }
+        }
+
+        public void addDispatcherButton()
+        {
+            this.DispatcherMove.Show();
+            this.AAButton.Location = new System.Drawing.Point(159, 82);
+        }
+
+        public void removeDispatcherButton()
+        {
+            this.DispatcherMove.Hide();
+            this.AAButton.Location = new System.Drawing.Point(91, 81);
         }
     }
 }
