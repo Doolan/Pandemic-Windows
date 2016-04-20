@@ -12,23 +12,9 @@ namespace SQADemicApp.specialActions
 
         public override bool PreformAction()
         {
-            if (discardPlayerDeckContain(player.currentCity.Name))
-            {
-                player.addCardToHand(GameBoardModels.discardPlayerDeck.First(c => c.CityName.Equals(player.currentCity.Name)));
-                return true;
-            }
-            return false;
-        }
-
-        private bool discardPlayerDeckContain(String cityName)
-        {
-            foreach(Card card in GameBoardModels.discardPlayerDeck) {
-                if (card.CityName.Equals(cityName))
-                {
-                    return true;
-                }
-            }
-            return false;
+            if (!GameBoardModels.PlayerDiscardPileContains(player.currentCity.Name)) return false;
+            player.addCardToHand(GameBoardModels.ReclaminCityCardFromPlayerDeck(player.currentCity.Name));
+            return true;
         }
     }
 

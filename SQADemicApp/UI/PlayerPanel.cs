@@ -65,7 +65,7 @@ namespace SQADemicApp
         {
             if (!quietNight)
             {
-                List<string> infectedcites = InfectorBL.InfectCities(GameBoardModels.infectionDeck, GameBoardModels.infectionPile, GameBoardModels.InfectionRate);
+                List<string> infectedcites = InfectorBL.InfectCities(GameBoardModels.GetInfectionDeck(), GameBoardModels.GetInfectionPile(), GameBoardModels.InfectionRate);
                 InfectorBL.InfectCities(infectedcites);
             }
             else
@@ -84,7 +84,7 @@ namespace SQADemicApp
             //Epidemic code
             if (drawCard1.CardType.Equals(Card.CARDTYPE.EPIDEMIC))
             {
-                string infectcityname = InfectorBL.Epidemic(GameBoardModels.infectionDeck, GameBoardModels.infectionPile, ref GameBoardModels.InfectionRateIndex, ref GameBoardModels.InfectionRate);
+                string infectcityname = InfectorBL.Epidemic(GameBoardModels.GetInfectionDeck(), GameBoardModels.GetInfectionPile(), ref GameBoardModels.InfectionRateIndex, ref GameBoardModels.InfectionRate);
                 new PicForm(false, infectcityname).Show();
                 for (int i = 0; i < 3; i++)
                 {
@@ -99,7 +99,7 @@ namespace SQADemicApp
 
             if (drawCard2.CardType.Equals(Card.CARDTYPE.EPIDEMIC))
             {
-                string infectcityname = InfectorBL.Epidemic(GameBoardModels.infectionDeck, GameBoardModels.infectionPile, ref GameBoardModels.InfectionRateIndex, ref GameBoardModels.InfectionRate);
+                string infectcityname = InfectorBL.Epidemic(GameBoardModels.GetInfectionDeck(), GameBoardModels.GetInfectionPile(), ref GameBoardModels.InfectionRateIndex, ref GameBoardModels.InfectionRate);
                 new PicForm(false, infectcityname).Show();
                 for (int i = 0; i < 3; i++)
                 {

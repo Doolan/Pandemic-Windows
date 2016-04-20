@@ -15,11 +15,12 @@ namespace SQADemicApp
         #region Public Static Vars 
         public static List<String> citiesWithResearchStations;
         public static int outbreakMarker = 0;
-        
         public static int CurrentPlayerIndex;
         public static List<Card> eventCards;
-        public static LinkedList<String> infectionDeck;
-        public static LinkedList<String> infectionPile;
+        private static LinkedList<String> infectionDeck;
+        private static LinkedList<String> infectionPile;
+        private static Stack<Card> playerDeck;
+        private static Stack<Card> discardPlayerDeck;
         public static int InfectionRate;
         public static int InfectionRateIndex;
         #endregion
@@ -33,8 +34,7 @@ namespace SQADemicApp
         private static Cures CURESTATUS;
         private static InfectionCubes cubeCount;
         private static bool alreadySetUp = false;
-        public static Stack<Card> playerDeck;
-        public static Stack<Card> discardPlayerDeck;
+
         private static int MAXCUBECOUNT = 24;
         #endregion
 
@@ -61,7 +61,6 @@ namespace SQADemicApp
                 infectionPile = new LinkedList<String>();
                 infectionDeck = new LinkedList<string>(Create.makeInfectionDeck(new StringReader(SQADemicApp.Properties.Resources.InfectionDeck)));
             }
-
 
             currentPlayerTurnCounter = 0;
             CurrentPlayerIndex = 0;
@@ -232,6 +231,41 @@ namespace SQADemicApp
             return players.Length;
         }
         #endregion
+
+        #region Decks 
+
+        public static bool PlayerDiscardPileContains(string cityName)
+        {
+            return GameBoardModels.discardPlayerDeck.Count(c => c.CityName.Equals(cityName)) >0;
+        }
+
+        public static Card ReclaminCityCardFromPlayerDeck(string cityName)
+        {
+            return GameBoardModels.discardPlayerDeck.First(c => c.CityName.Equals(cityName));
+        }
+
+        public static LinkedList<string> GetInfectionDeck()
+        {
+            return GameBoardModels.infectionDeck;
+        }
+
+        public static LinkedList<string> GetInfectionPile()
+        {
+            return GameBoardModels.infectionPile;
+        }
+
+        public static void RemoveFromInfectionPile(string cityName)
+        {
+            GameBoardModels.infectionPile.Remove(cityName);
+        }
+
+        public static void DiscardCard(Card card)
+        {
+            GameBoardModels.discardPlayerDeck.Push(card);
+        }
+
+
+#endregion
 
 
         public bool incTurnCount()
