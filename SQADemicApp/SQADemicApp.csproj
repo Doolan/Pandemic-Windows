@@ -58,6 +58,7 @@
     <Compile Include="Players\ScientistPlayer.cs" />
     <Compile Include="Players\Troubleshooter.cs" />
     <Compile Include="SpecialActions\AbstractSpecialAction.cs" />
+    <Compile Include="SpecialActions\PeekAtTopThreeAction.cs" />
     <Compile Include="SpecialActions\ReclaimCityCardAction.cs" />
     <Compile Include="UI\AdvancedActions.cs">
       <SubType>Form</SubType>

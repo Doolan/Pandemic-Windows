@@ -9,6 +9,8 @@ namespace SQADemicApp.SpecialActions
 {
     class PeekAtTopThreeAction : AbstractSpecialAction
     {
+
+        public PeekAtTopThreeAction(AbstractPlayer player) : base(player) { }
         public override bool PreformAction()
         {
             Stack<Card> deck = GameBoardModels.playerDeck;
