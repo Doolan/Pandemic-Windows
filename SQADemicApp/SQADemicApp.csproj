@@ -148,6 +148,12 @@
     <Compile Include="UI\ShareCardForm.Designer.cs">
       <DependentUpon>ShareCardForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SpecialShareAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SpecialShareAction.Designer.cs">
+      <DependentUpon>SpecialShareAction.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\TreatDiseaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ShareCardForm.resx">
       <DependentUpon>ShareCardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SpecialShareAction.resx">
+      <DependentUpon>SpecialShareAction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TreatDiseaseForm.resx">
       <DependentUpon>TreatDiseaseForm.cs</DependentUpon>
