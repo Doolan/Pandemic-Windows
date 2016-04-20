@@ -51,12 +51,13 @@
     <Compile Include="Players\ArchivistPlayer.cs" />
     <Compile Include="Players\ContainmentSpecialstPlayer.cs" />
     <Compile Include="Players\DispatcherPlayer.cs" />
+    <Compile Include="Players\FieldOperativePlayer.cs" />
     <Compile Include="Players\GeneralistPlayer.cs" />
     <Compile Include="Players\MedicPlayer.cs" />
     <Compile Include="Players\OpExpertPlayer.cs" />
     <Compile Include="Players\ResearcherPlayer.cs" />
     <Compile Include="Players\ScientistPlayer.cs" />
-    <Compile Include="Players\Troubleshooter.cs" />
+    <Compile Include="Players\TroubleshooterPlayer.cs" />
     <Compile Include="SpecialActions\AbstractSpecialAction.cs" />
     <Compile Include="SpecialActions\PeekAtTopThreeAction.cs" />
     <Compile Include="SpecialActions\ReclaimCityCardAction.cs" />
@@ -148,12 +149,6 @@
     <Compile Include="UI\ShareCardForm.Designer.cs">
       <DependentUpon>ShareCardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SpecialShareAction.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\SpecialShareAction.Designer.cs">
-      <DependentUpon>SpecialShareAction.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\TreatDiseaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,9 +206,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ShareCardForm.resx">
       <DependentUpon>ShareCardForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\SpecialShareAction.resx">
-      <DependentUpon>SpecialShareAction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TreatDiseaseForm.resx">
       <DependentUpon>TreatDiseaseForm.cs</DependentUpon>
