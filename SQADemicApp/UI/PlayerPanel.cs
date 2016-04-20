@@ -34,25 +34,31 @@ namespace SQADemicApp
 
         private void AAButton_Click(object sender, EventArgs e)
         {
-            AdvancedActions AAForm = new AdvancedActions(board);
-
-            // TODO check and get list of actions
-            String[] buttonLabels = { "button test 1", "button test 2" };
-            AddAdvancedActionButtonsForRole(AAForm, buttonLabels);
+            AdvancedActions AAForm = new AdvancedActions(board);    
+            
+            AddAdvancedActionButtonsForRole(AAForm);
 
             AAForm.Show();
         }
 
-        private void AddAdvancedActionButtonsForRole(AdvancedActions AAForm, String[] buttonLabels)
+        private void AddAdvancedActionButtonsForRole(AdvancedActions AAForm)
         {
             List<Button> buttons = new List<Button>();
-            foreach (String s in buttonLabels)
+            foreach (String action in GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].GetSpecialActions())
             {
                 Button newButton = new Button();
-                newButton.Text = s;
+                newButton.Text = action;
+
+                //Small note: I have no idea why this syntax works
+                newButton.Click += (s, e) => { GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].PreformSpecialAction(action); };
                 buttons.Add(newButton);
                 AAForm.ButtonPanel.Controls.Add(newButton);
             }
+        }
+
+        private void DynamicSpecialActionEvent_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void DispatcherMove_Click(object sender, EventArgs e)

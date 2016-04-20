@@ -93,6 +93,9 @@ namespace SQADemicApp
                     case "Archivist":
                         players[i] = new ArchivistPlayer();
                         break;
+                    case "Troubleshooter":
+                        players[i] = new Troubleshooter();
+                        break;
                     default:
                         players[i] = null;
                         break;
