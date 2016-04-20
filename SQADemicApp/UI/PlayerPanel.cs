@@ -138,5 +138,17 @@ namespace SQADemicApp
                 GameBoardModels.CurrentPlayerIndex = (GameBoardModels.CurrentPlayerIndex + 1) % GameBoardModels.players.Count();
             }
         }
+
+        public void addDispatcherButton()
+        {
+            this.DispatcherMove.Show();
+            this.AAButton.Location = new System.Drawing.Point(159, 82);
+        }
+
+        public void removeDispatcherButton()
+        {
+            this.DispatcherMove.Hide();
+            this.AAButton.Location = new System.Drawing.Point(91, 81);
+        }
     }
 }
