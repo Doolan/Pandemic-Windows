@@ -116,7 +116,7 @@ namespace SQADemicApp
                         players[i] = new ArchivistPlayer();
                         break;
                     case "Troubleshooter":
-                        players[i] = new Troubleshooter();
+                        players[i] = new TroubleshooterPlayer();
                         break;
                     default:
                         abstractPlayers[i] = null;

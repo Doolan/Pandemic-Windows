@@ -44,13 +44,13 @@ namespace SQADemicApp
         private void AddAdvancedActionButtonsForRole(AdvancedActions AAForm)
         {
             List<Button> buttons = new List<Button>();
-            foreach (String action in GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].GetSpecialActions())
+            foreach (String action in GameBoardModels.GetCurrentPlayer().GetSpecialActions())
             {
                 Button newButton = new Button();
                 newButton.Text = action;
 
                 //Small note: I have no idea why this syntax works
-                newButton.Click += (s, e) => { GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].PreformSpecialAction(action); newButton.Enabled = false; };
+                newButton.Click += (s, e) => { GameBoardModels.GetCurrentPlayer().PreformSpecialAction(action); newButton.Enabled = false; };
                 newButton.AutoSize = true;
                 buttons.Add(newButton);
                 AAForm.ButtonPanel.Controls.Add(newButton);

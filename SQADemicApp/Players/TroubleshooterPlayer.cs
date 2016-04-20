@@ -7,9 +7,9 @@ using SQADemicApp.SpecialActions;
 
 namespace SQADemicApp.Players
 {
-    class Troubleshooter : AbstractPlayer
+    class TroubleshooterPlayer : AbstractPlayer
     {
-        public Troubleshooter()
+        public TroubleshooterPlayer()
         {
             this.specialActions.Add("PeekAtTopThreeAction", new PeekAtTopThreeAction(this));
         }
