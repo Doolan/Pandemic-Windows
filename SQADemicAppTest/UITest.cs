@@ -24,9 +24,13 @@ namespace SQADemicAppTest
         {
         }
 
+        private GameBoardModels models;
+        string[] players = { "Dispatcher", "Scientist", "Medic", "Operations Expert" };
+
         [TestInitialize]
         public void setUp()
         {
+            models = new GameBoardModels(players);
         }
 
         //[TestMethod]
@@ -83,6 +87,42 @@ namespace SQADemicAppTest
         public void testThreePlayers()
         {
             AssertHidePlayerButtonIsCorrect(3);
+        }
+        #endregion
+
+        #region GameBoard
+
+        public void AssertUpdatePlayerButtonByTextIsCorrect(int index)
+        {
+            CharacterPane pane = new CharacterPane();
+            string cityName = "Chicago";
+            GameBoard.UpdatePlayerButtonTextAccordingToIndex(pane, index, cityName);
+            Assert.AreEqual("Player " + (index + 1) + "\n" + GameBoardModels.GetPlayerByIndex(index) + "\n" + cityName,
+               pane.getPlayerBtns()[index].Text);
+        }
+
+        [TestMethod]
+        public void TestUpdatePlayerButtonTextOfIndexZero()
+        {
+            AssertUpdatePlayerButtonByTextIsCorrect(0);
+        }
+
+        [TestMethod]
+        public void TestUpdatePlayerButtonTextOfIndexOne()
+        {
+            AssertUpdatePlayerButtonByTextIsCorrect(1);
+        }
+
+        [TestMethod]
+        public void TestUpdatePlayerButtonTextOfIndexTwo()
+        {
+            AssertUpdatePlayerButtonByTextIsCorrect(2);
+        }
+
+        [TestMethod]
+        public void TestUpdatePlayerButtonTextOfIndexThree()
+        {
+            AssertUpdatePlayerButtonByTextIsCorrect(3);
         }
         #endregion
 

@@ -80,21 +80,7 @@ namespace SQADemicApp
                 case STATE.Dispatcher:
                     if (GameBoardModels.GetPlayerByIndex(dispatcherMoveIndex).DispatcherMovePlayer(new List<AbstractPlayer>(GameBoardModels.GetPlayers()), Create.cityDictionary[cityName]))
                     {
-                        switch (dispatcherMoveIndex)
-                        {
-                            case 3:
-                                form2.Player4.Text = "Player 4\n" + GameBoardModels.GetPlayerByIndex(3) + "\n" + cityName;
-                                break;
-                            case 2:
-                                form2.Player3.Text = "Player 3\n" + GameBoardModels.GetPlayerByIndex(2) + "\n" + cityName;
-                                break;
-                            case 1:
-                                form2.Player2.Text = "Player 2\n" + GameBoardModels.GetPlayerByIndex(1) + "\n" + cityName;
-                                break;
-                            default:
-                                form2.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + cityName;
-                                break;
-                        }
+                        UpdatePlayerButtonTextAccordingToIndex(form2, dispatcherMoveIndex, cityName);
                         if (boardModel.incTurnCount())
                             turnpart = TURNPART.Draw;
                         UpdatePlayerForm();
@@ -108,21 +94,7 @@ namespace SQADemicApp
                 case STATE.Move:
                     if (GameBoardModels.GetCurrentPlayer().MovePlayer(Create.cityDictionary[cityName]))
                     {
-                        switch (GameBoardModels.CurrentPlayerIndex)
-                        {
-                            case 3:
-                                form2.Player4.Text = "Player 4\n" + GameBoardModels.GetPlayerByIndex(3) + "\n" + cityName;
-                                break;
-                            case 2:
-                                form2.Player3.Text = "Player 3\n" + GameBoardModels.GetPlayerByIndex(2) + "\n" + cityName;
-                                break;
-                            case 1:
-                                form2.Player2.Text = "Player 2\n" + GameBoardModels.GetPlayerByIndex(1) + "\n" + cityName;
-                                break;
-                            default:
-                                form2.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + cityName;
-                                break;
-                        }
+                        UpdatePlayerButtonTextAccordingToIndex(form2, GameBoardModels.CurrentPlayerIndex, cityName);
                         bool endofturn = boardModel.incTurnCount();
                         if (endofturn)
                             turnpart = TURNPART.Draw;
@@ -141,6 +113,18 @@ namespace SQADemicApp
             }
             CurrentState = STATE.Default;
         }
+
+        public CharacterPane GetCharacterPane()
+        {
+            return form2;
+        }
+
+        public static void UpdatePlayerButtonTextAccordingToIndex(CharacterPane pane, int index, string cityName)
+        {
+            pane.getPlayerBtns()[index].Text = 
+                "Player " + (index + 1) + "\n" + GameBoardModels.GetPlayerByIndex(index) + "\n" + cityName;
+        }
+
         public void UpdatePlayerForm()
         {
             UpdateTurnProgressBoard();
