@@ -59,9 +59,9 @@ namespace SQADemicApp
 
         //private void DrawBtn_Click(object sender, EventArgs e)
         //{
-        //    Card drawnCard = boardModel.drawCard();
-        //    GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].hand.Add(drawnCard);
-        //    button49.Text = String.Format("Draw\n{0}", boardModel.playerDeckSize());
+        //    Card drawnCard = boardModel.DrawCard();
+        //    GameBoardModels.GetCurrentPlayer().hand.Add(drawnCard);
+        //    button49.Text = String.Format("Draw\n{0}", boardModel.GetPlayerDeckSize());
         //    UpdatePlayerForm();
         //}
 
@@ -72,27 +72,27 @@ namespace SQADemicApp
             switch (CurrentState)
             {
                 case STATE.Airlift:
-                    SpecialEventCardsBL.Airlift(GameBoardModels.players[GameBoardModels.CurrentPlayerIndex], Create.cityDictionary[cityName]);
+                    SpecialEventCardsBL.Airlift(GameBoardModels.GetCurrentPlayer(), Create.cityDictionary[cityName]);
                     break;
                 case STATE.GovGrant:
                     SpecialEventCardsBL.GovernmentGrant(cityName);
                     break;
                 case STATE.Dispatcher:
-                    if (GameBoardModels.players[dispatcherMoveIndex].DispatcherMovePlayer(new List<AbstractPlayer>(GameBoardModels.players), Create.cityDictionary[cityName]))
+                    if (GameBoardModels.GetPlayerByIndex(dispatcherMoveIndex).DispatcherMovePlayer(new List<AbstractPlayer>(GameBoardModels.GetPlayers()), Create.cityDictionary[cityName]))
                     {
                         switch (dispatcherMoveIndex)
                         {
                             case 3:
-                                form2.Player4.Text = "Player 4\n" + GameBoardModels.players[3] + "\n" + cityName;
+                                form2.Player4.Text = "Player 4\n" + GameBoardModels.GetPlayerByIndex(3) + "\n" + cityName;
                                 break;
                             case 2:
-                                form2.Player3.Text = "Player 3\n" + GameBoardModels.players[2] + "\n" + cityName;
+                                form2.Player3.Text = "Player 3\n" + GameBoardModels.GetPlayerByIndex(2) + "\n" + cityName;
                                 break;
                             case 1:
-                                form2.Player2.Text = "Player 2\n" + GameBoardModels.players[1] + "\n" + cityName;
+                                form2.Player2.Text = "Player 2\n" + GameBoardModels.GetPlayerByIndex(1) + "\n" + cityName;
                                 break;
                             default:
-                                form2.Player1.Text = "Player 1\n" + GameBoardModels.players[0] + "\n" + cityName;
+                                form2.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + cityName;
                                 break;
                         }
                         if (boardModel.incTurnCount())
@@ -106,21 +106,21 @@ namespace SQADemicApp
                     }
                     break;
                 case STATE.Move:
-                    if (GameBoardModels.players[GameBoardModels.CurrentPlayerIndex].MovePlayer(Create.cityDictionary[cityName]))
+                    if (GameBoardModels.GetCurrentPlayer().MovePlayer(Create.cityDictionary[cityName]))
                     {
                         switch (GameBoardModels.CurrentPlayerIndex)
                         {
                             case 3:
-                                form2.Player4.Text = "Player 4\n" + GameBoardModels.players[3] + "\n" + cityName;
+                                form2.Player4.Text = "Player 4\n" + GameBoardModels.GetPlayerByIndex(3) + "\n" + cityName;
                                 break;
                             case 2:
-                                form2.Player3.Text = "Player 3\n" + GameBoardModels.players[2] + "\n" + cityName;
+                                form2.Player3.Text = "Player 3\n" + GameBoardModels.GetPlayerByIndex(2) + "\n" + cityName;
                                 break;
                             case 1:
-                                form2.Player2.Text = "Player 2\n" + GameBoardModels.players[1] + "\n" + cityName;
+                                form2.Player2.Text = "Player 2\n" + GameBoardModels.GetPlayerByIndex(1) + "\n" + cityName;
                                 break;
                             default:
-                                form2.Player1.Text = "Player 1\n" + GameBoardModels.players[0] + "\n" + cityName;
+                                form2.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + cityName;
                                 break;
                         }
                         bool endofturn = boardModel.incTurnCount();
@@ -195,17 +195,17 @@ namespace SQADemicApp
                     form2.Player4.UseVisualStyleBackColor = form2.Player3.UseVisualStyleBackColor = form2.Player2.UseVisualStyleBackColor = true;
                     break;
             }
-            switch(GameBoardModels.players.Length)
+            switch(GameBoardModels.GetPlayerCount())
             {
                 case 4:
-                    form2.Player4.Text = "Player 4\n" + GameBoardModels.players[3] + "\n" + GameBoardModels.players[3].currentCity.Name;
+                    form2.Player4.Text = "Player 4\n" + GameBoardModels.GetPlayerByIndex(3) + "\n" + GameBoardModels.GetPlayerByIndex(3).currentCity.Name;
                     goto case 3;
                 case 3:
-                    form2.Player3.Text = "Player 3\n" + GameBoardModels.players[2] + "\n" + GameBoardModels.players[2].currentCity.Name;
+                    form2.Player3.Text = "Player 3\n" + GameBoardModels.GetPlayerByIndex(2) + "\n" + GameBoardModels.GetPlayerByIndex(2).currentCity.Name;
                     goto case 2;
                 case 2:
-                    form2.Player1.Text = "Player 1\n" + GameBoardModels.players[0] + "\n" + GameBoardModels.players[0].currentCity.Name;
-                    form2.Player2.Text = "Player 2\n" + GameBoardModels.players[1] + "\n" + GameBoardModels.players[1].currentCity.Name;
+                    form2.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + GameBoardModels.GetPlayerByIndex(0).currentCity.Name;
+                    form2.Player2.Text = "Player 2\n" + GameBoardModels.GetPlayerByIndex(1) + "\n" + GameBoardModels.GetPlayerByIndex(1).currentCity.Name;
                     break;       
             }
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Runtime.CompilerServices;
 using SQADemicApp.BL;
 using SQADemicApp.Objects;
 using SQADemicApp.Players;
@@ -11,12 +12,10 @@ namespace SQADemicApp
     public enum COLOR { red, black, blue, yellow }
     public class GameBoardModels
     {
-        #region Public Static Vars
-        public static InfectionCubes cubeCount;
-        public static Cures CURESTATUS;
+        #region Public Static Vars 
         public static List<String> citiesWithResearchStations;
         public static int outbreakMarker = 0;
-        public static AbstractPlayer[] players;
+        
         public static int CurrentPlayerIndex;
         public static List<Card> eventCards;
         public static LinkedList<String> infectionDeck;
@@ -30,6 +29,9 @@ namespace SQADemicApp
         #endregion
 
         #region private vars
+        private static AbstractPlayer[] players;
+        private static Cures CURESTATUS;
+        private static InfectionCubes cubeCount;
         private static bool alreadySetUp = false;
         public static Stack<Card> playerDeck;
         public static Stack<Card> discardPlayerDeck;
@@ -40,14 +42,14 @@ namespace SQADemicApp
         /// Acts as a Main function. Sets up the game and the board state
         /// </summary>
         /// <param name="playersroles"></param>
-        public GameBoardModels(string[] playersroles)
+        public GameBoardModels(IReadOnlyList<string> playersroles)
         {
             //Keep from making duplicates
             if (!alreadySetUp)
             {
                 //set vars
                 outbreakMarker = 0;
-                cubeCount = new InfectionCubesBoard(MAXCUBECOUNT);
+                CreateInfectionCubes(MAXCUBECOUNT);
                 CURESTATUS = new Cures();
               //  CURESTATUS.BlackCure = CURESTATUS.BlueCure = CURESTATUS.RedCure = CURESTATUS.YellowCure = Cures.CURESTATE.NotCured;
                 Card[] playerDeckArray;
@@ -60,44 +62,12 @@ namespace SQADemicApp
                 infectionDeck = new LinkedList<string>(Create.makeInfectionDeck(new StringReader(SQADemicApp.Properties.Resources.InfectionDeck)));
             }
 
-            //Players setup allows existing players to be overwritten
-            players = new AbstractPlayer[playersroles.Length];
+
             currentPlayerTurnCounter = 0;
             CurrentPlayerIndex = 0;
-
-            for (int i = 0; i < playersroles.Count(); i++)
-            {
-                switch (playersroles[i])
-                {
-                    case "Dispatcher":
-                        players[i] = new DispatcherPlayer();
-                        break;
-                    case "Operations Expert":
-                        players[i] = new OpExpertPlayer();
-                        break;
-                    case "Scientist":
-                        players[i] = new ScientistPlayer();
-                        break;
-                    case "Medic":
-                        players[i] = new MedicPlayer();
-                        break;
-                    case "Researcher":
-                        players[i] = new ResearcherPlayer();
-                        break;
-                    case "Containment Specialist":
-                        players[i] = new ContainmentSpecialstPlayer();
-                        break;
-                    case "Generalist":
-                        players[i] = new GeneralistPlayer();
-                        break;
-                    case "Archivist":
-                        players[i] = new ArchivistPlayer();
-                        break;
-                    default:
-                        players[i] = null;
-                        break;
-                }
-            }
+            
+            GameBoardModels.players = CreatePlayers(playersroles);
+            
             InfectionRate = 2;
             InfectionRateIndex = 0;
             if (!alreadySetUp)
@@ -108,6 +78,49 @@ namespace SQADemicApp
 
             alreadySetUp = true;
 
+        }
+
+
+        #region Setup & Config
+
+        private static AbstractPlayer[] CreatePlayers(IReadOnlyList<string> playersroles)
+        {
+            //Players setup allows existing players to be overwritten
+            var abstractPlayers = new AbstractPlayer[playersroles.Count];
+            for (var i = 0; i < playersroles.Count(); i++)
+            {
+                switch (playersroles[i])
+                {
+                    case "Dispatcher":
+                        abstractPlayers[i] = new DispatcherPlayer();
+                        break;
+                    case "Operations Expert":
+                        abstractPlayers[i] = new OpExpertPlayer();
+                        break;
+                    case "Scientist":
+                        abstractPlayers[i] = new ScientistPlayer();
+                        break;
+                    case "Medic":
+                        abstractPlayers[i] = new MedicPlayer();
+                        break;
+                    case "Researcher":
+                        abstractPlayers[i] = new ResearcherPlayer();
+                        break;
+                    case "Containment Specialist":
+                        abstractPlayers[i] = new ContainmentSpecialstPlayer();
+                        break;
+                    case "Generalist":
+                        abstractPlayers[i] = new GeneralistPlayer();
+                        break;
+                    case "Archivist":
+                        players[i] = new ArchivistPlayer();
+                        break;
+                    default:
+                        abstractPlayers[i] = null;
+                        break;
+                }
+            }
+            return abstractPlayers;
         }
 
         private void startGameInfection()
@@ -129,7 +142,7 @@ namespace SQADemicApp
             {
                 for (int i = 0; i < cardsPerPlayer; i++)
                 {
-                    Card card = drawCard();
+                    Card card = DrawCard();
                     if (card.CardType.Equals(Card.CARDTYPE.EPIDEMIC))
                     {
                         string infectcityname = InfectorBL.Epidemic(GameBoardModels.infectionDeck, GameBoardModels.infectionPile, ref GameBoardModels.InfectionRateIndex, ref GameBoardModels.InfectionRate);
@@ -147,6 +160,83 @@ namespace SQADemicApp
             }
         }
 
+        #endregion
+
+        /** BEGIN Command Pattern Methods **/
+        #region CureStatus
+
+        private static void GenerateCures()
+        {
+            CURESTATUS = new Cures(Cures.CURESTATE.NotCured);
+        }
+
+        public static Cures.CURESTATE GetCureStatus(COLOR color)
+        {
+            return CURESTATUS.GetCureStatus(color);
+        }
+
+        public static void SetCureStatus(COLOR color, Cures.CURESTATE curestate)
+        {
+            CURESTATUS.SetCureStatus(color, curestate);
+        }
+        #endregion
+
+        #region Infection Cubes 
+
+        private static void CreateInfectionCubes(int startingValue)
+        {
+            cubeCount = new InfectionCubesBoard(startingValue);
+        }
+
+        public static void IncrementInfectionCubes(COLOR color)
+        {
+            cubeCount.IncrementCubes(color);
+        }
+
+        public static void DecrementInfectionCubeCount(COLOR color)
+        {
+            cubeCount.DecrementCubeCount(color);
+        }
+
+        public static void AddInfectionCubes(COLOR color, int value)
+        {
+            cubeCount.AddCubes(color, value);
+        }
+
+        public static void SetInfectionCubeCount(COLOR color, int value)
+        {
+            cubeCount.SetCubeCount(color, value);
+        }
+
+        public static int GetInfectionCubeCount(COLOR color)
+        {
+            return cubeCount.GetCubeCount(color);
+        }
+        #endregion
+
+        #region Players
+        public static AbstractPlayer GetCurrentPlayer()
+        {
+            return players[CurrentPlayerIndex];
+        }
+
+        public static AbstractPlayer[] GetPlayers()
+        {
+            return players;
+        }
+
+        public static AbstractPlayer GetPlayerByIndex(int index)
+        {
+            return players[index];
+        }
+
+        public static int GetPlayerCount()
+        {
+            return players.Length;
+        }
+        #endregion
+
+
         public bool incTurnCount()
         {
             if (currentPlayerTurnCounter >= GetCurrentPlayer().getMaxTurnCount() -1)
@@ -162,7 +252,7 @@ namespace SQADemicApp
             //currentPlayerTurnCounter++;
         }
 
-        public static Card drawCard()
+        public static Card DrawCard()
         {
             try
             {
@@ -174,15 +264,9 @@ namespace SQADemicApp
             }
         }
 
-        public int playerDeckSize()
+        public int GetPlayerDeckSize()
         {
             return playerDeck.Count();
-        }
-
-        //GameBoardModels.players[GameBoardModels.CurrentPlayerIndex]
-        public static AbstractPlayer GetCurrentPlayer()
-        {
-            return players[CurrentPlayerIndex];
         }
     }
 }
