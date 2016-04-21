@@ -7,7 +7,7 @@ using SQADemicApp.SpecialActions;
 
 namespace SQADemicApp.Players
 {
-    class TroubleshooterPlayer : AbstractPlayer
+    public class TroubleshooterPlayer : AbstractPlayer
     {
         public TroubleshooterPlayer()
         {

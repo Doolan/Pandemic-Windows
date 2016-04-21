@@ -17,7 +17,7 @@ namespace SQADemicAppTest
         List<Card> hand, pile;
         List<AbstractPlayer> players;
         Card chennai, newYork, atlanta, chicagoCard, london, paris, milan, airlift;
-        AbstractPlayer dispatcher, medic, opExpert, researcher, scientist, containmentSpecialst;
+        AbstractPlayer dispatcher, medic, opExpert, researcher, scientist, containmentSpecialst, troubleshooter, FieldOperative, Generalist, archivist;
         GameBoardModels gameBoardModels;
 
 
@@ -55,6 +55,10 @@ namespace SQADemicAppTest
             researcher = new ResearcherPlayer();
             medic = new MedicPlayer();
             containmentSpecialst = new ContainmentSpecialstPlayer();
+            troubleshooter = new TroubleshooterPlayer();
+            FieldOperative = new FieldOperativePlayer();
+            Generalist = new GeneralistPlayer();
+            archivist = new ArchivistPlayer();
             players = new List<AbstractPlayer> { scientist, opExpert, researcher, medic };
         }
 
@@ -690,6 +694,28 @@ namespace SQADemicAppTest
         }
 
         [TestMethod]
+        public void Archivist8CardHand()
+        {
+            archivist.hand = new List<Card> { atlanta, chicagoCard, london, paris, milan, chennai, newYork };
+            archivist.addCardToHand(airlift);
+
+            Assert.IsTrue(archivist.hand.Count == 8);
+        }
+
+        [TestMethod]
+        public void TestDrawCardFromDiscardArchivist()
+        {
+            archivist.currentCity = Create.cityDictionary["Delhi"];
+            archivist.hand = new List<Card> {chicagoCard};
+            archivist.MovePlayer(chicagoCity);
+            archivist.hand = new List<Card>();
+            Assert.IsTrue(archivist.hand.Count == 0);
+            
+            archivist.PreformSpecialAction("ReclaimCityCard", new MockGameBoardView());
+            Assert.IsTrue(archivist.hand.Contains(chicagoCard));
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void TestWinCon()
         {
@@ -719,6 +745,12 @@ namespace SQADemicAppTest
        
 
     }
+
+    class MockGameBoardView : GameBoard
+    {
+
+    }
+
     /** PRINTING STUFF
     //Print Statment
     foreach (String name in returnList)

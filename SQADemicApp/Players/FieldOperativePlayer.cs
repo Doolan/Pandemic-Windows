@@ -9,7 +9,7 @@ using SQADemicApp.SpecialActions;
 namespace SQADemicApp.Players
 {
     
-    class FieldOperativePlayer : AbstractPlayer
+    public class FieldOperativePlayer : AbstractPlayer
     {
         private MoveCubeToCard action;
         public FieldOperativePlayer()
