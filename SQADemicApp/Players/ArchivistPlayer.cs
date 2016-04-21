@@ -8,7 +8,7 @@ using SQADemicApp.specialActions;
 
 namespace SQADemicApp.Players
 {
-    class ArchivistPlayer : AbstractPlayer
+    public class ArchivistPlayer : AbstractPlayer
     {
         public ArchivistPlayer() {
             base.MAXHANDSIZE = 8;

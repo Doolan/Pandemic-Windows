@@ -127,8 +127,7 @@ namespace SQADemicApp
             }
             else if (DirectFlightOption(hand, currentCity).Contains(city.Name))
             {
-                GameBoardModels.DiscardCard(hand.First(c => c.CityName.Equals(city.Name)));
-                hand.RemoveAll(x => x.CityName.Equals(city.Name));
+                RemoveDirectFlightCards(city);
             }
             else if (CharterFlightOption(hand, currentCity))
             {
@@ -141,6 +140,12 @@ namespace SQADemicApp
             }
             currentCity = city;
             return true;
+        }
+
+        public virtual void RemoveDirectFlightCards(City city)
+        {
+            GameBoardModels.DiscardCard(hand.First(c => c.CityName.Equals(city.Name)));
+            hand.RemoveAll(x => x.CityName.Equals(city.Name));
         }
 
         /// <summary>
@@ -210,18 +215,29 @@ namespace SQADemicApp
             return true;
         }
 
-        public bool CanCure(int numberOfAvailableCards, COLOR color)
+        public bool IsCurable(COLOR color)
         {
             if (!currentCity.researchStation || GameBoardModels.GetCureStatus(color) != Cures.CURESTATE.NotCured)
                 return false;
+            return true;
+        }
+
+        public virtual bool CanCure(int numberOfAvailableCards, COLOR color)
+        {
+            if (!IsCurable(color))
+                return false;
+            return HaveEnoughCardsToCure(numberOfAvailableCards);
+        }
+
+        protected bool HaveEnoughCardsToCure(int num)
+        {
             if (GetType() == typeof(ScientistPlayer))
             {
-                if (numberOfAvailableCards != 4)
+                if (num != 4)
                     return false;
             }
-            else if (numberOfAvailableCards != 5)
+            else if (num != 5)
                 return false;
-
             return true;
         }
 
@@ -312,10 +328,11 @@ namespace SQADemicApp
         }
 
 
-        public bool PreformSpecialAction(String actionName)
+        public bool PreformSpecialAction(String actionName, GameBoard board)
         {
             if (this.specialActions.ContainsKey(actionName))
             {
+                this.specialActions[actionName].setGameBoard(board);
                 return this.specialActions[actionName].PreformAction();
             }
 

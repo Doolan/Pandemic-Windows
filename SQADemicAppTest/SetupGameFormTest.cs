@@ -12,7 +12,7 @@ namespace SQADemicAppTest
         {
             SQADemicApp.SetupGameForm form = new SQADemicApp.SetupGameForm();
 
-            List<String> rolesList = new List<string>() {"Medic", "Medic", "Operations Expert"};
+            List<String> rolesList = new List<string>() { "Medic", "Medic", "Operations Expert" };
 
             Assert.IsTrue(form.CheckForDuplicateRoles(rolesList));
         }

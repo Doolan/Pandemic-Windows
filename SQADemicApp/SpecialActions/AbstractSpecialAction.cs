@@ -9,10 +9,16 @@ namespace SQADemicApp
     public abstract class AbstractSpecialAction
     {
         protected AbstractPlayer player;
+        protected GameBoard board;
 
         public AbstractSpecialAction(AbstractPlayer player)
         {
             this.player = player;
+        }
+
+        public void setGameBoard(GameBoard board) 
+        {
+            this.board = board;
         }
 
         public abstract bool PreformAction();

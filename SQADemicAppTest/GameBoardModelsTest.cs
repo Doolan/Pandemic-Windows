@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using SQADemicApp.BL;
 using SQADemicApp;
 using System.IO;
+using SQADemicApp.UI;
 
 namespace SQADemicAppTest
 {
@@ -124,9 +125,10 @@ namespace SQADemicAppTest
         {
             string[] players = { "Dispatcher", "Scientist" };
             GameBoardModels model = new GameBoardModels(players);
+            
             // four moves in a player turn
             Assert.AreEqual(false,model.IncTurnCount());
-            Assert.AreEqual(false, model.IncTurnCount()); 
+            Assert.AreEqual(false, model.IncTurnCount());
             Assert.AreEqual(false, model.IncTurnCount());
             Assert.AreEqual(true, model.IncTurnCount());
             //Assert.AreEqual(2, GameBoardModels.CurrentPlayerIndex);

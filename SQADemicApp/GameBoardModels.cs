@@ -113,6 +113,12 @@ namespace SQADemicApp
                     case "Archivist":
                         abstractPlayers[i] = new ArchivistPlayer();
                         break;
+                    case "Troubleshooter":
+                        abstractPlayers[i] = new TroubleshooterPlayer();
+                        break;
+                    case "Field Operative":
+                        abstractPlayers[i] = new FieldOperativePlayer();
+                        break;
                     default:
                         abstractPlayers[i] = null;
                         break;
@@ -289,6 +295,11 @@ namespace SQADemicApp
         public static bool PlayerDiscardPileContains(string cityName)
         {
             return GameBoardModels.discardPlayerDeck.Count(c => c.CityName.Equals(cityName)) >0;
+        }
+
+        public static Stack<Card> getPlayerDeck()
+        {
+            return playerDeck;
         }
 
         public static Card ReclaminCityCardFromPlayerDeck(string cityName)
