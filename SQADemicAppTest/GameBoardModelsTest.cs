@@ -100,7 +100,7 @@ namespace SQADemicAppTest
         {
             string[] players = {"Dispatcher","Scientist"};
             GameBoardModels model = new GameBoardModels(players);
-            model.incTurnCount();
+            model.IncTurnCount();
             Assert.AreEqual(1, model.currentPlayerTurnCounter);
         }
         [TestMethod]
@@ -109,10 +109,10 @@ namespace SQADemicAppTest
             string[] players = { "Dispatcher", "Scientist" };
             GameBoardModels model = new GameBoardModels(players);
             // four moves in a player turn
-            model.incTurnCount();
-            model.incTurnCount();
-            model.incTurnCount();
-            model.incTurnCount();
+            model.IncTurnCount();
+            model.IncTurnCount();
+            model.IncTurnCount();
+            model.IncTurnCount();
             Assert.AreEqual(0, model.currentPlayerTurnCounter);
         }
         #endregion
@@ -125,10 +125,10 @@ namespace SQADemicAppTest
             string[] players = { "Dispatcher", "Scientist" };
             GameBoardModels model = new GameBoardModels(players);
             // four moves in a player turn
-            Assert.AreEqual(false,model.incTurnCount());
-            Assert.AreEqual(false, model.incTurnCount()); 
-            Assert.AreEqual(false, model.incTurnCount());
-            Assert.AreEqual(true, model.incTurnCount());
+            Assert.AreEqual(false,model.IncTurnCount());
+            Assert.AreEqual(false, model.IncTurnCount()); 
+            Assert.AreEqual(false, model.IncTurnCount());
+            Assert.AreEqual(true, model.IncTurnCount());
             //Assert.AreEqual(2, GameBoardModels.CurrentPlayerIndex);
         }
         [TestMethod]
@@ -137,16 +137,16 @@ namespace SQADemicAppTest
             string[] players = { "Dispatcher", "Scientist" };
             GameBoardModels model = new GameBoardModels(players);
             // four moves in a player turn
-            model.incTurnCount();
-            model.incTurnCount();
-            model.incTurnCount();
-            model.incTurnCount();
+            model.IncTurnCount();
+            model.IncTurnCount();
+            model.IncTurnCount();
+            model.IncTurnCount();
             // moves for player 2 turn
-            model.incTurnCount();
-            model.incTurnCount();
-            model.incTurnCount();
-            model.incTurnCount();
-            Assert.AreEqual(0, GameBoardModels.CurrentPlayerIndex);
+            model.IncTurnCount();
+            model.IncTurnCount();
+            model.IncTurnCount();
+            model.IncTurnCount();
+            Assert.AreEqual(0, GameBoardModels.GetCurrentPlayerIndex());
         }
         #endregion
 

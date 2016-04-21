@@ -18,7 +18,7 @@ namespace SQADemicApp
         {
             this.board = board;
             InitializeComponent();
-            switch(GameBoardModels.CurrentPlayerIndex)
+            switch(GameBoardModels.GetCurrentPlayerIndex())
             {
                 case 0:
                     P1T.Text = "Player 2";
@@ -77,7 +77,7 @@ namespace SQADemicApp
             var selectedItem = listBox1.SelectedItem.ToString();
             var selectedCard = selectedItem.Substring(0, selectedItem.IndexOf('(') - 1);
             bool success = false;
-            switch (GameBoardModels.CurrentPlayerIndex)
+            switch (GameBoardModels.GetCurrentPlayerIndex())
             {
                 case 0:
                     success = GameBoardModels.GetCurrentPlayer().ShareKnowledgeOption(GameBoardModels.GetPlayerByIndex(1), selectedCard);
@@ -88,7 +88,7 @@ namespace SQADemicApp
             }
             if (success)
             {
-                if (this.board.boardModel.incTurnCount())
+                if (this.board.boardModel.IncTurnCount())
                     GameBoard.turnpart = GameBoard.TURNPART.Draw;
             }
             this.Close();
@@ -105,7 +105,7 @@ namespace SQADemicApp
             var selectedItem = listBox1.SelectedItem.ToString();
             var selectedCard = selectedItem.Substring(0, selectedItem.IndexOf('(') - 1);
             bool success = false;
-            switch (GameBoardModels.CurrentPlayerIndex)
+            switch (GameBoardModels.GetCurrentPlayerIndex())
             {
                 case 0:
                     success = GameBoardModels.GetCurrentPlayer().ShareKnowledgeOption(GameBoardModels.GetPlayerByIndex(2), selectedCard);
@@ -119,7 +119,7 @@ namespace SQADemicApp
             }
             if (success)
             {
-                if (this.board.boardModel.incTurnCount())
+                if (this.board.boardModel.IncTurnCount())
                     GameBoard.turnpart = GameBoard.TURNPART.Draw;
             }
             this.Close();
@@ -135,7 +135,7 @@ namespace SQADemicApp
             var selectedItem = listBox1.SelectedItem.ToString();
             var selectedCard = selectedItem.Substring(0, selectedItem.IndexOf('(') - 1);
             bool success = false;
-            switch (GameBoardModels.CurrentPlayerIndex)
+            switch (GameBoardModels.GetCurrentPlayerIndex())
             {
                 case 3:
                     success = GameBoardModels.GetCurrentPlayer().ShareKnowledgeOption(GameBoardModels.GetPlayerByIndex(3), selectedCard);
@@ -146,7 +146,7 @@ namespace SQADemicApp
             }
             if (success)
             {
-                if (this.board.boardModel.incTurnCount())
+                if (this.board.boardModel.IncTurnCount())
                     GameBoard.turnpart = GameBoard.TURNPART.Draw;
             }
             this.Close();

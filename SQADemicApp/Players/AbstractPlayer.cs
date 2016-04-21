@@ -127,12 +127,12 @@ namespace SQADemicApp
             }
             else if (DirectFlightOption(hand, currentCity).Contains(city.Name))
             {
-                GameBoardModels.discardPlayerDeck.Push(hand.First(c => c.CityName.Equals(city.Name)));
+                GameBoardModels.DiscardCard(hand.First(c => c.CityName.Equals(city.Name)));
                 hand.RemoveAll(x => x.CityName.Equals(city.Name));
             }
             else if (CharterFlightOption(hand, currentCity))
             {
-                GameBoardModels.discardPlayerDeck.Push(hand.First(c => c.CityName.Equals(currentCity.Name)));
+                GameBoardModels.DiscardCard(hand.First(c => c.CityName.Equals(currentCity.Name)));
                 hand.RemoveAll(x => x.CityName.Equals(currentCity.Name));
             }
             else
@@ -201,7 +201,7 @@ namespace SQADemicApp
 
             var discard = hand.Where(c => cards.Contains(c));
             foreach (Card card in discard)
-                GameBoardModels.discardPlayerDeck.Push(card);
+                GameBoardModels.DiscardCard(card);
 
             hand.RemoveAll(x => cards.Contains(x));
             GameBoardModels.SetCureStatus(color, Cures.CURESTATE.Cured);

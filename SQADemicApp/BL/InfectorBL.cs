@@ -116,11 +116,7 @@ namespace SQADemicApp.BL
                     InfectCity(neighbor, alreadyInfected, true, color);                   
                 }
             }
-            GameBoardModels.outbreakMarker++;
-            if (GameBoardModels.outbreakMarker == 8)
-            {
-                throw new InvalidOperationException("Game Over");
-            }
+            GameBoardModels.IncrementOutbreakMarker();
             return alreadyInfected;
         }
     }

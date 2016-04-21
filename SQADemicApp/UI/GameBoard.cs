@@ -57,14 +57,6 @@ namespace SQADemicApp
             turnpart = TURNPART.Action; 
         }
 
-        //private void DrawBtn_Click(object sender, EventArgs e)
-        //{
-        //    Card drawnCard = boardModel.DrawCard();
-        //    GameBoardModels.GetCurrentPlayer().hand.Add(drawnCard);
-        //    button49.Text = String.Format("Draw\n{0}", boardModel.GetPlayerDeckSize());
-        //    UpdatePlayerForm();
-        //}
-
         private void City_Click(object sender, EventArgs e)
         {
             Button pressed = sender as Button;
@@ -81,7 +73,7 @@ namespace SQADemicApp
                     if (GameBoardModels.GetPlayerByIndex(dispatcherMoveIndex).DispatcherMovePlayer(new List<AbstractPlayer>(GameBoardModels.GetPlayers()), Create.cityDictionary[cityName]))
                     {
                         characterPane.updatePlayerCity(dispatcherMoveIndex, cityName);
-                        if (boardModel.incTurnCount())
+                        if (boardModel.IncTurnCount())
                             turnpart = TURNPART.Draw;
                         UpdatePlayerForm();
                         UpdateCityButtons(false);
@@ -94,8 +86,8 @@ namespace SQADemicApp
                 case STATE.Move:
                     if (GameBoardModels.GetCurrentPlayer().MovePlayer(Create.cityDictionary[cityName]))
                     {
-                        characterPane.updatePlayerCity(GameBoardModels.CurrentPlayerIndex, cityName);
-                        bool endofturn = boardModel.incTurnCount();
+                        characterPane.updatePlayerCity(GameBoardModels.GetCurrentPlayerIndex(), cityName);
+                        bool endofturn = boardModel.IncTurnCount();
                         if (endofturn)
                             turnpart = TURNPART.Draw;
                         UpdatePlayerForm();
@@ -137,15 +129,17 @@ namespace SQADemicApp
             {
                 playerForm.HideDrawInfectButton();
             }
-            characterPane.updateCurrentPlayer(GameBoardModels.CurrentPlayerIndex);
+
+            characterPane.updateCurrentPlayer(GameBoardModels.GetCurrentPlayerIndex());
             characterPane.updatePlayerCount(GameBoardModels.GetPlayerCount());
 
             playerForm.updateCubeCounts(GameBoardModels.GetInfectionCubeCount(COLOR.red), GameBoardModels.GetInfectionCubeCount(COLOR.blue),
                 GameBoardModels.GetInfectionCubeCount(COLOR.black), GameBoardModels.GetInfectionCubeCount(COLOR.yellow));
-            playerForm.updateCounters(GameBoardModels.InfectionRate, GameBoardModels.outbreakMarker);
+            playerForm.updateCounters(GameBoardModels.InfectionRate, GameBoardModels.GetOutbreakMarker());
             playerForm.updateCureStatus(GameBoardModels.GetCureStatus(COLOR.red).ToString(), GameBoardModels.GetCureStatus(COLOR.blue).ToString(),
                 GameBoardModels.GetCureStatus(COLOR.black).ToString(), GameBoardModels.GetCureStatus(COLOR.yellow).ToString());
             ECForm.UpdateEventCards();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
