@@ -14,7 +14,7 @@ namespace SQADemicApp.Players
             this.specialActions.Add("Peek At Top 3", new PeekAtTopThreeAction(this));
         }
 
-        public override void RemoveDirectFlightCards(City city) {}
+        public override void RemoveMovementCards(City city) {}
         
     }
 }

@@ -127,12 +127,11 @@ namespace SQADemicApp
             }
             else if (DirectFlightOption(hand, currentCity).Contains(city.Name))
             {
-                RemoveDirectFlightCards(city);
+                RemoveMovementCards(city);
             }
             else if (CharterFlightOption(hand, currentCity))
             {
-                GameBoardModels.DiscardCard(hand.First(c => c.CityName.Equals(currentCity.Name)));
-                hand.RemoveAll(x => x.CityName.Equals(currentCity.Name));
+                RemoveMovementCards(currentCity);
             }
             else
             {
@@ -142,7 +141,7 @@ namespace SQADemicApp
             return true;
         }
 
-        public virtual void RemoveDirectFlightCards(City city)
+        public virtual void RemoveMovementCards(City city)
         {
             GameBoardModels.DiscardCard(hand.First(c => c.CityName.Equals(city.Name)));
             hand.RemoveAll(x => x.CityName.Equals(city.Name));
