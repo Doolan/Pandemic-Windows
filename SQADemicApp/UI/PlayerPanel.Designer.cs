@@ -279,25 +279,25 @@ namespace SQADemicApp
 
         #endregion
 
-        public System.Windows.Forms.ProgressBar MoveProgressBar;
-        public System.Windows.Forms.Label MoveProgressBarLabel;
-        public System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ProgressBar MoveProgressBar;
+        private System.Windows.Forms.Label MoveProgressBarLabel;
+        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button MoveButton;
         private System.Windows.Forms.Button CureCityButton;
-        public System.Windows.Forms.Label RedCubes;
-        public System.Windows.Forms.Label BlueCubes;
-        public System.Windows.Forms.Label BlackCubes;
-        public System.Windows.Forms.Label YellowCubes;
-        public System.Windows.Forms.Label InfectionRate;
-        public System.Windows.Forms.Label OutbreakCount;
+        private System.Windows.Forms.Label RedCubes;
+        private System.Windows.Forms.Label BlueCubes;
+        private System.Windows.Forms.Label BlackCubes;
+        private System.Windows.Forms.Label YellowCubes;
+        private System.Windows.Forms.Label InfectionRate;
+        private System.Windows.Forms.Label OutbreakCount;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        public System.Windows.Forms.Label BlackCure;
-        public System.Windows.Forms.Label YellowCure;
-        public System.Windows.Forms.Label BlueCure;
-        public System.Windows.Forms.Label RedCure;
-        public System.Windows.Forms.Button DispatcherMove;
-        public System.Windows.Forms.Button AAButton;
-        public System.Windows.Forms.Button EndSequenceBtn;
+        private System.Windows.Forms.Label BlackCure;
+        private System.Windows.Forms.Label YellowCure;
+        private System.Windows.Forms.Label BlueCure;
+        private System.Windows.Forms.Label RedCure;
+        private System.Windows.Forms.Button DispatcherMove;
+        private System.Windows.Forms.Button AAButton;
+        private System.Windows.Forms.Button EndSequenceBtn;
     }
 }

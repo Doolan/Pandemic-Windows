@@ -139,16 +139,71 @@ namespace SQADemicApp
             }
         }
 
-        public void addDispatcherButton()
+        public void AddDispatcherButton()
         {
             this.DispatcherMove.Show();
             this.AAButton.Location = new System.Drawing.Point(159, 82);
         }
 
-        public void removeDispatcherButton()
+        public void RemoveDispatcherButton()
         {
             this.DispatcherMove.Hide();
             this.AAButton.Location = new System.Drawing.Point(91, 81);
         }
+
+        public void ShowDrawButton()
+        {
+            this.EndSequenceBtn.Text = "Draw Cards";
+            this.EndSequenceBtn.Show();
+        }
+
+        public void ShowInfectButton()
+        {
+            this.EndSequenceBtn.Text = "Infect";
+            this.EndSequenceBtn.Show();
+        }
+
+        public void HideDrawInfectButton()
+        {
+            this.EndSequenceBtn.Hide();
+        }
+
+        public void UpdateTurnProgressBoard(int turnCount, int maxTurns)
+        {
+            this.MoveProgressBar.Value = 100 * turnCount / maxTurns;
+            this.MoveProgressBarLabel.Text = this.MoveProgressBarLabel.Text.Substring(0, this.MoveProgressBarLabel.Text.Length - 3) +
+                                     turnCount + "/" + maxTurns;
+        }
+
+        public void UpdatePlayerHand(Object[] playerHandArray)
+        {
+            this.listBox1.Items.Clear();
+            this.listBox1.Items.AddRange(playerHandArray);
+        }
+
+        public void updateCubeCounts(int redCubeCount, int blueCubeCount, int blackCubeCount, int YellowCubeCount)
+        {
+            this.RedCubes.Text = String.Format("Red Cubes Remaining:    {0,-2}/24", redCubeCount);
+            this.BlueCubes.Text = String.Format("Blue Cubes Remaining:   {0,-2}/24", blueCubeCount);
+            this.BlackCubes.Text = String.Format("Black Cubes Remaining:  {0,-2}/24", blackCubeCount);
+            this.YellowCubes.Text = String.Format("Yellow Cubes Remaining: {0,-2}/24", YellowCubeCount);
+        }
+
+        public void updateCounters(int infectionRate, int outbreakMarker)
+        {
+            this.InfectionRate.Text = string.Format("Infection Rate: {0}", infectionRate);
+            this.OutbreakCount.Text = string.Format("Outbreak Count: {0}", outbreakMarker);
+        }
+
+        public void updateCureStatus(String redCureStatus, String blueCureStatus, String blackCureStatus, String yellowCureStatus)
+        {
+            // set value of cure label to status in game board
+            // if status is NotCured, change to No Cure for nicer appearance
+            this.RedCure.Text = String.Format("Red:  {0}", redCureStatus.Replace("NotCured", "No Cure"));
+            this.BlueCure.Text = String.Format("Blue: {0}", blueCureStatus.Replace("NotCured", "No Cure"));
+            this.BlackCure.Text = String.Format("Black:  {0}", blackCureStatus.Replace("NotCured", "No Cure"));
+            this.YellowCure.Text = String.Format("Yellow: {0}", yellowCureStatus.Replace("NotCured", "No Cure"));
+        }
+
     }
 }
