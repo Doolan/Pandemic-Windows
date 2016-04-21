@@ -17,7 +17,7 @@ namespace SQADemicAppTest
         List<Card> hand, pile;
         List<AbstractPlayer> players;
         Card chennai, newYork, atlanta, chicagoCard, london, paris, milan, airlift;
-        AbstractPlayer dispatcher, medic, opExpert, researcher, scientist, containmentSpecialst, troubleshooter, FieldOperative, Generalist, archivist;
+        AbstractPlayer dispatcher, medic, opExpert, researcher, scientist, containmentSpecialst, troubleshooter, fieldOperative, generalist, archivist;
         GameBoardModels gameBoardModels;
 
 
@@ -56,8 +56,8 @@ namespace SQADemicAppTest
             medic = new MedicPlayer();
             containmentSpecialst = new ContainmentSpecialstPlayer();
             troubleshooter = new TroubleshooterPlayer();
-            FieldOperative = new FieldOperativePlayer();
-            Generalist = new GeneralistPlayer();
+            fieldOperative = new FieldOperativePlayer();
+            generalist = new GeneralistPlayer();
             archivist = new ArchivistPlayer();
             players = new List<AbstractPlayer> { scientist, opExpert, researcher, medic };
         }
@@ -714,6 +714,16 @@ namespace SQADemicAppTest
             archivist.PreformSpecialAction("ReclaimCityCard", new MockGameBoardView());
             Assert.IsTrue(archivist.hand.Contains(chicagoCard));
         }
+
+        /**
+        [TestMethod]
+        public void TestFieldOperativeCure()
+        {
+            fieldOperative.currentCity = Create.cityDictionary["delhi"];
+            Create.cityDictionary["delhi"].Cubes.AddCubes(COLOR.black, 3);
+            fieldOperative.PreformSpecialAction("Add Cube to Card", new MockGameBoardView());
+
+        }*/
 
 
 
