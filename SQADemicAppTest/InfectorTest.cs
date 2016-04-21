@@ -275,33 +275,6 @@ namespace SQADemicAppTest
             SQADemicApp.BL.InfectorBL.Outbreak(santiago, COLOR.yellow, santiago.adjacentCities, infected);
             Assert.AreEqual(6, GameBoardModels.GetOutbreakMarker());
         }
-        //This function didn't follow the rules of the game, Therefore this test is stupid
-       /** [TestMethod]
-        public void TestOneOutbreakSetOffAnotherAndOverFlowsToDifferentColor()
-        {
-            HashSet<City> infected = new HashSet<City>();
-            SQADemicApp.City montreal = new SQADemicApp.City(COLOR.blue, "Montreal");
-            SQADemicApp.City ny = new SQADemicApp.City(COLOR.blue, "New York");
-            SQADemicApp.City washington = new SQADemicApp.City(COLOR.blue, "Washington");
-            SQADemicApp.City chicago = new SQADemicApp.City(COLOR.blue, "Chicago");
-            SQADemicApp.City atlanta = new SQADemicApp.City(COLOR.blue, "Atlanta");
-            SQADemicApp.City miami = new SQADemicApp.City(COLOR.yellow, "Miami");
-            montreal.blueCubes = 3;
-            washington.blueCubes = 3;
-            montreal.adjacentCities.Add(chicago);
-            montreal.adjacentCities.Add(washington);
-            montreal.adjacentCities.Add(ny);
-            washington.adjacentCities.Add(ny);
-            washington.adjacentCities.Add(montreal);
-            washington.adjacentCities.Add(atlanta);
-            washington.adjacentCities.Add(miami);
-            infected.Add(montreal);
-            SQADemicApp.BL.InfectorBL.InfectCity(montreal, infected, false, COLOR.blue);
-            Assert.AreEqual(2, GameBoardModels.outbreakMarker); //counts both outbreaks
-            Assert.AreEqual(1, miami.blueCubes); //ensures miami gets a blue overflow cube, even though it's a yellow city
-            Assert.AreEqual(1, ny.blueCubes); //ensures new york only gets infected once
-        }**/
-
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
@@ -324,6 +297,7 @@ namespace SQADemicAppTest
             santiago.adjacentCities.Add(lima);
             GameBoardModels.SetInfectionCubeCount(COLOR.yellow, 1);
             santiago.Cubes.SetCubeCount(COLOR.yellow, 3);
+            GameBoardModels.SetOutbreakMarker(0);
             SQADemicApp.BL.InfectorBL.Outbreak(santiago, COLOR.yellow, santiago.adjacentCities, infected);
         }
 
@@ -342,23 +316,25 @@ namespace SQADemicAppTest
             //Throw exception
         }
 
+        private void DecrementCubesPrimer(String cityName, COLOR color, int cityCount, int pileCount)
+        {
+            City city = new City(color, cityName);
+            city.Cubes.SetCubeCount(color, cityCount);
+            GameBoardModels.SetInfectionCubeCount(color, pileCount);
+            InfectorBL.InfectCity(city, new HashSet<City>(), false, color);
+        }
+
         [TestMethod]
         public void TestDecrementTotalRedCubes()
         {
-            SQADemicApp.City tokyo = new SQADemicApp.City(COLOR.red, "Tokyo");
-            tokyo.Cubes.SetCubeCount(COLOR.red, 2);
-            GameBoardModels.SetInfectionCubeCount(COLOR.red, 24);
-            SQADemicApp.BL.InfectorBL.InfectCity(tokyo, new HashSet<City>(), false, COLOR.red);
+            DecrementCubesPrimer("Tokyo", COLOR.red, 2, 24);
             Assert.AreEqual(23, GameBoardModels.GetInfectionCubeCount(COLOR.red));
         }
 
         [TestMethod]
         public void TestYellowTotalCubeDecrement()
         {
-            SQADemicApp.City lima = new SQADemicApp.City(COLOR.yellow, "Lima");
-            lima.Cubes.SetCubeCount(COLOR.yellow, 1);
-            GameBoardModels.SetInfectionCubeCount(COLOR.yellow, 23);
-            SQADemicApp.BL.InfectorBL.InfectCity(lima, new HashSet<City>(), false, COLOR.yellow);
+            DecrementCubesPrimer("Lima", COLOR.yellow, 2, 23);
             Assert.AreEqual(22, GameBoardModels.GetInfectionCubeCount(COLOR.yellow));
 
         }
@@ -366,23 +342,51 @@ namespace SQADemicAppTest
         [TestMethod]
         public void TestDecrementTotalBlueCubes()
         {
-            SQADemicApp.City chicago = new SQADemicApp.City(COLOR.blue, "Chicago");
-            chicago.Cubes.SetCubeCount(COLOR.blue, 2);
-            GameBoardModels.SetInfectionCubeCount(COLOR.blue, 22);
-            SQADemicApp.BL.InfectorBL.InfectCity(chicago, new HashSet<City>(), false, COLOR.blue);
+            DecrementCubesPrimer("Chicago", COLOR.blue, 2, 22);
             Assert.AreEqual(21, GameBoardModels.GetInfectionCubeCount(COLOR.blue));
         }
 
         [TestMethod]
         public void TestDecrementTotalBlackCubes()
         {
-            SQADemicApp.City kolkata = new SQADemicApp.City(COLOR.black, "Kolkata");
-            kolkata.Cubes.SetCubeCount(COLOR.black, 2);
-            GameBoardModels.SetInfectionCubeCount(COLOR.black, 22);
-            SQADemicApp.BL.InfectorBL.InfectCity(kolkata, new HashSet<City>(), false, COLOR.black);
+            DecrementCubesPrimer("Kolkata", COLOR.black, 2, 22);
             Assert.AreEqual(21, GameBoardModels.GetInfectionCubeCount(COLOR.black));
         }
+        /** Experimental new tests 
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void TestDecrementTotalRedCubesEndGame()
+        {
+            DecrementCubesPrimer("Tokyo", COLOR.red, 2, 1);
+            //Assert.AreEqual(23, GameBoardModels.GetInfectionCubeCount(COLOR.red));
+        }
 
-        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+
+        public void TestYellowTotalCubeDecrementEndGame()
+        {
+            DecrementCubesPrimer("Lima", COLOR.yellow, 2, 1);
+            //Assert.AreEqual(22, GameBoardModels.GetInfectionCubeCount(COLOR.yellow));
+
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void TestDecrementTotalBlueCubesEndGame()
+        {
+            DecrementCubesPrimer("Chicago", COLOR.blue, 2, 1);
+          //  Assert.AreEqual(21, GameBoardModels.GetInfectionCubeCount(COLOR.blue));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void TestDecrementTotalBlackCubesEndGame()
+        {
+            DecrementCubesPrimer("Kolkata", COLOR.black, 2, 1);
+        //    Assert.AreEqual(21, GameBoardModels.GetInfectionCubeCount(COLOR.black));
+        }**/
+
+
     }
 }
