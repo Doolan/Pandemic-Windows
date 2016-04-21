@@ -95,7 +95,7 @@ namespace SQADemicApp
                                 form2.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + cityName;
                                 break;
                         }
-                        if (boardModel.incTurnCount())
+                        if (boardModel.IncTurnCount())
                             turnpart = TURNPART.Draw;
                         UpdatePlayerForm();
                         UpdateCityButtons(false);
@@ -108,7 +108,7 @@ namespace SQADemicApp
                 case STATE.Move:
                     if (GameBoardModels.GetCurrentPlayer().MovePlayer(Create.cityDictionary[cityName]))
                     {
-                        switch (GameBoardModels.CurrentPlayerIndex)
+                        switch (GameBoardModels.GetCurrentPlayerIndex())
                         {
                             case 3:
                                 form2.Player4.Text = "Player 4\n" + GameBoardModels.GetPlayerByIndex(3) + "\n" + cityName;
@@ -123,7 +123,7 @@ namespace SQADemicApp
                                 form2.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + cityName;
                                 break;
                         }
-                        bool endofturn = boardModel.incTurnCount();
+                        bool endofturn = boardModel.IncTurnCount();
                         if (endofturn)
                             turnpart = TURNPART.Draw;
                         UpdatePlayerForm();
@@ -167,7 +167,7 @@ namespace SQADemicApp
             {
                 playerForm.EndSequenceBtn.Hide();
             }
-            updateCharacterForm(GameBoardModels.CurrentPlayerIndex);
+            updateCharacterForm(GameBoardModels.GetCurrentPlayerIndex());
             updateCubeCounts();
             updateCounters();
             updateCureStatus();
@@ -233,7 +233,7 @@ namespace SQADemicApp
         private void updateCounters()
         {
             playerForm.InfectionRate.Text = string.Format("Infection Rate: {0}", GameBoardModels.InfectionRate);
-            playerForm.OutbreakCount.Text = string.Format("Outbreak Count: {0}", GameBoardModels.outbreakMarker);
+            playerForm.OutbreakCount.Text = string.Format("Outbreak Count: {0}", GameBoardModels.GetOutbreakMarker());
         }
         private void updateCureStatus()
         {

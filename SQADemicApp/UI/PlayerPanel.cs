@@ -88,7 +88,7 @@ namespace SQADemicApp
             else
                 quietNight = true;
             GameBoard.turnpart = GameBoard.TURNPART.Action;
-            GameBoardModels.CurrentPlayerIndex = (GameBoardModels.CurrentPlayerIndex + 1) % GameBoardModels.GetPlayerCount();
+            GameBoardModels.MoveToNextPlayer();
             board.UpdateCityButtons(false);
         }
 
@@ -135,7 +135,7 @@ namespace SQADemicApp
             {
                 quietNight = false;
                 GameBoard.turnpart = GameBoard.TURNPART.Action;
-                GameBoardModels.CurrentPlayerIndex = (GameBoardModels.CurrentPlayerIndex + 1) % GameBoardModels.GetPlayerCount();
+                GameBoardModels.MoveToNextPlayer();
             }
         }
 

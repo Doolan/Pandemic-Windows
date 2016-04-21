@@ -48,7 +48,7 @@ namespace SQADemicApp
                 MessageBox.Show("Invalid card selection", "Invalid Selection");
             else
             {
-            if (this.board.boardModel.incTurnCount())
+            if (this.board.boardModel.IncTurnCount())
                 GameBoard.turnpart = GameBoard.TURNPART.Draw;     
             this.Close();
             board.UpdatePlayerForm();

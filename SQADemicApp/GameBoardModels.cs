@@ -13,14 +13,10 @@ namespace SQADemicApp
     public class GameBoardModels
     {
         #region Public Static Vars 
-        public static List<String> citiesWithResearchStations;
-        public static int outbreakMarker = 0;
-        public static int CurrentPlayerIndex;
+        private static List<String> citiesWithResearchStations;
+        private static int outbreakMarker = 0;
+        private static int CurrentPlayerIndex;
         public static List<Card> eventCards;
-        private static LinkedList<String> infectionDeck;
-        private static LinkedList<String> infectionPile;
-        private static Stack<Card> playerDeck;
-        private static Stack<Card> discardPlayerDeck;
         public static int InfectionRate;
         public static int InfectionRateIndex;
         #endregion
@@ -34,7 +30,10 @@ namespace SQADemicApp
         private static Cures CURESTATUS;
         private static InfectionCubes cubeCount;
         private static bool alreadySetUp = false;
-
+        private static LinkedList<String> infectionDeck;
+        private static LinkedList<String> infectionPile;
+        private static Stack<Card> playerDeck;
+        private static Stack<Card> discardPlayerDeck;
         private static int MAXCUBECOUNT = 24;
         #endregion
 
@@ -213,6 +212,30 @@ namespace SQADemicApp
         }
         #endregion
 
+        #region Infection and Outbreak 
+
+        public static void IncrementOutbreakMarker()
+        {
+            GameBoardModels.outbreakMarker ++;
+            if (GameBoardModels.outbreakMarker == 8)
+            {
+                throw new InvalidOperationException("Game Over");
+            }
+        }
+
+        public static int GetOutbreakMarker()
+        {
+            return GameBoardModels.outbreakMarker;
+        }
+
+        public static void SetOutbreakMarker(int marker)
+        {
+            GameBoardModels.outbreakMarker = marker;
+        }
+
+
+        #endregion
+
         #region Players
         public static AbstractPlayer GetCurrentPlayer()
         {
@@ -232,6 +255,32 @@ namespace SQADemicApp
         public static int GetPlayerCount()
         {
             return players.Length;
+        }
+
+
+        public bool IncTurnCount()
+        {
+            if (currentPlayerTurnCounter >= GetCurrentPlayer().getMaxTurnCount() - 1)
+            {
+                //CurrentPlayerIndex = (CurrentPlayerIndex + 1) % players.Count();
+                currentPlayerTurnCounter = 0;
+                return true;
+            }
+            else
+                currentPlayerTurnCounter++;
+            return false;
+
+            //currentPlayerTurnCounter++;
+        }
+
+        public static int GetCurrentPlayerIndex()
+        {
+            return GameBoardModels.CurrentPlayerIndex;
+        }
+
+        public static void MoveToNextPlayer()
+        {
+            GameBoardModels.CurrentPlayerIndex = (GameBoardModels.CurrentPlayerIndex  +1) % GameBoardModels.GetPlayerCount();
         }
         #endregion
 
@@ -268,23 +317,8 @@ namespace SQADemicApp
         }
 
 
-#endregion
-
-
-        public bool incTurnCount()
-        {
-            if (currentPlayerTurnCounter >= GetCurrentPlayer().getMaxTurnCount() -1)
-            {
-                //CurrentPlayerIndex = (CurrentPlayerIndex + 1) % players.Count();
-                currentPlayerTurnCounter = 0;
-                return true;
-            }
-            else
-                currentPlayerTurnCounter++;
-            return false;
-
-            //currentPlayerTurnCounter++;
-        }
+        #endregion
+        
 
         public static Card DrawCard()
         {

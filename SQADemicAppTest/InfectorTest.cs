@@ -20,7 +20,7 @@ namespace SQADemicAppTest
         public void SetUpArrays()
         {
             new GameBoardModels(new string[] { "Dispatcher", "Operations Expert" });
-            GameBoardModels.outbreakMarker = 0;
+            GameBoardModels.SetOutbreakMarker(0);
             GameBoardModels.SetInfectionCubeCount(COLOR.red, MAXCUBECOUNT);
             GameBoardModels.SetInfectionCubeCount(COLOR.black, MAXCUBECOUNT);
             GameBoardModels.SetInfectionCubeCount(COLOR.blue, MAXCUBECOUNT);
@@ -256,8 +256,9 @@ namespace SQADemicAppTest
             infected.Add(santiago);
             santiago.adjacentCities.Add(lima);
             santiago.Cubes.SetCubeCount(COLOR.yellow, 3);
+            GameBoardModels.SetOutbreakMarker(0);
             SQADemicApp.BL.InfectorBL.Outbreak(santiago, COLOR.yellow, santiago.adjacentCities, infected);
-            Assert.AreEqual(1, GameBoardModels.outbreakMarker);
+            Assert.AreEqual(1, GameBoardModels.GetOutbreakMarker());
         }
 
         [TestMethod]
@@ -269,9 +270,10 @@ namespace SQADemicAppTest
             infected.Add(santiago);
             santiago.adjacentCities.Add(lima);
             santiago.Cubes.SetCubeCount(COLOR.yellow, 3);
-            GameBoardModels.outbreakMarker += 5;
+            //GameBoardModels.outbreakMarker += 5;
+            GameBoardModels.SetOutbreakMarker(5);
             SQADemicApp.BL.InfectorBL.Outbreak(santiago, COLOR.yellow, santiago.adjacentCities, infected);
-            Assert.AreEqual(6, GameBoardModels.outbreakMarker);
+            Assert.AreEqual(6, GameBoardModels.GetOutbreakMarker());
         }
         //This function didn't follow the rules of the game, Therefore this test is stupid
        /** [TestMethod]
@@ -335,8 +337,9 @@ namespace SQADemicAppTest
             infected.Add(santiago);
             santiago.adjacentCities.Add(lima);
             santiago.Cubes.SetCubeCount(COLOR.yellow, 3);
-            GameBoardModels.outbreakMarker = 7;
+            GameBoardModels.SetOutbreakMarker(7);
             SQADemicApp.BL.InfectorBL.Outbreak(santiago, COLOR.yellow, santiago.adjacentCities, infected);
+            //Throw exception
         }
 
         [TestMethod]
