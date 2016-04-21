@@ -113,7 +113,7 @@ namespace SQADemicApp
                         abstractPlayers[i] = new GeneralistPlayer();
                         break;
                     case "Archivist":
-                        players[i] = new ArchivistPlayer();
+                        abstractPlayers[i] = new ArchivistPlayer();
                         break;
                     default:
                         abstractPlayers[i] = null;
