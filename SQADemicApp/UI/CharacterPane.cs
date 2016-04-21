@@ -50,7 +50,7 @@ namespace SQADemicApp
         //
         public void updateCurrentPlayer(int currentPlayerIndex)
         {
-            switch (p)
+            switch (currentPlayerIndex)
             {
                 case 3:
                     this.Player4.UseVisualStyleBackColor = false;
