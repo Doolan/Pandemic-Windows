@@ -9,7 +9,7 @@ namespace SQADemicApp
     public partial class GameBoard : Form
     {
         public GameBoardModels boardModel;
-        CharacterPane form2;
+        CharacterPane characterPane;
         PlayerPanel playerForm;
         EventCardForm ECForm;
         public enum STATE { Dispatcher, Initializing, Move, Cure, Default, Airlift, GovGrant}
@@ -26,11 +26,11 @@ namespace SQADemicApp
             string[] rolesDefault = { "Dispatcher", "Scientist" };
             boardModel = new GameBoardModels(rolesDefault);
             playerForm = new PlayerPanel(this);
-            form2 = new CharacterPane(rolesDefault);
+            characterPane = new CharacterPane(rolesDefault);
             ECForm = new EventCardForm();
             InitializeComponent();
             ECForm.Show();
-            form2.Show();
+            characterPane.Show();
             playerForm.Show();
             UpdatePlayerForm();
             UpdateCityButtons(true);
@@ -45,11 +45,11 @@ namespace SQADemicApp
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             boardModel = new GameBoardModels(playerRoles);
             playerForm = new PlayerPanel(this);
-            form2 = new CharacterPane(playerRoles);
+            characterPane = new CharacterPane(playerRoles);
             ECForm = new EventCardForm();
             InitializeComponent();
             ECForm.Show();
-            form2.Show();
+            characterPane.Show();
             playerForm.Show();
             UpdatePlayerForm();
             UpdateCityButtons(true);
@@ -80,21 +80,7 @@ namespace SQADemicApp
                 case STATE.Dispatcher:
                     if (GameBoardModels.GetPlayerByIndex(dispatcherMoveIndex).DispatcherMovePlayer(new List<AbstractPlayer>(GameBoardModels.GetPlayers()), Create.cityDictionary[cityName]))
                     {
-                        switch (dispatcherMoveIndex)
-                        {
-                            case 3:
-                                form2.Player4.Text = "Player 4\n" + GameBoardModels.GetPlayerByIndex(3) + "\n" + cityName;
-                                break;
-                            case 2:
-                                form2.Player3.Text = "Player 3\n" + GameBoardModels.GetPlayerByIndex(2) + "\n" + cityName;
-                                break;
-                            case 1:
-                                form2.Player2.Text = "Player 2\n" + GameBoardModels.GetPlayerByIndex(1) + "\n" + cityName;
-                                break;
-                            default:
-                                form2.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + cityName;
-                                break;
-                        }
+                        characterPane.updatePlayerCity(dispatcherMoveIndex, cityName);
                         if (boardModel.incTurnCount())
                             turnpart = TURNPART.Draw;
                         UpdatePlayerForm();
@@ -108,21 +94,7 @@ namespace SQADemicApp
                 case STATE.Move:
                     if (GameBoardModels.GetCurrentPlayer().MovePlayer(Create.cityDictionary[cityName]))
                     {
-                        switch (GameBoardModels.CurrentPlayerIndex)
-                        {
-                            case 3:
-                                form2.Player4.Text = "Player 4\n" + GameBoardModels.GetPlayerByIndex(3) + "\n" + cityName;
-                                break;
-                            case 2:
-                                form2.Player3.Text = "Player 3\n" + GameBoardModels.GetPlayerByIndex(2) + "\n" + cityName;
-                                break;
-                            case 1:
-                                form2.Player2.Text = "Player 2\n" + GameBoardModels.GetPlayerByIndex(1) + "\n" + cityName;
-                                break;
-                            default:
-                                form2.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + cityName;
-                                break;
-                        }
+                        characterPane.updatePlayerCity(GameBoardModels.CurrentPlayerIndex, cityName);
                         bool endofturn = boardModel.incTurnCount();
                         if (endofturn)
                             turnpart = TURNPART.Draw;
@@ -165,49 +137,15 @@ namespace SQADemicApp
             {
                 playerForm.HideDrawInfectButton();
             }
-            updateCharacterForm(GameBoardModels.CurrentPlayerIndex);
+            characterPane.updateCurrentPlayer(GameBoardModels.CurrentPlayerIndex);
+            characterPane.updatePlayerCount(GameBoardModels.GetPlayerCount());
+
             playerForm.updateCubeCounts(GameBoardModels.GetInfectionCubeCount(COLOR.red), GameBoardModels.GetInfectionCubeCount(COLOR.blue),
                 GameBoardModels.GetInfectionCubeCount(COLOR.black), GameBoardModels.GetInfectionCubeCount(COLOR.yellow));
             playerForm.updateCounters(GameBoardModels.InfectionRate, GameBoardModels.outbreakMarker);
             playerForm.updateCureStatus(GameBoardModels.GetCureStatus(COLOR.red).ToString(), GameBoardModels.GetCureStatus(COLOR.blue).ToString(),
                 GameBoardModels.GetCureStatus(COLOR.black).ToString(), GameBoardModels.GetCureStatus(COLOR.yellow).ToString());
             ECForm.UpdateEventCards();
-        }
-
-        private void updateCharacterForm(int p)
-        {
-            switch (p)
-            {
-                case 3:
-                    form2.Player4.UseVisualStyleBackColor = false;
-                    form2.Player3.UseVisualStyleBackColor = true;
-                    break;
-                case 2:
-                    form2.Player3.UseVisualStyleBackColor = false;
-                    form2.Player2.UseVisualStyleBackColor = true;
-                    break;
-                case 1:
-                    form2.Player2.UseVisualStyleBackColor = false;
-                    form2.Player1.UseVisualStyleBackColor = true;
-                    break;
-                default:
-                    form2.Player1.UseVisualStyleBackColor = false;
-                    form2.Player4.UseVisualStyleBackColor = form2.Player3.UseVisualStyleBackColor = form2.Player2.UseVisualStyleBackColor = true;
-                    break;
-            }
-            switch(GameBoardModels.GetPlayerCount())
-            {
-                case 4:
-                    form2.Player4.Text = "Player 4\n" + GameBoardModels.GetPlayerByIndex(3) + "\n" + GameBoardModels.GetPlayerByIndex(3).currentCity.Name;
-                    goto case 3;
-                case 3:
-                    form2.Player3.Text = "Player 3\n" + GameBoardModels.GetPlayerByIndex(2) + "\n" + GameBoardModels.GetPlayerByIndex(2).currentCity.Name;
-                    goto case 2;
-                case 2:
-                    form2.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + GameBoardModels.GetPlayerByIndex(0).currentCity.Name;
-                    form2.Player2.Text = "Player 2\n" + GameBoardModels.GetPlayerByIndex(1) + "\n" + GameBoardModels.GetPlayerByIndex(1).currentCity.Name;
-                    break;       
-            }
         }
 
         private void button1_Click(object sender, EventArgs e)

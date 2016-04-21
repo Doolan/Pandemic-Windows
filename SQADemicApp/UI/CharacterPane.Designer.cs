@@ -95,9 +95,9 @@
 
         #endregion
 
-        public System.Windows.Forms.Button Player1;
-        public System.Windows.Forms.Button Player2;
-        public System.Windows.Forms.Button Player3;
-        public System.Windows.Forms.Button Player4;
+        private System.Windows.Forms.Button Player1;
+        private System.Windows.Forms.Button Player2;
+        private System.Windows.Forms.Button Player3;
+        private System.Windows.Forms.Button Player4;
     }
 }
