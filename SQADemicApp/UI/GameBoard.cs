@@ -166,11 +166,11 @@ namespace SQADemicApp
                 playerForm.HideDrawInfectButton();
             }
             updateCharacterForm(GameBoardModels.CurrentPlayerIndex);
-            playerForm.updateCubeCounts(GameBoardModels.cubeCount.GetCubeCount(COLOR.red), GameBoardModels.cubeCount.GetCubeCount(COLOR.blue),
-                GameBoardModels.cubeCount.GetCubeCount(COLOR.black), GameBoardModels.cubeCount.GetCubeCount(COLOR.yellow));
+            playerForm.updateCubeCounts(GameBoardModels.GetInfectionCubeCount(COLOR.red), GameBoardModels.GetInfectionCubeCount(COLOR.blue),
+                GameBoardModels.GetInfectionCubeCount(COLOR.black), GameBoardModels.GetInfectionCubeCount(COLOR.yellow));
             playerForm.updateCounters(GameBoardModels.InfectionRate, GameBoardModels.outbreakMarker);
-            playerForm.updateCureStatus(GameBoardModels.CURESTATUS.GetCureStatus(COLOR.red).ToString(), GameBoardModels.CURESTATUS.GetCureStatus(COLOR.blue).ToString(),
-                GameBoardModels.CURESTATUS.GetCureStatus(COLOR.black).ToString(), GameBoardModels.CURESTATUS.GetCureStatus(COLOR.yellow).ToString());
+            playerForm.updateCureStatus(GameBoardModels.GetCureStatus(COLOR.red).ToString(), GameBoardModels.GetCureStatus(COLOR.blue).ToString(),
+                GameBoardModels.GetCureStatus(COLOR.black).ToString(), GameBoardModels.GetCureStatus(COLOR.yellow).ToString());
             ECForm.UpdateEventCards();
         }
 
