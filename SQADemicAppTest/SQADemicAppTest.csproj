@@ -64,7 +64,6 @@
     <Compile Include="CitiesTest.cs" />
     <Compile Include="SpecialEventCardsTest.cs" />
     <Compile Include="TestFormActions.cs" />
-    <Compile Include="UITest.cs" />
     <Compile Include="SetupGameFormTest.cs" />
   </ItemGroup>
   <ItemGroup>
