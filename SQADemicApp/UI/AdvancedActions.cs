@@ -35,7 +35,7 @@ namespace SQADemicApp
             }
             else
             {
-                if (this.board.boardModel.incTurnCount())
+                if (this.board.IncrementTurnCount())
                     GameBoard.turnpart = GameBoard.TURNPART.Draw;                
                 board.UpdatePlayerForm();
                 this.Close();

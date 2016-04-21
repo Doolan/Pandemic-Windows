@@ -43,7 +43,7 @@ namespace SQADemicApp
             if(GameBoard.CurrentState==GameBoard.STATE.Dispatcher)
             {
                 var playernum = btn.Text.Substring(7, 1);
-                GameBoard.dispatcherMoveIndex = Convert.ToInt32(playernum)-1;
+                GameBoard.SetDispatcherMoveIndex(Convert.ToInt32(playernum)-1);
             }
         }
 

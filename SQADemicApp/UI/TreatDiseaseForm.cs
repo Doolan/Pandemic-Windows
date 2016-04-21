@@ -41,7 +41,7 @@ namespace SQADemicApp
             }
             GameBoardModels.GetCurrentPlayer().TreatDiseaseOption(colorChoice);
 
-            if (this.board.boardModel.incTurnCount())
+            if (this.board.IncrementTurnCount())
                 GameBoard.turnpart = GameBoard.TURNPART.Draw;
             this.Close();
             board.UpdatePlayerForm();

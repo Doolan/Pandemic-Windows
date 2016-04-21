@@ -8,30 +8,31 @@ namespace SQADemicApp
 {
     public partial class GameBoard : Form
     {
-        public GameBoardModels boardModel;
-        CharacterPane characterPane;
-        PlayerPanel playerForm;
-        EventCardForm ECForm;
+        private GameBoardModels boardModel;
+
         public enum STATE { Dispatcher, Initializing, Move, Cure, Default, Airlift, GovGrant}
         public static STATE CurrentState;
         public enum TURNPART { Action, Draw, Infect };
         public static TURNPART turnpart;
-        public static int dispatcherMoveIndex;
-        
 
+        private static int dispatcherMoveIndex;
+        private CharacterPane characterPane;
+        private PlayerPanel playerPanel;
+        private EventCardForm ECForm;
+        
         public GameBoard()
         {
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             CurrentState = STATE.Initializing;
             string[] rolesDefault = { "Dispatcher", "Scientist" };
             boardModel = new GameBoardModels(rolesDefault);
-            playerForm = new PlayerPanel(this);
+            playerPanel = new PlayerPanel(this);
             characterPane = new CharacterPane(rolesDefault);
             ECForm = new EventCardForm();
             InitializeComponent();
             ECForm.Show();
             characterPane.Show();
-            playerForm.Show();
+            playerPanel.Show();
             UpdatePlayerForm();
             UpdateCityButtons(true);
             
@@ -44,13 +45,13 @@ namespace SQADemicApp
 
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             boardModel = new GameBoardModels(playerRoles);
-            playerForm = new PlayerPanel(this);
+            playerPanel = new PlayerPanel(this);
             characterPane = new CharacterPane(playerRoles);
             ECForm = new EventCardForm();
             InitializeComponent();
             ECForm.Show();
             characterPane.Show();
-            playerForm.Show();
+            playerPanel.Show();
             UpdatePlayerForm();
             UpdateCityButtons(true);
             CurrentState = STATE.Default;
@@ -115,35 +116,35 @@ namespace SQADemicApp
         }
         public void UpdatePlayerForm()
         {
-            playerForm.UpdateTurnProgressBoard(boardModel.currentPlayerTurnCounter, GameBoardModels.GetCurrentPlayer().getMaxTurnCount());
-            playerForm.UpdatePlayerHand(GameBoardModels.GetCurrentPlayer().HandStringList().ToArray());
+            playerPanel.UpdateTurnProgressBoard(boardModel.currentPlayerTurnCounter, GameBoardModels.GetCurrentPlayer().getMaxTurnCount());
+            playerPanel.UpdatePlayerHand(GameBoardModels.GetCurrentPlayer().HandStringList().ToArray());
             if (GameBoardModels.GetCurrentPlayer().GetType() == typeof(DispatcherPlayer))
             {
-                playerForm.AddDispatcherButton();
+                playerPanel.AddDispatcherButton();
             }
             else
             {
-                playerForm.RemoveDispatcherButton();
+                playerPanel.RemoveDispatcherButton();
             }
             if (turnpart == TURNPART.Draw)
             {
-                playerForm.ShowDrawButton();
+                playerPanel.ShowDrawButton();
             }
             else if (turnpart == TURNPART.Infect)
             {
-                playerForm.ShowInfectButton();
+                playerPanel.ShowInfectButton();
             }
             else
             {
-                playerForm.HideDrawInfectButton();
+                playerPanel.HideDrawInfectButton();
             }
             characterPane.updateCurrentPlayer(GameBoardModels.CurrentPlayerIndex);
             characterPane.updatePlayerCount(GameBoardModels.GetPlayerCount());
 
-            playerForm.updateCubeCounts(GameBoardModels.GetInfectionCubeCount(COLOR.red), GameBoardModels.GetInfectionCubeCount(COLOR.blue),
+            playerPanel.updateCubeCounts(GameBoardModels.GetInfectionCubeCount(COLOR.red), GameBoardModels.GetInfectionCubeCount(COLOR.blue),
                 GameBoardModels.GetInfectionCubeCount(COLOR.black), GameBoardModels.GetInfectionCubeCount(COLOR.yellow));
-            playerForm.updateCounters(GameBoardModels.InfectionRate, GameBoardModels.outbreakMarker);
-            playerForm.updateCureStatus(GameBoardModels.GetCureStatus(COLOR.red).ToString(), GameBoardModels.GetCureStatus(COLOR.blue).ToString(),
+            playerPanel.updateCounters(GameBoardModels.InfectionRate, GameBoardModels.outbreakMarker);
+            playerPanel.updateCureStatus(GameBoardModels.GetCureStatus(COLOR.red).ToString(), GameBoardModels.GetCureStatus(COLOR.blue).ToString(),
                 GameBoardModels.GetCureStatus(COLOR.black).ToString(), GameBoardModels.GetCureStatus(COLOR.yellow).ToString());
             ECForm.UpdateEventCards();
         }
@@ -174,6 +175,16 @@ namespace SQADemicApp
                     }
                 }
             }
+        }
+
+        public static void SetDispatcherMoveIndex(int index)
+        {
+            dispatcherMoveIndex = index;
+        }
+
+        public bool IncrementTurnCount()
+        {
+            return boardModel.incTurnCount();
         }
     }
 }

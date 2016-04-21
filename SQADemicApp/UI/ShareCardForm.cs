@@ -88,7 +88,7 @@ namespace SQADemicApp
             }
             if (success)
             {
-                if (this.board.boardModel.incTurnCount())
+                if (this.board.IncrementTurnCount())
                     GameBoard.turnpart = GameBoard.TURNPART.Draw;
             }
             this.Close();
@@ -119,7 +119,7 @@ namespace SQADemicApp
             }
             if (success)
             {
-                if (this.board.boardModel.incTurnCount())
+                if (this.board.IncrementTurnCount())
                     GameBoard.turnpart = GameBoard.TURNPART.Draw;
             }
             this.Close();
@@ -146,7 +146,7 @@ namespace SQADemicApp
             }
             if (success)
             {
-                if (this.board.boardModel.incTurnCount())
+                if (this.board.IncrementTurnCount())
                     GameBoard.turnpart = GameBoard.TURNPART.Draw;
             }
             this.Close();
