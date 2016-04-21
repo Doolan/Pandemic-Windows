@@ -229,16 +229,9 @@ namespace SQADemicApp
             return HaveEnoughCardsToCure(numberOfAvailableCards);
         }
 
-        protected bool HaveEnoughCardsToCure(int num)
+        public virtual bool HaveEnoughCardsToCure(int num)
         {
-            if (GetType() == typeof(ScientistPlayer))
-            {
-                if (num != 4)
-                    return false;
-            }
-            else if (num != 5)
-                return false;
-            return true;
+            return num == 5;
         }
 
         /// <summary>

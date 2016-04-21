@@ -8,6 +8,9 @@ namespace SQADemicApp.Players
 {
     public class ScientistPlayer : AbstractPlayer
     {
-        
+        public override bool HaveEnoughCardsToCure(int num)
+        {
+            return num == 4;
+        }
     }
 }
