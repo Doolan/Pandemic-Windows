@@ -24,13 +24,13 @@ namespace SQADemicAppTest
         {
         }
 
-        private GameBoardModels models;
-        string[] players = { "Dispatcher", "Scientist", "Medic", "Operations Expert" };
+        private GameBoardModels _models;
+        readonly string[] _players = { "Dispatcher", "Scientist", "Medic", "Operations Expert" };
 
         [TestInitialize]
-        public void setUp()
+        public void SetUp()
         {
-            models = new GameBoardModels(players);
+            _models = new GameBoardModels(_players);
         }
 
         //[TestMethod]
@@ -63,28 +63,28 @@ namespace SQADemicAppTest
 
         public void AssertHidePlayerButtonIsCorrect(int playerCount)
         {
-            CharacterPane pane = new CharacterPane();
+            var pane = new CharacterPane();
             pane.HidePlayersByCount(playerCount);
-            for (int i = playerCount; i < 4; i++)
+            for (var i = playerCount; i < 4; i++)
             {
                 Assert.AreEqual(false, pane.GetPlayerBtns()[i].Visible);
             }
         }
 
         [TestMethod]
-        public void testOnePlayer()
+        public void TestOnePlayer()
         {
             AssertHidePlayerButtonIsCorrect(1);
         }
 
         [TestMethod]
-        public void testTwoPlayers()
+        public void TestTwoPlayers()
         {
             AssertHidePlayerButtonIsCorrect(2);
         }
 
         [TestMethod]
-        public void testThreePlayers()
+        public void TestThreePlayers()
         {
             AssertHidePlayerButtonIsCorrect(3);
         }
@@ -94,8 +94,8 @@ namespace SQADemicAppTest
 
         public void AssertUpdatePlayerButtonByTextIsCorrect(int index)
         {
-            CharacterPane pane = new CharacterPane();
-            string cityName = "Chicago";
+            var pane = new CharacterPane();
+            var cityName = "Chicago";
             GameBoard.UpdatePlayerButtonTextAccordingToIndex(pane, index, cityName);
             Assert.AreEqual("Player " + (index + 1) + "\n" + GameBoardModels.GetPlayerByIndex(index) + "\n" + cityName,
                pane.GetPlayerBtns()[index].Text);
@@ -130,17 +130,6 @@ namespace SQADemicAppTest
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-        private TestContext testContextInstance;
+        public TestContext TestContext { get; set; }
     }
 }

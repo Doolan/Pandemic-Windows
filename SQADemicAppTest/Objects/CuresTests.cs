@@ -14,17 +14,13 @@ namespace SQADemicApp.Objects.Tests
 
 
         [TestMethod()]
-        public void getCureStatusTest()
+        public void GetCureStatusTest()
         {
-            //don't tests gets
-        //    Assert.Fail();
         }
 
         [TestMethod()]
-        public void setCureStatusTest()
+        public void SetCureStatusTest()
         {
-        //don't test set
-          //  Assert.Fail();
         }
 
 
