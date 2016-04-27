@@ -105,6 +105,18 @@ namespace SQADemicApp
             }
             CurrentState = STATE.Default;
         }
+
+        public CharacterPane GetCharacterPane()
+        {
+            return characterPane;
+        }
+
+        public static void UpdatePlayerButtonTextAccordingToIndex(CharacterPane pane, int index, string cityName)
+        {
+            pane.getPlayerBtns()[index].Text = 
+                "Player " + (index + 1) + "\n" + GameBoardModels.GetPlayerByIndex(index) + "\n" + cityName;
+        }
+
         public void UpdatePlayerForm()
         {
             playerForm.UpdateTurnProgressBoard(boardModel.currentPlayerTurnCounter, GameBoardModels.GetCurrentPlayer().getMaxTurnCount());

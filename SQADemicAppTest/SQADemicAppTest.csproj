@@ -65,6 +65,7 @@
     <Compile Include="SpecialEventCardsTest.cs" />
     <Compile Include="TestFormActions.cs" />
     <Compile Include="SetupGameFormTest.cs" />
+    <Compile Include="UITest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SQADemicApp\SQADemicApp.csproj">

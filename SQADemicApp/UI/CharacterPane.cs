@@ -12,28 +12,36 @@ namespace SQADemicApp
 {
     public partial class CharacterPane : Form
     {
-        private string[] playerRoles;
-
+        private List<Button> PlayerBtns;
+         
         public CharacterPane()
         {
             InitializeComponent();
+            setPlayerBtns(new List<Button> { Player1, Player2, Player3, Player4 });
+        }
+
+        private void setPlayerBtns(List<Button> btns)
+        {
+            PlayerBtns = btns;
+        }
+
+        public List<Button> getPlayerBtns()
+        {
+            return PlayerBtns;
         }
 
         public CharacterPane(string[] playerRoles)
         {
             InitializeComponent();
-            this.playerRoles = playerRoles;
-            switch(playerRoles.Count())
+            setPlayerBtns(new List<Button> { Player1, Player2, Player3, Player4 });
+            HidePlayersByCount(playerRoles.Count());
+        }
+
+        public void HidePlayersByCount(int count)
+        {
+            for (int i = count; i < 4; i++)
             {
-                case 1:
-                    Player2.Hide();
-                    goto case 2;
-                case 2:
-                    Player3.Hide();
-                    goto case 3;
-                case 3:
-                    Player4.Hide();
-                    break;
+                PlayerBtns[i].Hide();
             }
         }
 
@@ -42,8 +50,7 @@ namespace SQADemicApp
             var btn = sender as Button;
             if(GameBoard.CurrentState==GameBoard.STATE.Dispatcher)
             {
-                var playernum = btn.Text.Substring(7, 1);
-                GameBoard.dispatcherMoveIndex = Convert.ToInt32(playernum)-1;
+                GameBoard.dispatcherMoveIndex = Convert.ToInt32(btn.Text.Substring(7, 1)) -1;
             }
         }
 
