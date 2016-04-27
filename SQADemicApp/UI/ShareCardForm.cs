@@ -13,10 +13,10 @@ namespace SQADemicApp
 {
     public partial class ShareCardForm : Form
     {
-        GameBoard board;
+        readonly GameBoard _board;
         public ShareCardForm(GameBoard board)
         {
-            this.board = board;
+            this._board = board;
             InitializeComponent();
             switch(GameBoardModels.GetCurrentPlayerIndex())
             {
@@ -54,14 +54,10 @@ namespace SQADemicApp
             }
             listBox1.Items.Clear();
             listBox1.Items.AddRange(GameBoardModels.GetCurrentPlayer().HandStringList().ToArray());
-            List<object> allHands = new List<object>();
-            foreach(var player in GameBoardModels.GetPlayers())
+            var allHands = new List<object>();
+            foreach (var player in GameBoardModels.GetPlayers().Where(player => player.GetType() != GameBoardModels.GetCurrentPlayer().GetType()))
             {
-                if (player.GetType() != GameBoardModels.GetCurrentPlayer().GetType())
-                {
-                    allHands.AddRange(player.HandStringList());
-                }
-                
+                allHands.AddRange(player.HandStringList());
             }
             listBox2.Items.Clear();
             listBox2.Items.AddRange(allHands.ToArray());
@@ -76,7 +72,7 @@ namespace SQADemicApp
         {
             var selectedItem = listBox1.SelectedItem.ToString();
             var selectedCard = selectedItem.Substring(0, selectedItem.IndexOf('(') - 1);
-            bool success = false;
+            var success = false;
             switch (GameBoardModels.GetCurrentPlayerIndex())
             {
                 case 0:
@@ -88,11 +84,11 @@ namespace SQADemicApp
             }
             if (success)
             {
-                if (this.board.boardModel.IncTurnCount())
-                    GameBoard.turnpart = GameBoard.TURNPART.Draw;
+                if (this._board.BoardModel.IncTurnCount())
+                    GameBoard.CurrentTurnPart = GameBoard.Turnpart.Draw;
             }
             this.Close();
-            board.UpdatePlayerForm();
+            _board.UpdatePlayerForm();
         }
 
         /// <summary>
@@ -104,7 +100,7 @@ namespace SQADemicApp
         {
             var selectedItem = listBox1.SelectedItem.ToString();
             var selectedCard = selectedItem.Substring(0, selectedItem.IndexOf('(') - 1);
-            bool success = false;
+            var success = false;
             switch (GameBoardModels.GetCurrentPlayerIndex())
             {
                 case 0:
@@ -119,11 +115,11 @@ namespace SQADemicApp
             }
             if (success)
             {
-                if (this.board.boardModel.IncTurnCount())
-                    GameBoard.turnpart = GameBoard.TURNPART.Draw;
+                if (this._board.BoardModel.IncTurnCount())
+                    GameBoard.CurrentTurnPart = GameBoard.Turnpart.Draw;
             }
             this.Close();
-            board.UpdatePlayerForm();
+            _board.UpdatePlayerForm();
         }
         /// <summary>
         /// Click give card to the third player
@@ -134,7 +130,7 @@ namespace SQADemicApp
         {
             var selectedItem = listBox1.SelectedItem.ToString();
             var selectedCard = selectedItem.Substring(0, selectedItem.IndexOf('(') - 1);
-            bool success = false;
+            var success = false;
             switch (GameBoardModels.GetCurrentPlayerIndex())
             {
                 case 3:
@@ -146,11 +142,11 @@ namespace SQADemicApp
             }
             if (success)
             {
-                if (this.board.boardModel.IncTurnCount())
-                    GameBoard.turnpart = GameBoard.TURNPART.Draw;
+                if (this._board.BoardModel.IncTurnCount())
+                    GameBoard.CurrentTurnPart = GameBoard.Turnpart.Draw;
             }
             this.Close();
-            board.UpdatePlayerForm();
+            _board.UpdatePlayerForm();
         }
 
         private void StealCardButton_Click(object sender, EventArgs e)
@@ -159,20 +155,17 @@ namespace SQADemicApp
             {
                 var selectedItem = listBox2.SelectedItem.ToString();
                 var selectedCard = selectedItem.Substring(0,selectedItem.IndexOf('(')-1);
-                AbstractPlayer SelectedCardHolder = GameBoardModels.GetCurrentPlayer();
-                foreach(var player in GameBoardModels.GetPlayers())
+                var selectedCardHolder = GameBoardModels.GetCurrentPlayer();
+                foreach (var player in GameBoardModels.GetPlayers().Where(player => player.Hand.Any(c=>c.CityName == selectedCard)))
                 {
-                    if(player.hand.Any(c=>c.CityName == selectedCard))
-                    {
-                        SelectedCardHolder = player;
-                        break;
-                    }
+                    selectedCardHolder = player;
+                    break;
                 }
-                if(SelectedCardHolder.ShareKnowledgeOption(GameBoardModels.GetCurrentPlayer(), selectedCard))
+                if(selectedCardHolder.ShareKnowledgeOption(GameBoardModels.GetCurrentPlayer(), selectedCard))
                 {
                     MessageBox.Show("Card Traded");
                     this.Close();
-                    board.UpdatePlayerForm();
+                    _board.UpdatePlayerForm();
                 }
                 else
                 {

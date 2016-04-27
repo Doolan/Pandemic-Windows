@@ -8,25 +8,25 @@ namespace SQADemicApp
 {
     public class Card
     {
-        public enum CARDTYPE { Infection, City, Special, EPIDEMIC }
-        public Card(string CityName, CARDTYPE type, COLOR color)
+        public enum Cardtype { Infection, City, Special, Epidemic }
+        public Card(string cityName, Cardtype type, Color color)
         {
-            this.CityName = CityName;
+            this.CityName = cityName;
             this.CardType = type;
             this.CityColor = color;
         }
-        public Card(string CityName, CARDTYPE type)
+        public Card(string cityName, Cardtype type)
         {
-            this.CityName = CityName;
+            this.CityName = cityName;
             this.CardType = type;
         }
         public string CityName;
-        public CARDTYPE CardType { get; set; }
-        public COLOR CityColor { get; set; }
+        public Cardtype CardType { get; set; }
+        public Color CityColor { get; set; }
 
-        public override bool Equals(Object obj)
+        public override bool Equals(object obj)
         {
-            Card objects = (Card)obj;
+            var objects = (Card)obj;
             return (this.CityName == objects.CityName) && (this.CardType == objects.CardType) && (this.CityColor == objects.CityColor);
         }
     }

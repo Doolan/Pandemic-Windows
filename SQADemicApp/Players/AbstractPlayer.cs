@@ -13,36 +13,34 @@ namespace SQADemicApp
 
     public abstract class AbstractPlayer
     {
-        private static int MAXCUBECOUNT = 24;
-        protected int MAXTURNCOUNT = 4;
-        protected int MAXHANDSIZE = 7;
+        private const int Maxcubecount = 24;
+        protected int Maxturncount = 4;
+        protected int Maxhandsize = 7;
 
-        public int getMaxTurnCount()
+        public int GetMaxTurnCount()
         {
-            return MAXTURNCOUNT;
+            return Maxturncount;
         }
 
-        public Dictionary<String, AbstractSpecialAction> specialActions = new Dictionary<String, AbstractSpecialAction>();
+        public Dictionary<string, AbstractSpecialAction> SpecialActions = new Dictionary<string, AbstractSpecialAction>();
 
-        public List<Card> hand { get; set; }
-        public City currentCity { get; set; }
-        public AbstractPlayer()
+        public List<Card> Hand { get; set; }
+        public City CurrentCity { get; set; }
+
+        protected AbstractPlayer()
         {
-            hand = new List<Card>();
-            currentCity = Create.cityDictionary["Atlanta"];
+            Hand = new List<Card>();
+            CurrentCity = Create.CityDictionary["Atlanta"];
         }
 
-        public List<Object> HandStringList()
+        public List<object> HandStringList()
         {
-            List<Object> stringHand = new List<Object>();
-            if (hand.Equals(null))
+            var stringHand = new List<object>();
+            if (Hand.Equals(null))
             {
                 return stringHand;
             }
-            foreach (var card in hand)
-            {
-                stringHand.Add(card.CityName + " (" + card.CityColor.ToString() + ")");
-            }
+            stringHand.AddRange(Hand.Select(card => card.CityName + " (" + card.CityColor.ToString() + ")").Cast<object>());
             return stringHand;
         }
 
@@ -53,7 +51,7 @@ namespace SQADemicApp
         /// <returns>List of Cities</returns>
         public static HashSet<City> DriveOptions(City currentCity)
         {
-            return currentCity.getAdjacentCities();
+            return currentCity.GetAdjacentCities();
         }
 
         /// <summary>
@@ -62,17 +60,11 @@ namespace SQADemicApp
         /// <param name="hand"></param>
         /// <param name="currentCity"></param>
         /// <returns></returns>
-        public static List<String> DirectFlightOption(List<Card> hand, City currentCity)
+        public static List<string> DirectFlightOption(List<Card> hand, City currentCity)
         {
-            var reducedHand = hand.Where(c => !c.CityName.Equals(currentCity.Name) && c.CardType == Card.CARDTYPE.City);
+            var reducedHand = hand.Where(c => !c.CityName.Equals(currentCity.Name) && c.CardType == Card.Cardtype.City);
 
-            var returnlist = new List<String>();
-            foreach (Card card in reducedHand)
-            {
-                returnlist.Add(card.CityName);
-            }
-
-            return returnlist;
+            return reducedHand.Select(card => card.CityName).ToList();
         }
 
         /// <summary>
@@ -91,60 +83,52 @@ namespace SQADemicApp
         /// </summary>
         /// <param name="currentCity"></param>
         /// <returns></returns>
-        public static List<String> ShuttleFlightOption(City currentCity)
+        public static List<string> ShuttleFlightOption(City currentCity)
         {
-            if (!currentCity.researchStation)
+            if (!currentCity.ResearchStation)
             {
-                return new List<String>();
+                return new List<string>();
             }
-            List<String> options = new List<String>();
-            List<City> stations = CityBL.getCitiesWithResearchStations();
-            foreach (var city in stations)
-            {
-                if (city.Name != currentCity.Name)
-                {
-                    options.Add(city.Name);
-                }
-            }
-            return options;
+            var stations = CityBL.GetCitiesWithResearchStations();
+            return (from city in stations where city.Name != currentCity.Name select city.Name).ToList();
         }
 
         /// <summary>
         /// Moves the player to the given city, updating the hand if needed
         /// </summary>
         /// <param name="city">City to move to</param>
-        /// <returns>Success Flag/returns>
+        /// <returns>Success Flag</returns>
         public virtual bool MovePlayer(City city)
         {
             // TODO: Further refactoring is possible but has less priority.
-            if (DriveOptions(currentCity).Any(c => c.Name.Equals(city.Name)))
+            if (DriveOptions(CurrentCity).Any(c => c.Name.Equals(city.Name)))
             {
                 //Do Nothing
             }
-            else if (ShuttleFlightOption(currentCity).Contains(city.Name))
+            else if (ShuttleFlightOption(CurrentCity).Contains(city.Name))
             {
                 //Do Nothing
             }
-            else if (DirectFlightOption(hand, currentCity).Contains(city.Name))
+            else if (DirectFlightOption(Hand, CurrentCity).Contains(city.Name))
             {
                 RemoveMovementCards(city);
             }
-            else if (CharterFlightOption(hand, currentCity))
+            else if (CharterFlightOption(Hand, CurrentCity))
             {
-                RemoveMovementCards(currentCity);
+                RemoveMovementCards(CurrentCity);
             }
             else
             {
                 return false;
             }
-            currentCity = city;
+            CurrentCity = city;
             return true;
         }
 
         public virtual void RemoveMovementCards(City city)
         {
-            GameBoardModels.DiscardCard(hand.First(c => c.CityName.Equals(city.Name)));
-            hand.RemoveAll(x => x.CityName.Equals(city.Name));
+            GameBoardModels.DiscardCard(Hand.First(c => c.CityName.Equals(city.Name)));
+            Hand.RemoveAll(x => x.CityName.Equals(city.Name));
         }
 
         /// <summary>
@@ -156,13 +140,13 @@ namespace SQADemicApp
         public virtual bool DispatcherMovePlayer(List<AbstractPlayer> players, City destination)
         {
             // TODO: Fix test cases, replace current codes with commented blocks
-            if (!(DriveOptions(currentCity).Any(p => p.Name.Equals(destination.Name)) ||
-                    players.Any(p => p.currentCity.Name.Equals(destination.Name)) || 
-                    ShuttleFlightOption(currentCity).Contains(destination.Name)))
+            if (!(DriveOptions(CurrentCity).Any(p => p.Name.Equals(destination.Name)) ||
+                    players.Any(p => p.CurrentCity.Name.Equals(destination.Name)) || 
+                    ShuttleFlightOption(CurrentCity).Contains(destination.Name)))
             {
                 return false;
             }
-            currentCity = destination;
+            CurrentCity = destination;
             return true;
 
             /**
@@ -179,15 +163,12 @@ namespace SQADemicApp
         /// TODO: If research stations on board = 6, call something to move research station
         public virtual bool BuildAResearchStationOption()
         {
-            if (CityBL.getCitiesWithResearchStations().Contains(currentCity))
+            if (CityBL.GetCitiesWithResearchStations().Contains(CurrentCity))
                 return false;
-            if (hand.Any(c => c.CityName.Equals(currentCity.Name)))
-            {
-                hand.RemoveAll(x => x.CityName.Equals(currentCity.Name));
-                currentCity.researchStation = true;
-                return true;
-            }
-            return false;
+            if (!Hand.Any(c => c.CityName.Equals(CurrentCity.Name))) return false;
+            Hand.RemoveAll(x => x.CityName.Equals(CurrentCity.Name));
+            CurrentCity.ResearchStation = true;
+            return true;
         }
 
         /// <summary>
@@ -196,36 +177,32 @@ namespace SQADemicApp
         /// <param name="cardsToSpend"></param>
         /// <param name="color"></param>
         /// <returns>Success Flag</returns>
-        public bool Cure(List<String> cardsToSpend, COLOR color)
+        public bool Cure(List<string> cardsToSpend, Color color)
         {
-            var cards = hand.Where(x => x.CityColor == color && cardsToSpend.Contains(x.CityName));
+            var cards = Hand.Where(x => x.CityColor == color && cardsToSpend.Contains(x.CityName));
 
             if (!CanCure(cards.Count(), color))
                 return false;
 
-            var discard = hand.Where(c => cards.Contains(c));
+            var discard = Hand.Where(c => cards.Contains(c));
             foreach (Card card in discard)
                 GameBoardModels.DiscardCard(card);
 
-            hand.RemoveAll(x => cards.Contains(x));
-            GameBoardModels.SetCureStatus(color, Cures.CURESTATE.Cured);
+            Hand.RemoveAll(x => cards.Contains(x));
+            GameBoardModels.SetCureStatus(color, Cures.Curestate.Cured);
             AllCureCheck();
 
             return true;
         }
 
-        public bool IsCurable(COLOR color)
+        public bool IsCurable(Color color)
         {
-            if (!currentCity.researchStation || GameBoardModels.GetCureStatus(color) != Cures.CURESTATE.NotCured)
-                return false;
-            return true;
+            return CurrentCity.ResearchStation && GameBoardModels.GetCureStatus(color) == Cures.Curestate.NotCured;
         }
 
-        public virtual bool CanCure(int numberOfAvailableCards, COLOR color)
+        public virtual bool CanCure(int numberOfAvailableCards, Color color)
         {
-            if (!IsCurable(color))
-                return false;
-            return HaveEnoughCardsToCure(numberOfAvailableCards);
+            return IsCurable(color) && HaveEnoughCardsToCure(numberOfAvailableCards);
         }
 
         public virtual bool HaveEnoughCardsToCure(int num)
@@ -239,10 +216,10 @@ namespace SQADemicApp
         /// </summary>
         public void AllCureCheck()
         {
-            if (GameBoardModels.GetCureStatus(COLOR.black) != Cures.CURESTATE.NotCured &&
-                   GameBoardModels.GetCureStatus(COLOR.blue) != Cures.CURESTATE.NotCured &&
-                   GameBoardModels.GetCureStatus(COLOR.red) != Cures.CURESTATE.NotCured &&
-                   GameBoardModels.GetCureStatus(COLOR.yellow) != Cures.CURESTATE.NotCured)
+            if (GameBoardModels.GetCureStatus(Color.Black) != Cures.Curestate.NotCured &&
+                   GameBoardModels.GetCureStatus(Color.Blue) != Cures.Curestate.NotCured &&
+                   GameBoardModels.GetCureStatus(Color.Red) != Cures.Curestate.NotCured &&
+                   GameBoardModels.GetCureStatus(Color.Yellow) != Cures.Curestate.NotCured)
             {
                 throw new InvalidOperationException("Game Over You Win");
             }
@@ -254,7 +231,7 @@ namespace SQADemicApp
         /// <param name="city"></param>
         /// <param name="color"></param>
         /// <returns>number of disease cubes in the city</returns>
-        public static int GetDiseaseCubes(City city, COLOR color)
+        public static int GetDiseaseCubes(City city, Color color)
         {
             return city.Cubes.GetCubeCount(color);
         }
@@ -266,28 +243,25 @@ namespace SQADemicApp
         /// <param name="color"></param>
         /// <param name="numberAfterCure"></param>
         /// <param name="numberBeforeCure"></param>
-        public static bool SetDiseaseCubes(City city, COLOR color, int numberAfterCure, int numberBeforeCure)
+        public static bool SetDiseaseCubes(City city, Color color, int numberAfterCure, int numberBeforeCure)
         {
-            numberAfterCure = GameBoardModels.GetCureStatus(color) == Cures.CURESTATE.Cured ? 0 : numberAfterCure;
+            numberAfterCure = GameBoardModels.GetCureStatus(color) == Cures.Curestate.Cured ? 0 : numberAfterCure;
             GameBoardModels.AddInfectionCubes(color, numberBeforeCure - numberAfterCure);
             city.Cubes.SetCubeCount(color, numberAfterCure);
-            if (GameBoardModels.GetInfectionCubeCount(color) == MAXCUBECOUNT && GameBoardModels.GetCureStatus(color) == Cures.CURESTATE.Cured)
-                GameBoardModels.SetCureStatus(color, Cures.CURESTATE.Sunset);
+            if (GameBoardModels.GetInfectionCubeCount(color) == Maxcubecount && GameBoardModels.GetCureStatus(color) == Cures.Curestate.Cured)
+                GameBoardModels.SetCureStatus(color, Cures.Curestate.Sunset);
             return true;
         }
 
         /// <summary>
         /// Treates the Diesease if possible
         /// </summary>
-        /// <param name="player"></param>
         /// <param name="color"></param>
         /// <returns>Success Flag</returns>
-        public virtual bool TreatDiseaseOption(COLOR color)
+        public virtual bool TreatDiseaseOption(Color color)
         {
-            int number = GetDiseaseCubes(currentCity, color);
-            if (number < 1)
-                return false;
-            return SetDiseaseCubes(currentCity, color, number - 1, number);
+            var number = GetDiseaseCubes(CurrentCity, color);
+            return number >= 1 && SetDiseaseCubes(CurrentCity, color, number - 1, number);
         }
 
         /// <summary>
@@ -298,14 +272,14 @@ namespace SQADemicApp
         /// <returns>Sucess Flag</returns>
         public bool ShareKnowledgeOption(AbstractPlayer reciver, string cityname)
         {
-            if (currentCity != reciver.currentCity ||
-                (!reciver.currentCity.Name.Equals(cityname) && GetType() != typeof(ResearcherPlayer)))
+            if (CurrentCity != reciver.CurrentCity ||
+                (!reciver.CurrentCity.Name.Equals(cityname) && GetType() != typeof(ResearcherPlayer)))
                 return false;
-            int index = hand.FindIndex(x => x.CityName.Equals(cityname));
+            var index = Hand.FindIndex(x => x.CityName.Equals(cityname));
             if (index == -1)
                 return false;
-            reciver.hand.Add(hand[index]);
-            hand.RemoveAt(index);
+            reciver.Hand.Add(Hand[index]);
+            Hand.RemoveAt(index);
             return true;
         }
 
@@ -314,38 +288,26 @@ namespace SQADemicApp
             return GetType().Name;
         }
 
-        public List<String> GetSpecialActions()
+        public List<string> GetSpecialActions()
         {
-            return new List<String>(this.specialActions.Keys);
+            return new List<string>(this.SpecialActions.Keys);
         }
 
 
-        public bool PreformSpecialAction(String actionName, GameBoard board)
+        public bool PreformSpecialAction(string actionName, GameBoard board)
         {
-            if (this.specialActions.ContainsKey(actionName))
-            {
-                this.specialActions[actionName].setGameBoard(board);
-                return this.specialActions[actionName].PreformAction();
-            }
-
-            return false;
+            if (!this.SpecialActions.ContainsKey(actionName)) return false;
+            this.SpecialActions[actionName].setGameBoard(board);
+            return this.SpecialActions[actionName].PreformAction();
         }
 
-        public bool addCardToHand(Card card)
+        public bool AddCardToHand(Card card)
         {
             //right now the drawn card will just be discarded if there is not enough room for it.
             //This should be changed... right?
-            if (this.hand.Count < MAXHANDSIZE)
-            {
-                this.hand.Add(card);
-                return true;
-            }
-            return false;
-        }
-
-        public virtual Dictionary<Button, LambdaExpression> getAvailableButton()
-        {
-            return null;
+            if (this.Hand.Count >= Maxhandsize) return false;
+            this.Hand.Add(card);
+            return true;
         }
     }
 }

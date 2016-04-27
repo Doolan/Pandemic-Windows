@@ -24,9 +24,9 @@ namespace SQADemicApp.SpecialActions
 
         public override bool PreformAction()
         {
-            CubeSelector selector = new CubeSelector(player.currentCity.Cubes);
+            CubeSelector selector = new CubeSelector(player.CurrentCity.Cubes);
             selector.ShowDialog();
-            return AddCubeToCard(selector.getColor());
+            return AddCubeToCard(selector.GetColor());
         }
 
         public bool haveEnoughCubes(String color)
@@ -49,14 +49,14 @@ namespace SQADemicApp.SpecialActions
         private void RemoveCubeFromBoard(String cube) 
         {
             //This looks dumb because it is, I just dont want another if, if else statement
-            Dictionary<String, COLOR> colorMap = new Dictionary<string,COLOR>();
-            colorMap.Add("Black", COLOR.black);
-            colorMap.Add("Blue", COLOR.blue);
-            colorMap.Add("Red", COLOR.red);
-            colorMap.Add("Yellow", COLOR.yellow);
+            Dictionary<String, Color> colorMap = new Dictionary<string,Color>();
+            colorMap.Add("Black", Color.Black);
+            colorMap.Add("Blue", Color.Blue);
+            colorMap.Add("Red", Color.Red);
+            colorMap.Add("Yellow", Color.Yellow);
 
             this.player.TreatDiseaseOption(colorMap[cube]);
-            this.board.boardModel.IncTurnCount();
+            this.board.BoardModel.IncTurnCount();
             this.board.UpdatePlayerForm();
             this.board.UpdateCityButtons(false);
         }

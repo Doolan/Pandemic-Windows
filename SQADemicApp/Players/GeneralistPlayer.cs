@@ -10,7 +10,7 @@ namespace SQADemicApp.Players
     {
         public GeneralistPlayer()
         {
-            base.MAXTURNCOUNT = 5;
+            base.Maxturncount = 5;
         }
     }
 }

@@ -17,14 +17,14 @@ namespace SQADemicApp.Objects
         {
         }
 
-        public override void DecrementCubeCount(COLOR color)
+        public override void DecrementCubeCount(Color color)
         {
-            cubesSet[color]--;
+            CubesSet[color]--;
         }
 
         public int GetTotalCubeCount()
         {
-            return cubesSet.Sum(cube => cube.Value);
+            return CubesSet.Sum(cube => cube.Value);
         }
     }
 }

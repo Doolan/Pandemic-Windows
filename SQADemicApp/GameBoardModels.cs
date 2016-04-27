@@ -9,32 +9,33 @@ using SQADemicApp.Players;
 
 namespace SQADemicApp
 {
-    public enum COLOR { red, black, blue, yellow }
+    public enum Color { Red, Black, Blue, Yellow }
     public class GameBoardModels
     {
         #region Public Static Vars 
-        private static List<String> citiesWithResearchStations;
-        private static int outbreakMarker = 0;
-        private static int CurrentPlayerIndex;
-        public static List<Card> eventCards;
+        private static List<string> _citiesWithResearchStations;
+        private static int _outbreakMarker = 0;
+        private static int _currentPlayerIndex;
+        public static List<Card> EventCards;
         public static int InfectionRate;
         public static int InfectionRateIndex;
         #endregion
 
         #region Public Vars
-        public int currentPlayerTurnCounter;
+        public int CurrentPlayerTurnCounter;
         #endregion
 
         #region private vars
-        private static AbstractPlayer[] players;
-        private static Cures CURESTATUS;
-        private static InfectionCubes cubeCount;
-        private static bool alreadySetUp = false;
-        private static LinkedList<String> infectionDeck;
-        private static LinkedList<String> infectionPile;
-        private static Stack<Card> playerDeck;
-        private static Stack<Card> discardPlayerDeck;
-        private static int MAXCUBECOUNT = 24;
+        private static AbstractPlayer[] _players;
+        private static Cures _curestatus;
+        private static InfectionCubes _cubeCount;
+        private static bool _alreadySetUp = false;
+        private static LinkedList<string> _infectionDeck;
+        private static LinkedList<string> _infectionPile;
+        private static Stack<Card> _playerDeck;
+        private static Stack<Card> _discardPlayerDeck;
+        private const int Maxcubecount = 24;
+
         #endregion
 
         /// <summary>
@@ -44,37 +45,37 @@ namespace SQADemicApp
         public GameBoardModels(IReadOnlyList<string> playersroles)
         {
             //Keep from making duplicates
-            if (!alreadySetUp)
+            if (!_alreadySetUp)
             {
                 //set vars
-                outbreakMarker = 0;
-                CreateInfectionCubes(MAXCUBECOUNT);
-                CURESTATUS = new Cures();
+                _outbreakMarker = 0;
+                CreateInfectionCubes(Maxcubecount);
+                _curestatus = new Cures();
               //  CURESTATUS.BlackCure = CURESTATUS.BlueCure = CURESTATUS.RedCure = CURESTATUS.YellowCure = Cures.CURESTATE.NotCured;
                 Card[] playerDeckArray;
-                List<String> infectionDeckList;
-                Create.setUpCreate(out playerDeckArray, out infectionDeckList);
-                playerDeck = new Stack<Card>(playerDeckArray);
-                discardPlayerDeck = new Stack<Card>();
-                eventCards = new List<Card>();
-                infectionPile = new LinkedList<String>();
-                infectionDeck = new LinkedList<string>(Create.makeInfectionDeck(new StringReader(SQADemicApp.Properties.Resources.InfectionDeck)));
+                List<string> infectionDeckList;
+                Create.SetUpCreate(out playerDeckArray, out infectionDeckList);
+                _playerDeck = new Stack<Card>(playerDeckArray);
+                _discardPlayerDeck = new Stack<Card>();
+                EventCards = new List<Card>();
+                _infectionPile = new LinkedList<string>();
+                _infectionDeck = new LinkedList<string>(Create.MakeInfectionDeck(new StringReader(SQADemicApp.Properties.Resources.InfectionDeck)));
             }
 
-            currentPlayerTurnCounter = 0;
-            CurrentPlayerIndex = 0;
+            CurrentPlayerTurnCounter = 0;
+            _currentPlayerIndex = 0;
             
-            GameBoardModels.players = CreatePlayers(playersroles);
+            GameBoardModels._players = CreatePlayers(playersroles);
             
             InfectionRate = 2;
             InfectionRateIndex = 0;
-            if (!alreadySetUp)
+            if (!_alreadySetUp)
             {
-                startGameInfection();
-                setUpPlayerHands();
+                StartGameInfection();
+                SetUpPlayerHands();
             }
 
-            alreadySetUp = true;
+            _alreadySetUp = true;
 
         }
 
@@ -127,39 +128,39 @@ namespace SQADemicApp
             return abstractPlayers;
         }
 
-        private void startGameInfection()
+        private static void StartGameInfection()
         {
-            for (int i = 3; i > 0; i--)
+            for (var i = 3; i > 0; i--)
             {
-                List<string> infectedcites = InfectorBL.InfectCities(infectionDeck, infectionPile, 3);
-                for (int j = 0; j < i; j++)
+                var infectedcites = InfectorBL.InfectCities(_infectionDeck, _infectionPile, 3);
+                for (var j = 0; j < i; j++)
                 {
                     InfectorBL.InfectCities(infectedcites);
                 }
             }
         }
 
-        private void setUpPlayerHands()
+        private static void SetUpPlayerHands()
         {
-            int cardsPerPlayer = players.Count() == 4 ? 2 : players.Count() == 3 ? 3 : 4;
-            foreach (AbstractPlayer player in players)
+            var cardsPerPlayer = _players.Count() == 4 ? 2 : _players.Count() == 3 ? 3 : 4;
+            foreach (var player in _players)
             {
-                for (int i = 0; i < cardsPerPlayer; i++)
+                for (var i = 0; i < cardsPerPlayer; i++)
                 {
-                    Card card = DrawCard();
-                    if (card.CardType.Equals(Card.CARDTYPE.EPIDEMIC))
+                    var card = DrawCard();
+                    if (card.CardType.Equals(Card.Cardtype.Epidemic))
                     {
-                        string infectcityname = InfectorBL.Epidemic(GameBoardModels.infectionDeck, GameBoardModels.infectionPile, ref GameBoardModels.InfectionRateIndex, ref GameBoardModels.InfectionRate);
+                        var infectcityname = InfectorBL.Epidemic(GameBoardModels._infectionDeck, GameBoardModels._infectionPile, ref GameBoardModels.InfectionRateIndex, ref GameBoardModels.InfectionRate);
                         new PicForm(false, infectcityname).Show();
-                        for (int j = 0; j < 3; j++)
+                        for (var j = 0; j < 3; j++)
                         {
                             InfectorBL.InfectCities(new List<string> { infectcityname });
                         }
                     }
-                    else if (card.CardType == Card.CARDTYPE.Special)
-                        eventCards.Add(card);
+                    else if (card.CardType == Card.Cardtype.Special)
+                        EventCards.Add(card);
                     else
-                        player.addCardToHand(card);
+                        player.AddCardToHand(card);
                 }
             }
         }
@@ -171,17 +172,17 @@ namespace SQADemicApp
 
         private static void GenerateCures()
         {
-            CURESTATUS = new Cures(Cures.CURESTATE.NotCured);
+            _curestatus = new Cures(Cures.Curestate.NotCured);
         }
 
-        public static Cures.CURESTATE GetCureStatus(COLOR color)
+        public static Cures.Curestate GetCureStatus(Color color)
         {
-            return CURESTATUS.GetCureStatus(color);
+            return _curestatus.GetCureStatus(color);
         }
 
-        public static void SetCureStatus(COLOR color, Cures.CURESTATE curestate)
+        public static void SetCureStatus(Color color, Cures.Curestate curestate)
         {
-            CURESTATUS.SetCureStatus(color, curestate);
+            _curestatus.SetCureStatus(color, curestate);
         }
         #endregion
 
@@ -189,32 +190,32 @@ namespace SQADemicApp
 
         private static void CreateInfectionCubes(int startingValue)
         {
-            cubeCount = new InfectionCubesBoard(startingValue);
+            _cubeCount = new InfectionCubesBoard(startingValue);
         }
 
-        public static void IncrementInfectionCubes(COLOR color)
+        public static void IncrementInfectionCubes(Color color)
         {
-            cubeCount.IncrementCubes(color);
+            _cubeCount.IncrementCubes(color);
         }
 
-        public static void DecrementInfectionCubeCount(COLOR color)
+        public static void DecrementInfectionCubeCount(Color color)
         {
-            cubeCount.DecrementCubeCount(color);
+            _cubeCount.DecrementCubeCount(color);
         }
 
-        public static void AddInfectionCubes(COLOR color, int value)
+        public static void AddInfectionCubes(Color color, int value)
         {
-            cubeCount.AddCubes(color, value);
+            _cubeCount.AddCubes(color, value);
         }
 
-        public static void SetInfectionCubeCount(COLOR color, int value)
+        public static void SetInfectionCubeCount(Color color, int value)
         {
-            cubeCount.SetCubeCount(color, value);
+            _cubeCount.SetCubeCount(color, value);
         }
 
-        public static int GetInfectionCubeCount(COLOR color)
+        public static int GetInfectionCubeCount(Color color)
         {
-            return cubeCount.GetCubeCount(color);
+            return _cubeCount.GetCubeCount(color);
         }
         #endregion
 
@@ -222,8 +223,8 @@ namespace SQADemicApp
 
         public static void IncrementOutbreakMarker()
         {
-            GameBoardModels.outbreakMarker ++;
-            if (GameBoardModels.outbreakMarker == 8)
+            GameBoardModels._outbreakMarker ++;
+            if (GameBoardModels._outbreakMarker == 8)
             {
                 throw new InvalidOperationException("Game Over");
             }
@@ -231,12 +232,12 @@ namespace SQADemicApp
 
         public static int GetOutbreakMarker()
         {
-            return GameBoardModels.outbreakMarker;
+            return GameBoardModels._outbreakMarker;
         }
 
         public static void SetOutbreakMarker(int marker)
         {
-            GameBoardModels.outbreakMarker = marker;
+            GameBoardModels._outbreakMarker = marker;
         }
 
 
@@ -245,35 +246,35 @@ namespace SQADemicApp
         #region Players
         public static AbstractPlayer GetCurrentPlayer()
         {
-            return players[CurrentPlayerIndex];
+            return _players[_currentPlayerIndex];
         }
 
         public static AbstractPlayer[] GetPlayers()
         {
-            return players;
+            return _players;
         }
 
         public static AbstractPlayer GetPlayerByIndex(int index)
         {
-            return players[index];
+            return _players[index];
         }
 
         public static int GetPlayerCount()
         {
-            return players.Length;
+            return _players.Length;
         }
 
 
         public bool IncTurnCount()
         {
-            if (currentPlayerTurnCounter >= GetCurrentPlayer().getMaxTurnCount() - 1)
+            if (CurrentPlayerTurnCounter >= GetCurrentPlayer().GetMaxTurnCount() - 1)
             {
                 //CurrentPlayerIndex = (CurrentPlayerIndex + 1) % players.Count();
-                currentPlayerTurnCounter = 0;
+                CurrentPlayerTurnCounter = 0;
                 return true;
             }
             else
-                currentPlayerTurnCounter++;
+                CurrentPlayerTurnCounter++;
             return false;
 
             //currentPlayerTurnCounter++;
@@ -281,12 +282,12 @@ namespace SQADemicApp
 
         public static int GetCurrentPlayerIndex()
         {
-            return GameBoardModels.CurrentPlayerIndex;
+            return GameBoardModels._currentPlayerIndex;
         }
 
         public static void MoveToNextPlayer()
         {
-            GameBoardModels.CurrentPlayerIndex = (GameBoardModels.CurrentPlayerIndex  +1) % GameBoardModels.GetPlayerCount();
+            GameBoardModels._currentPlayerIndex = (GameBoardModels._currentPlayerIndex  +1) % GameBoardModels.GetPlayerCount();
         }
         #endregion
 
@@ -294,37 +295,37 @@ namespace SQADemicApp
 
         public static bool PlayerDiscardPileContains(string cityName)
         {
-            return GameBoardModels.discardPlayerDeck.Count(c => c.CityName.Equals(cityName)) >0;
+            return GameBoardModels._discardPlayerDeck.Count(c => c.CityName.Equals(cityName)) >0;
         }
 
-        public static Stack<Card> getPlayerDeck()
+        public static Stack<Card> GetPlayerDeck()
         {
-            return playerDeck;
+            return _playerDeck;
         }
 
         public static Card ReclaminCityCardFromPlayerDeck(string cityName)
         {
-            return GameBoardModels.discardPlayerDeck.First(c => c.CityName.Equals(cityName));
+            return GameBoardModels._discardPlayerDeck.First(c => c.CityName.Equals(cityName));
         }
 
         public static LinkedList<string> GetInfectionDeck()
         {
-            return GameBoardModels.infectionDeck;
+            return GameBoardModels._infectionDeck;
         }
 
         public static LinkedList<string> GetInfectionPile()
         {
-            return GameBoardModels.infectionPile;
+            return GameBoardModels._infectionPile;
         }
 
         public static void RemoveFromInfectionPile(string cityName)
         {
-            GameBoardModels.infectionPile.Remove(cityName);
+            GameBoardModels._infectionPile.Remove(cityName);
         }
 
         public static void DiscardCard(Card card)
         {
-            GameBoardModels.discardPlayerDeck.Push(card);
+            GameBoardModels._discardPlayerDeck.Push(card);
         }
 
 
@@ -335,7 +336,7 @@ namespace SQADemicApp
         {
             try
             {
-                return playerDeck.Pop();
+                return _playerDeck.Pop();
             }
             catch (InvalidOperationException e)
             {
@@ -345,7 +346,7 @@ namespace SQADemicApp
 
         public int GetPlayerDeckSize()
         {
-            return playerDeck.Count();
+            return _playerDeck.Count();
         }
     }
 }

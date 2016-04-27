@@ -6,37 +6,37 @@ namespace SQADemicApp.Objects
 {
     public class Cures
     {
-        public enum CURESTATE
+        public enum Curestate
         {
             NotCured,
             Cured,
             Sunset
         }
 
-        private Dictionary<COLOR, CURESTATE> cureSet;
+        private readonly Dictionary<Color, Curestate> _cureSet;
 
-        public Cures() : this(CURESTATE.NotCured)
+        public Cures() : this(Curestate.NotCured)
         {
         }
 
-        public Cures(CURESTATE state)
+        public Cures(Curestate state)
         {
-            cureSet = new Dictionary<COLOR, CURESTATE>();
-            var values = Enum.GetValues(typeof (COLOR)).Cast<COLOR>();
+            _cureSet = new Dictionary<Color, Curestate>();
+            var values = Enum.GetValues(typeof (Color)).Cast<Color>();
             foreach (var color in values)
             {
-                cureSet.Add(color, state);
+                _cureSet.Add(color, state);
             }
         }
 
-        public CURESTATE GetCureStatus(COLOR color)
+        public Curestate GetCureStatus(Color color)
         {
-            return cureSet[color];
+            return _cureSet[color];
         }
 
-        public void SetCureStatus(COLOR color, CURESTATE curestate)
+        public void SetCureStatus(Color color, Curestate curestate)
         {
-            cureSet[color] = curestate;
+            _cureSet[color] = curestate;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace SQADemicApp.Players
     {
         public TroubleshooterPlayer()
         {
-            this.specialActions.Add("Peek At Top 3", new PeekAtTopThreeAction(this));
+            this.SpecialActions.Add("Peek At Top 3", new PeekAtTopThreeAction(this));
         }
 
         public override void RemoveMovementCards(City city) {}

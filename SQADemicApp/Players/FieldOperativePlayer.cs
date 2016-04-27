@@ -15,16 +15,18 @@ namespace SQADemicApp.Players
         public FieldOperativePlayer()
         {
             action = new MoveCubeToCard(this);
-            this.specialActions.Add("Add Cube to Card", action);
+            this.SpecialActions.Add("Add Cube to Card", action);
         }
 
-        public override bool CanCure(int numberOfAvailableCards, COLOR color)
+        public override bool CanCure(int numberOfAvailableCards, Color color)
         {
-            Dictionary<COLOR, String> colorToString = new Dictionary<COLOR, string>();
-            colorToString.Add(COLOR.black, "Black");
-            colorToString.Add(COLOR.blue, "Blue");
-            colorToString.Add(COLOR.red, "Red");
-            colorToString.Add(COLOR.yellow, "Yellow");
+            Dictionary<Color, string> colorToString = new Dictionary<Color, string>
+            {
+                {Color.Black, "Black"},
+                {Color.Blue, "Blue"},
+                {Color.Red, "Red"},
+                {Color.Yellow, "Yellow"}
+            };
 
             if (!IsCurable(color))
                 return false;

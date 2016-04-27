@@ -26,42 +26,42 @@ namespace SQADemicAppTest
         public void TestThatCardListCorrectOneItem()
         {
             cardList = new List<Card>();
-            cardList.Add(new Card("test", Card.CARDTYPE.City, COLOR.blue));
-            cardList.Add(new Card("Airlift", Card.CARDTYPE.Special));
-            cardList.Add(new Card("One Quiet Night", Card.CARDTYPE.Special));
-            cardList.Add(new Card("Resilient Population", Card.CARDTYPE.Special));
-            cardList.Add(new Card("Government Grant", Card.CARDTYPE.Special));
-            cardList.Add(new Card("Forecast", Card.CARDTYPE.Special));
-            returnedList = Create.makeCardList(new System.IO.StringReader("test; blue"));
+            cardList.Add(new Card("test", Card.Cardtype.City, Color.Blue));
+            cardList.Add(new Card("Airlift", Card.Cardtype.Special));
+            cardList.Add(new Card("One Quiet Night", Card.Cardtype.Special));
+            cardList.Add(new Card("Resilient Population", Card.Cardtype.Special));
+            cardList.Add(new Card("Government Grant", Card.Cardtype.Special));
+            cardList.Add(new Card("Forecast", Card.Cardtype.Special));
+            returnedList = Create.MakeCardList(new System.IO.StringReader("test; blue"));
             Assert.IsTrue(cardList[0].Equals(returnedList[0]));
         }
         [TestMethod]
         public void TestThatCardListCorrectTwoItem()
         {
             cardList = new List<Card>();
-            cardList.Add(new Card("test", Card.CARDTYPE.City, COLOR.blue));
-            cardList.Add(new Card("test2", Card.CARDTYPE.City, COLOR.blue));
-            cardList.Add(new Card("Airlift", Card.CARDTYPE.Special));
-            cardList.Add(new Card("One Quiet Night", Card.CARDTYPE.Special));
-            cardList.Add(new Card("Resilient Population", Card.CARDTYPE.Special));
-            cardList.Add(new Card("Government Grant", Card.CARDTYPE.Special));
-            cardList.Add(new Card("Forecast", Card.CARDTYPE.Special));
-            returnedList = Create.makeCardList(new System.IO.StringReader("test; blue\ntest2; blue"));
+            cardList.Add(new Card("test", Card.Cardtype.City, Color.Blue));
+            cardList.Add(new Card("test2", Card.Cardtype.City, Color.Blue));
+            cardList.Add(new Card("Airlift", Card.Cardtype.Special));
+            cardList.Add(new Card("One Quiet Night", Card.Cardtype.Special));
+            cardList.Add(new Card("Resilient Population", Card.Cardtype.Special));
+            cardList.Add(new Card("Government Grant", Card.Cardtype.Special));
+            cardList.Add(new Card("Forecast", Card.Cardtype.Special));
+            returnedList = Create.MakeCardList(new System.IO.StringReader("test; blue\ntest2; blue"));
             CollectionAssert.AreEqual(cardList, returnedList);
         }
         [TestMethod]
         public void TestThatCardListCorrectThreeItem()
         {
             cardList = new List<Card>();
-            cardList.Add(new Card("test", Card.CARDTYPE.City, COLOR.blue));
-            cardList.Add(new Card("test2", Card.CARDTYPE.City, COLOR.blue));
-            cardList.Add(new Card("test3", Card.CARDTYPE.City, COLOR.blue));
-            cardList.Add(new Card("Airlift", Card.CARDTYPE.Special));
-            cardList.Add(new Card("One Quiet Night", Card.CARDTYPE.Special));
-            cardList.Add(new Card("Resilient Population", Card.CARDTYPE.Special));
-            cardList.Add(new Card("Government Grant", Card.CARDTYPE.Special));
-            cardList.Add(new Card("Forecast", Card.CARDTYPE.Special));
-            returnedList = Create.makeCardList(new System.IO.StringReader("test; blue\ntest2; blue\ntest3; blue"));
+            cardList.Add(new Card("test", Card.Cardtype.City, Color.Blue));
+            cardList.Add(new Card("test2", Card.Cardtype.City, Color.Blue));
+            cardList.Add(new Card("test3", Card.Cardtype.City, Color.Blue));
+            cardList.Add(new Card("Airlift", Card.Cardtype.Special));
+            cardList.Add(new Card("One Quiet Night", Card.Cardtype.Special));
+            cardList.Add(new Card("Resilient Population", Card.Cardtype.Special));
+            cardList.Add(new Card("Government Grant", Card.Cardtype.Special));
+            cardList.Add(new Card("Forecast", Card.Cardtype.Special));
+            returnedList = Create.MakeCardList(new System.IO.StringReader("test; blue\ntest2; blue\ntest3; blue"));
             CollectionAssert.AreEqual(cardList, returnedList);
         }
 #endregion
@@ -70,28 +70,28 @@ namespace SQADemicAppTest
         [TestMethod]
         public void TestThatGetsCorrectColorRed()
         {
-            Assert.AreEqual(COLOR.red, HelperBL.getColor("red"));
+            Assert.AreEqual(Color.Red, HelperBL.GetColor("red"));
         }
         [TestMethod]
         public void TestThatGetsCorrectColorsRedBlue()
         {
-            Assert.AreEqual(COLOR.red, HelperBL.getColor("red"));
-            Assert.AreEqual(COLOR.blue, HelperBL.getColor("blue"));
+            Assert.AreEqual(Color.Red, HelperBL.GetColor("red"));
+            Assert.AreEqual(Color.Blue, HelperBL.GetColor("blue"));
         }
         [TestMethod]
         public void TestThatGetsCorrectThreeColors()
         {
-            Assert.AreEqual(COLOR.red, HelperBL.getColor("red"));
-            Assert.AreEqual(COLOR.blue, HelperBL.getColor("blue"));
-            Assert.AreEqual(COLOR.black, HelperBL.getColor("black"));
+            Assert.AreEqual(Color.Red, HelperBL.GetColor("red"));
+            Assert.AreEqual(Color.Blue, HelperBL.GetColor("blue"));
+            Assert.AreEqual(Color.Black, HelperBL.GetColor("black"));
         }
         [TestMethod]
         public void TestThatGetsCorrectAllColors()
         {
-            Assert.AreEqual(COLOR.red, HelperBL.getColor("red"));
-            Assert.AreEqual(COLOR.blue, HelperBL.getColor("blue"));
-            Assert.AreEqual(COLOR.black, HelperBL.getColor("black"));
-            Assert.AreEqual(COLOR.yellow, HelperBL.getColor("yellow"));
+            Assert.AreEqual(Color.Red, HelperBL.GetColor("red"));
+            Assert.AreEqual(Color.Blue, HelperBL.GetColor("blue"));
+            Assert.AreEqual(Color.Black, HelperBL.GetColor("black"));
+            Assert.AreEqual(Color.Yellow, HelperBL.GetColor("yellow"));
         }
         #endregion
 
@@ -102,7 +102,7 @@ namespace SQADemicAppTest
             string[] players = {"Dispatcher","Scientist"};
             GameBoardModels model = new GameBoardModels(players);
             model.IncTurnCount();
-            Assert.AreEqual(1, model.currentPlayerTurnCounter);
+            Assert.AreEqual(1, model.CurrentPlayerTurnCounter);
         }
         [TestMethod]
         public void TestThatPlayerTurnsResetAfter4moves()
@@ -114,7 +114,7 @@ namespace SQADemicAppTest
             model.IncTurnCount();
             model.IncTurnCount();
             model.IncTurnCount();
-            Assert.AreEqual(0, model.currentPlayerTurnCounter);
+            Assert.AreEqual(0, model.CurrentPlayerTurnCounter);
         }
         #endregion
 
@@ -158,7 +158,7 @@ namespace SQADemicAppTest
         {
             List<String> ls;
             StringReader r = new StringReader("New York,Montreal,Washington,London,Madrid");
-            ls = Create.makeInfectionDeck(r);
+            ls = Create.MakeInfectionDeck(r);
             Assert.AreEqual(5, ls.Count);
         }
 
@@ -167,7 +167,7 @@ namespace SQADemicAppTest
         {
             List<String> ls;
             StringReader r = new StringReader("New York,Montreal,Washington,London,Madrid");
-            ls = Create.makeInfectionDeck(r);
+            ls = Create.MakeInfectionDeck(r);
             HashSet<String> hash = new HashSet<String>(ls);
             Assert.AreEqual(5, hash.Count);
         }

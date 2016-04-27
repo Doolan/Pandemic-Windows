@@ -10,39 +10,39 @@ namespace SQADemicApp
     {
 
         public string Name;
-        public COLOR color;
-        public bool researchStation = false;
+        public Color Color;
+        public bool ResearchStation = false;
         public InfectionCubesCity Cubes;
-        public HashSet<City> adjacentCities;
+        public HashSet<City> AdjacentCities;
         //public List<City> adjacentCities;
 
-        public City(COLOR color, String name)
+        public City(Color color, string name)
         {
-            this.color = color;
+            this.Color = color;
             this.Name = name;
             Cubes = new InfectionCubesCity(0);
-            adjacentCities = new HashSet<City>();
+            AdjacentCities = new HashSet<City>();
         }
 
-        public int allCubeCount()
+        public int AllCubeCount()
         {
             return Cubes.GetTotalCubeCount();
         }
 
-        public void setAdjacentCities(HashSet<City> cities)
+        public void SetAdjacentCities(HashSet<City> cities)
         {
-            this.adjacentCities = cities;
+            this.AdjacentCities = cities;
         }
 
-        public HashSet<City> getAdjacentCities()
+        public HashSet<City> GetAdjacentCities()
         {
-            return adjacentCities;
+            return AdjacentCities;
         }
 
         public override bool Equals(object obj)
         {
-            City temp = (City) obj;
-            return (this.Name == temp.Name) && (this.color == temp.color);
+            var temp = (City) obj;
+            return (this.Name == temp.Name) && (this.Color == temp.Color);
         }
     }
 

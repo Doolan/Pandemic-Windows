@@ -6,7 +6,7 @@ namespace SQADemicApp
 {
     public abstract class InfectionCubes
     {
-        protected Dictionary<COLOR, int> cubesSet;
+        protected Dictionary<Color, int> CubesSet;
 
         protected InfectionCubes() : this(0)
         {
@@ -14,34 +14,34 @@ namespace SQADemicApp
 
         protected InfectionCubes(int startingValue)
         {
-            cubesSet = new Dictionary<COLOR, int>();
-            var values = Enum.GetValues(typeof (COLOR)).Cast<COLOR>();
+            CubesSet = new Dictionary<Color, int>();
+            var values = Enum.GetValues(typeof (Color)).Cast<Color>();
             foreach (var color in values)
             {
-                cubesSet.Add(color, startingValue);
+                CubesSet.Add(color, startingValue);
             }
         }
 
-        public void IncrementCubes(COLOR color)
+        public void IncrementCubes(Color color)
         {
-            cubesSet[color]++;
+            CubesSet[color]++;
         }
 
-        public abstract void DecrementCubeCount(COLOR color);
+        public abstract void DecrementCubeCount(Color color);
 
-        public int GetCubeCount(COLOR color)
+        public int GetCubeCount(Color color)
         {
-            return cubesSet[color];
+            return CubesSet[color];
         }
 
-        public void AddCubes(COLOR color, int value)
+        public void AddCubes(Color color, int value)
         {
-            cubesSet[color] += value;
+            CubesSet[color] += value;
         }
 
-        public void SetCubeCount(COLOR color, int value)
+        public void SetCubeCount(Color color, int value)
         {
-            cubesSet[color] = value;
+            CubesSet[color] = value;
         }
     }
 }

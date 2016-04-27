@@ -13,66 +13,65 @@ namespace SQADemicApp
 {
     public partial class PlayerPanel : Form
     {
-        private GameBoard board;
-        public static bool quietNight = false;
+        private readonly GameBoard _board;
+        public static bool QuietNight = false;
         public PlayerPanel(GameBoard board)
         {
-            this.board = board;
+            this._board = board;
             InitializeComponent();
         }
 
         private void MoveButton_Click(object sender, EventArgs e)
         {
-            GameBoard.CurrentState = GameBoard.STATE.Move;
+            GameBoard.CurrentState = GameBoard.State.Move;
         }
 
         private void CureCityButton_Click(object sender, EventArgs e)
         {
-            TreatDiseaseForm TDForm = new TreatDiseaseForm(board);
-            TDForm.Show();
+            var tdForm = new TreatDiseaseForm(_board);
+            tdForm.Show();
         }
 
         private void AAButton_Click(object sender, EventArgs e)
         {
-            AdvancedActions AAForm = new AdvancedActions(board);    
+            var aaForm = new AdvancedActions(_board);    
             
-            AddAdvancedActionButtonsForRole(AAForm);
+            AddAdvancedActionButtonsForRole(aaForm);
 
-            AAForm.ShowDialog();
+            aaForm.ShowDialog();
         }
 
-        private void AddAdvancedActionButtonsForRole(AdvancedActions AAForm)
+        private void AddAdvancedActionButtonsForRole(AdvancedActions aaForm)
         {
-            List<Button> buttons = new List<Button>();
-            foreach (String action in GameBoardModels.GetCurrentPlayer().GetSpecialActions())
+            var buttons = new List<Button>();
+            foreach (var action in GameBoardModels.GetCurrentPlayer().GetSpecialActions())
             {
-                Button newButton = new Button();
-                newButton.Text = action;
+                var newButton = new Button {Text = action};
 
                 //Small note: I have no idea why this syntax works
-                newButton.Click += (s, e) => { GameBoardModels.GetCurrentPlayer().PreformSpecialAction(action, board); newButton.Enabled = false; };
+                newButton.Click += (s, e) => { GameBoardModels.GetCurrentPlayer().PreformSpecialAction(action, _board); newButton.Enabled = false; };
                 newButton.AutoSize = true;
                 buttons.Add(newButton);
-                AAForm.ButtonPanel.Controls.Add(newButton);
+                aaForm.ButtonPanel.Controls.Add(newButton);
             }
         }
 
         private void DispatcherMove_Click(object sender, EventArgs e)
         {
-            GameBoard.CurrentState = SQADemicApp.GameBoard.STATE.Dispatcher;
+            GameBoard.CurrentState = SQADemicApp.GameBoard.State.Dispatcher;
         }
 
         private void EndSequenceBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                if (GameBoard.turnpart == GameBoard.TURNPART.Draw)
-                    drawcards();
-                else if (GameBoard.turnpart == GameBoard.TURNPART.Infect)
-                    infectCities();
-                board.UpdatePlayerForm();
+                if (GameBoard.CurrentTurnPart == GameBoard.Turnpart.Draw)
+                    Drawcards();
+                else if (GameBoard.CurrentTurnPart == GameBoard.Turnpart.Infect)
+                    InfectCities();
+                _board.UpdatePlayerForm();
             }
-            catch (InvalidOperationException exc)
+            catch (InvalidOperationException)
             {
                 //END OF GAME STUFF
                 MessageBox.Show("You Lost. That must suck...");
@@ -80,63 +79,63 @@ namespace SQADemicApp
             }
         }
 
-        private void infectCities()
+        private void InfectCities()
         {
-            if (!quietNight)
+            if (!QuietNight)
             {
-                List<string> infectedcites = InfectorBL.InfectCities(GameBoardModels.GetInfectionDeck(), GameBoardModels.GetInfectionPile(), GameBoardModels.InfectionRate);
+                var infectedcites = InfectorBL.InfectCities(GameBoardModels.GetInfectionDeck(), GameBoardModels.GetInfectionPile(), GameBoardModels.InfectionRate);
                 InfectorBL.InfectCities(infectedcites);
             }
             else
-                quietNight = true;
-            GameBoard.turnpart = GameBoard.TURNPART.Action;
+                QuietNight = true;
+            GameBoard.CurrentTurnPart = GameBoard.Turnpart.Action;
             GameBoardModels.MoveToNextPlayer();
-            board.UpdateCityButtons(false);
+            _board.UpdateCityButtons(false);
         }
 
-        private void drawcards()
+        private static void Drawcards()
         {
             //Draw Two cards
-            Card drawCard1 = GameBoardModels.DrawCard();
-            Card drawCard2 = GameBoardModels.DrawCard();
+            var drawCard1 = GameBoardModels.DrawCard();
+            var drawCard2 = GameBoardModels.DrawCard();
 
             //Epidemic code
-            if (drawCard1.CardType.Equals(Card.CARDTYPE.EPIDEMIC))
+            if (drawCard1.CardType.Equals(Card.Cardtype.Epidemic))
             {
-                string infectcityname = InfectorBL.Epidemic(GameBoardModels.GetInfectionDeck(), GameBoardModels.GetInfectionPile(), ref GameBoardModels.InfectionRateIndex, ref GameBoardModels.InfectionRate);
+                var infectcityname = InfectorBL.Epidemic(GameBoardModels.GetInfectionDeck(), GameBoardModels.GetInfectionPile(), ref GameBoardModels.InfectionRateIndex, ref GameBoardModels.InfectionRate);
                 new PicForm(false, infectcityname).Show();
-                for (int i = 0; i < 3; i++)
+                for (var i = 0; i < 3; i++)
                 {
                     InfectorBL.InfectCities(new List<string> { infectcityname });
                 }
             }
-            else if (drawCard1.CardType == Card.CARDTYPE.Special)
-                GameBoardModels.eventCards.Add(drawCard1);
+            else if (drawCard1.CardType == Card.Cardtype.Special)
+                GameBoardModels.EventCards.Add(drawCard1);
             else
-                GameBoardModels.GetCurrentPlayer().addCardToHand(drawCard1);
+                GameBoardModels.GetCurrentPlayer().AddCardToHand(drawCard1);
                 
 
-            if (drawCard2.CardType.Equals(Card.CARDTYPE.EPIDEMIC))
+            if (drawCard2.CardType.Equals(Card.Cardtype.Epidemic))
             {
-                string infectcityname = InfectorBL.Epidemic(GameBoardModels.GetInfectionDeck(), GameBoardModels.GetInfectionPile(), ref GameBoardModels.InfectionRateIndex, ref GameBoardModels.InfectionRate);
+                var infectcityname = InfectorBL.Epidemic(GameBoardModels.GetInfectionDeck(), GameBoardModels.GetInfectionPile(), ref GameBoardModels.InfectionRateIndex, ref GameBoardModels.InfectionRate);
                 new PicForm(false, infectcityname).Show();
-                for (int i = 0; i < 3; i++)
+                for (var i = 0; i < 3; i++)
                 {
                     InfectorBL.InfectCities(new List<string> { infectcityname });
                 }
             }
-            else if (drawCard2.CardType == Card.CARDTYPE.Special)
-                GameBoardModels.eventCards.Add(drawCard2);
+            else if (drawCard2.CardType == Card.Cardtype.Special)
+                GameBoardModels.EventCards.Add(drawCard2);
             else
-                GameBoardModels.GetCurrentPlayer().addCardToHand(drawCard2);
+                GameBoardModels.GetCurrentPlayer().AddCardToHand(drawCard2);
 
             //Move to infection phase
-            if (!quietNight)
-                GameBoard.turnpart = GameBoard.TURNPART.Infect;
+            if (!QuietNight)
+                GameBoard.CurrentTurnPart = GameBoard.Turnpart.Infect;
             else
             {
-                quietNight = false;
-                GameBoard.turnpart = GameBoard.TURNPART.Action;
+                QuietNight = false;
+                GameBoard.CurrentTurnPart = GameBoard.Turnpart.Action;
                 GameBoardModels.MoveToNextPlayer();
             }
         }
@@ -177,34 +176,34 @@ namespace SQADemicApp
                                      turnCount + "/" + maxTurns;
         }
 
-        public void UpdatePlayerHand(Object[] playerHandArray)
+        public void UpdatePlayerHand(object[] playerHandArray)
         {
             this.listBox1.Items.Clear();
             this.listBox1.Items.AddRange(playerHandArray);
         }
 
-        public void updateCubeCounts(int redCubeCount, int blueCubeCount, int blackCubeCount, int YellowCubeCount)
+        public void UpdateCubeCounts(int redCubeCount, int blueCubeCount, int blackCubeCount, int yellowCubeCount)
         {
-            this.RedCubes.Text = String.Format("Red Cubes Remaining:    {0,-2}/24", redCubeCount);
-            this.BlueCubes.Text = String.Format("Blue Cubes Remaining:   {0,-2}/24", blueCubeCount);
-            this.BlackCubes.Text = String.Format("Black Cubes Remaining:  {0,-2}/24", blackCubeCount);
-            this.YellowCubes.Text = String.Format("Yellow Cubes Remaining: {0,-2}/24", YellowCubeCount);
+            this.RedCubes.Text = $"Red Cubes Remaining:    {redCubeCount,-2}/24";
+            this.BlueCubes.Text = $"Blue Cubes Remaining:   {blueCubeCount,-2}/24";
+            this.BlackCubes.Text = $"Black Cubes Remaining:  {blackCubeCount,-2}/24";
+            this.YellowCubes.Text = $"Yellow Cubes Remaining: {yellowCubeCount,-2}/24";
         }
 
-        public void updateCounters(int infectionRate, int outbreakMarker)
+        public void UpdateCounters(int infectionRate, int outbreakMarker)
         {
-            this.InfectionRate.Text = string.Format("Infection Rate: {0}", infectionRate);
-            this.OutbreakCount.Text = string.Format("Outbreak Count: {0}", outbreakMarker);
+            this.InfectionRate.Text = $"Infection Rate: {infectionRate}";
+            this.OutbreakCount.Text = $"Outbreak Count: {outbreakMarker}";
         }
 
-        public void updateCureStatus(String redCureStatus, String blueCureStatus, String blackCureStatus, String yellowCureStatus)
+        public void updateCureStatus(string redCureStatus, string blueCureStatus, string blackCureStatus, string yellowCureStatus)
         {
             // set value of cure label to status in game board
             // if status is NotCured, change to No Cure for nicer appearance
-            this.RedCure.Text = String.Format("Red:  {0}", redCureStatus.Replace("NotCured", "No Cure"));
-            this.BlueCure.Text = String.Format("Blue: {0}", blueCureStatus.Replace("NotCured", "No Cure"));
-            this.BlackCure.Text = String.Format("Black:  {0}", blackCureStatus.Replace("NotCured", "No Cure"));
-            this.YellowCure.Text = String.Format("Yellow: {0}", yellowCureStatus.Replace("NotCured", "No Cure"));
+            this.RedCure.Text = $"Red:  {redCureStatus.Replace("NotCured", "No Cure")}";
+            this.BlueCure.Text = $"Blue: {blueCureStatus.Replace("NotCured", "No Cure")}";
+            this.BlackCure.Text = $"Black:  {blackCureStatus.Replace("NotCured", "No Cure")}";
+            this.YellowCure.Text = $"Yellow: {yellowCureStatus.Replace("NotCured", "No Cure")}";
         }
 
     }

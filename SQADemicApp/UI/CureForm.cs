@@ -13,32 +13,27 @@ namespace SQADemicApp
 {
     public partial class CureForm : Form
     {
-        GameBoard board;
+        private readonly GameBoard _board;
         public CureForm(GameBoard board)
         {
             InitializeComponent();
-            this.board = board;
+            this._board = board;
             listBox1.Items.Clear();
             listBox1.Items.AddRange(GameBoardModels.GetCurrentPlayer().HandStringList().ToArray());
         }
 
         private void Cure_Click(object sender, EventArgs e)
         {
-            List<string> selectedCards = new List<string>();
+            var selectedCards = new List<string>();
             var citynamesWithColors = listBox2.Items;
-            List<string> cityNames  = new List<string>();
-            foreach (object o in citynamesWithColors)
-            {
-                int index = o.ToString().IndexOf('(') -1;
-                cityNames.Add(o.ToString().Substring(0,index));
-            }
+            var cityNames  = (from object o in citynamesWithColors let index = o.ToString().IndexOf('(') - 1 select o.ToString().Substring(0, index)).ToList();
 
-            bool cured = false;
+            var cured = false;
             try
             {
-                cured = GameBoardModels.GetCurrentPlayer().Cure(cityNames, Create.cityDictionary[cityNames[0]].color);
+                cured = GameBoardModels.GetCurrentPlayer().Cure(cityNames, Create.CityDictionary[cityNames[0]].Color);
             }
-            catch (ArgumentException exe)
+            catch (ArgumentException)
             {
                 MessageBox.Show("You Win");
                 return;
@@ -48,17 +43,16 @@ namespace SQADemicApp
                 MessageBox.Show("Invalid card selection", "Invalid Selection");
             else
             {
-            if (this.board.boardModel.IncTurnCount())
-                GameBoard.turnpart = GameBoard.TURNPART.Draw;     
+            if (this._board.BoardModel.IncTurnCount())
+                GameBoard.CurrentTurnPart = GameBoard.Turnpart.Draw;     
             this.Close();
-            board.UpdatePlayerForm();
+            _board.UpdatePlayerForm();
         }
         }
 
         private void Remove_Click(object sender, EventArgs e)
         {
-            List<string> selectedCards = new List<string>();
-            selectedCards = listBox2.SelectedItems.Cast<String>().ToList();
+            var selectedCards = listBox2.SelectedItems.Cast<string>().ToList();
             listBox1.Items.AddRange(selectedCards.ToArray());
             foreach(var item in selectedCards)
             {
@@ -68,8 +62,7 @@ namespace SQADemicApp
 
         private void Add_Click(object sender, EventArgs e)
         {
-            List<string> selectedCards = new List<string>();
-            selectedCards = listBox1.SelectedItems.Cast<String>().ToList();
+            var selectedCards = listBox1.SelectedItems.Cast<string>().ToList();
             listBox2.Items.AddRange(selectedCards.ToArray());
             foreach (var item in selectedCards)
             {

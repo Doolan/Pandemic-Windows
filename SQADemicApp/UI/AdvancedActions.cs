@@ -22,8 +22,8 @@ namespace SQADemicApp
 
         private void ShareKnowledge_Click(object sender, EventArgs e)
         {
-            SQADemicApp.ShareCardForm SCForm = new ShareCardForm(board);
-            SCForm.Show();
+            var scForm = new ShareCardForm(board);
+            scForm.Show();
             this.Close();
         }
 
@@ -35,8 +35,8 @@ namespace SQADemicApp
             }
             else
             {
-                if (this.board.boardModel.IncTurnCount())
-                    GameBoard.turnpart = GameBoard.TURNPART.Draw;                
+                if (this.board.BoardModel.IncTurnCount())
+                    GameBoard.CurrentTurnPart = GameBoard.Turnpart.Draw;                
                 board.UpdatePlayerForm();
                 this.Close();
             }

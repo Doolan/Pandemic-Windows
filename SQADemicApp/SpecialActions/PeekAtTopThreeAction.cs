@@ -13,7 +13,7 @@ namespace SQADemicApp.SpecialActions
         public PeekAtTopThreeAction(AbstractPlayer player) : base(player) { }
         public override bool PreformAction()
         {
-            Stack<Card> deck = GameBoardModels.getPlayerDeck();
+            Stack<Card> deck = GameBoardModels.GetPlayerDeck();
             String cards = "";
             for (int i = 0; i < 3; i++ )
             {

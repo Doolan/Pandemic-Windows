@@ -14,11 +14,11 @@ namespace SQADemicApp.BL
         /// <param name="pile">infection Deck - LinkedList</param>
         /// <param name="infectionRate"></param>
 		/// <returns>List of new infected cities</returns>
-        public static List<String> InfectCities(LinkedList<String> deck, LinkedList<String> pile, int infectionRate)
+        public static List<string> InfectCities(LinkedList<string> deck, LinkedList<string> pile, int infectionRate)
         {
-            List<string> returnList = new List<string>();
+            var returnList = new List<string>();
 
-            for (int i = 0; i < infectionRate; i++)
+            for (var i = 0; i < infectionRate; i++)
             {
                 returnList.Add(deck.First.Value);
                 pile.AddFirst(deck.First.Value);
@@ -37,33 +37,33 @@ namespace SQADemicApp.BL
         /// <param name="infectionRateIndex">infectionRateIndex - int current index in the infectionRates</param>
         /// <param name="infectionRate"></param>
        	/// <returns></returns>
-        public static string Epidemic(LinkedList<String> deck, LinkedList<String> pile, ref int infectionRateIndex, ref int infectionRate)
+        public static string Epidemic(LinkedList<string> deck, LinkedList<string> pile, ref int infectionRateIndex, ref int infectionRate)
         {
             //infection rate stuff
             infectionRate = infectionRateIndex > 1 ? (infectionRateIndex > 3 ? 4 :3) : 2;
             infectionRateIndex += 1;
 
             //draw Last card
-            string epidmicCity = deck.Last.Value;
+            var epidmicCity = deck.Last.Value;
             deck.RemoveLast();
             pile.AddFirst(epidmicCity);
 
             //shuffle remains back on to the deck
-            string[] pilearray = pile.ToArray<string>();
-            pilearray = HelperBL.shuffleArray(pilearray);
-            for (int i = 0; i < pilearray.Length; i++)
+            var pilearray = pile.ToArray();
+            pilearray = HelperBL.ShuffleArray(pilearray);
+            foreach (string eachPile in pilearray)
             {
-                deck.AddFirst(pilearray[i]);
+                deck.AddFirst(eachPile);
             }
-            pile.Clear();
+		    pile.Clear();
             return epidmicCity;
 		}
 
         public static void InfectCities(List<string> citiesToInfect)
         {
-            foreach (string name in citiesToInfect)
+            foreach (var name in citiesToInfect)
             {
-                InfectCity(Create.cityDictionary[name], new HashSet<City>(), false, Create.cityDictionary[name].color);
+                InfectCity(Create.CityDictionary[name], new HashSet<City>(), false, Create.CityDictionary[name].Color);
             }
         }
 
@@ -75,23 +75,23 @@ namespace SQADemicApp.BL
         /// <param name="causedByOutbreak"></param>
         /// <param name="outbreakColor"></param>
         /// <returns></returns>
-        public static int InfectCity(SQADemicApp.City city, HashSet<City> alreadyInfected, bool causedByOutbreak, COLOR outbreakColor)
+        public static int InfectCity(SQADemicApp.City city, HashSet<City> alreadyInfected, bool causedByOutbreak, Color outbreakColor)
         {
             if (!causedByOutbreak)
             {
-                if (GameBoardModels.GetCureStatus(city.color) == Cures.CURESTATE.Sunset)
-                    return city.Cubes.GetCubeCount(city.color);
-                if (city.Cubes.GetCubeCount(city.color) < 3)
+                if (GameBoardModels.GetCureStatus(city.Color) == Cures.Curestate.Sunset)
+                    return city.Cubes.GetCubeCount(city.Color);
+                if (city.Cubes.GetCubeCount(city.Color) < 3)
                 {
-                    GameBoardModels.DecrementInfectionCubeCount(city.color);
-                    city.Cubes.IncrementCubes(city.color);
-                    return city.Cubes.GetCubeCount(city.color);
+                    GameBoardModels.DecrementInfectionCubeCount(city.Color);
+                    city.Cubes.IncrementCubes(city.Color);
+                    return city.Cubes.GetCubeCount(city.Color);
                 }
-                Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
+                Outbreak(city, city.Color, city.AdjacentCities, alreadyInfected);
             } 
                 // will reach here if this infection was caused by an outbreak.
                 //need to increment cubes of outbreak color, which aren't necessarily the city color
-                if (GameBoardModels.GetCureStatus(outbreakColor) == Cures.CURESTATE.Sunset)
+                if (GameBoardModels.GetCureStatus(outbreakColor) == Cures.Curestate.Sunset)
                     return city.Cubes.GetCubeCount(outbreakColor);
                 if (city.Cubes.GetCubeCount(outbreakColor) < 3)
                 {
@@ -99,22 +99,19 @@ namespace SQADemicApp.BL
                     city.Cubes.IncrementCubes(outbreakColor);
                     return city.Cubes.GetCubeCount(outbreakColor);
                 }
-                Outbreak(city, city.color, city.adjacentCities, alreadyInfected);
+                Outbreak(city, city.Color, city.AdjacentCities, alreadyInfected);
                 return city.Cubes.GetCubeCount(outbreakColor);
         }
 
         //returns a list of the cities that have already been infected
-        public static HashSet<City> Outbreak(City city, COLOR color, HashSet<City> adjacentCities, HashSet<City> alreadyInfected)
+        public static HashSet<City> Outbreak(City city, Color color, HashSet<City> adjacentCities, HashSet<City> alreadyInfected)
         {
             new PicForm(true, city.Name).Show();
             alreadyInfected.Add(city);
-            foreach (var neighbor in adjacentCities)
+            foreach (var neighbor in adjacentCities.Where(neighbor => !alreadyInfected.Contains(neighbor)))
             {
-                if (!alreadyInfected.Contains(neighbor))
-                {
-                    //alreadyInfected.Add(neighbor);
-                    InfectCity(neighbor, alreadyInfected, true, color);                   
-                }
+                //alreadyInfected.Add(neighbor);
+                InfectCity(neighbor, alreadyInfected, true, color);
             }
             GameBoardModels.IncrementOutbreakMarker();
             return alreadyInfected;

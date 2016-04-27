@@ -12,50 +12,50 @@ namespace SQADemicApp
 {
     public partial class CharacterPane : Form
     {
-        private List<Button> PlayerBtns;
+        private List<Button> _playerBtns;
          
         public CharacterPane()
         {
             InitializeComponent();
-            setPlayerBtns(new List<Button> { Player1, Player2, Player3, Player4 });
+            SetPlayerBtns(new List<Button> { Player1, Player2, Player3, Player4 });
         }
 
-        private void setPlayerBtns(List<Button> btns)
+        private void SetPlayerBtns(List<Button> btns)
         {
-            PlayerBtns = btns;
+            _playerBtns = btns;
         }
 
-        public List<Button> getPlayerBtns()
+        public List<Button> GetPlayerBtns()
         {
-            return PlayerBtns;
+            return _playerBtns;
         }
 
         public CharacterPane(string[] playerRoles)
         {
             InitializeComponent();
-            setPlayerBtns(new List<Button> { Player1, Player2, Player3, Player4 });
+            SetPlayerBtns(new List<Button> { Player1, Player2, Player3, Player4 });
             HidePlayersByCount(playerRoles.Count());
         }
 
         public void HidePlayersByCount(int count)
         {
-            for (int i = count; i < 4; i++)
+            for (var i = count; i < 4; i++)
             {
-                PlayerBtns[i].Hide();
+                _playerBtns[i].Hide();
             }
         }
 
         private void Player_Click(object sender, EventArgs e)
         {
             var btn = sender as Button;
-            if(GameBoard.CurrentState==GameBoard.STATE.Dispatcher)
+            if(GameBoard.CurrentState==GameBoard.State.Dispatcher)
             {
-                GameBoard.dispatcherMoveIndex = Convert.ToInt32(btn.Text.Substring(7, 1)) -1;
+                GameBoard.DispatcherMoveIndex = Convert.ToInt32(btn.Text.Substring(7, 1)) -1;
             }
         }
 
         //
-        public void updateCurrentPlayer(int currentPlayerIndex)
+        public void UpdateCurrentPlayer(int currentPlayerIndex)
         {
             switch (currentPlayerIndex)
             {
@@ -80,24 +80,24 @@ namespace SQADemicApp
             }
         }
 
-        public void updatePlayerCount(int playerCount)
+        public void UpdatePlayerCount(int playerCount)
         {
             switch (playerCount)
             {
                 case 4:
-                    this.Player4.Text = "Player 4\n" + GameBoardModels.GetPlayerByIndex(3) + "\n" + GameBoardModels.GetPlayerByIndex(3).currentCity.Name;
+                    this.Player4.Text = "Player 4\n" + GameBoardModels.GetPlayerByIndex(3) + "\n" + GameBoardModels.GetPlayerByIndex(3).CurrentCity.Name;
                     goto case 3;
                 case 3:
-                    this.Player3.Text = "Player 3\n" + GameBoardModels.GetPlayerByIndex(2) + "\n" + GameBoardModels.GetPlayerByIndex(2).currentCity.Name;
+                    this.Player3.Text = "Player 3\n" + GameBoardModels.GetPlayerByIndex(2) + "\n" + GameBoardModels.GetPlayerByIndex(2).CurrentCity.Name;
                     goto case 2;
                 case 2:
-                    this.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + GameBoardModels.GetPlayerByIndex(0).currentCity.Name;
-                    this.Player2.Text = "Player 2\n" + GameBoardModels.GetPlayerByIndex(1) + "\n" + GameBoardModels.GetPlayerByIndex(1).currentCity.Name;
+                    this.Player1.Text = "Player 1\n" + GameBoardModels.GetPlayerByIndex(0) + "\n" + GameBoardModels.GetPlayerByIndex(0).CurrentCity.Name;
+                    this.Player2.Text = "Player 2\n" + GameBoardModels.GetPlayerByIndex(1) + "\n" + GameBoardModels.GetPlayerByIndex(1).CurrentCity.Name;
                     break;
             }
         }
 
-        public void updatePlayerCity(int playerIndex, String cityName)
+        public void UpdatePlayerCity(int playerIndex, string cityName)
         {
             switch (playerIndex)
             {

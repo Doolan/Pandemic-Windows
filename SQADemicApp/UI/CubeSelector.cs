@@ -13,26 +13,25 @@ namespace SQADemicApp.UI
 {
     public partial class CubeSelector : Form
     {
-        private List<String> cubeList;
-        public CubeSelector(InfectionCubesCity available)
+        public CubeSelector(InfectionCubes available)
         {
             InitializeComponent();
 
-            cubeList = new List<String>();
+            var cubeList = new List<string>();
             //This looks bad because it is
-            if (available.GetCubeCount(COLOR.black) > 0) { cubeList.Add("Black"); };
-            if (available.GetCubeCount(COLOR.blue) > 0) { cubeList.Add("Blue"); };
-            if (available.GetCubeCount(COLOR.red) > 0) { cubeList.Add("Red"); };
-            if (available.GetCubeCount(COLOR.yellow) > 0) { cubeList.Add("Yellow"); };
+            if (available.GetCubeCount(Color.Black) > 0) { cubeList.Add("Black"); };
+            if (available.GetCubeCount(Color.Blue) > 0) { cubeList.Add("Blue"); };
+            if (available.GetCubeCount(Color.Red) > 0) { cubeList.Add("Red"); };
+            if (available.GetCubeCount(Color.Yellow) > 0) { cubeList.Add("Yellow"); };
 
             this.ColorBox.DataSource = cubeList;           
         }
 
        
 
-        public String getColor()
+        public string GetColor()
         {
-            return (String)this.ColorBox.SelectedItem;
+            return (string)this.ColorBox.SelectedItem;
         }
 
         private void SelectButton_Click(object sender, EventArgs e)

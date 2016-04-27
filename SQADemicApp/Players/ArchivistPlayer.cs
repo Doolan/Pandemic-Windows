@@ -11,8 +11,8 @@ namespace SQADemicApp.Players
     public class ArchivistPlayer : AbstractPlayer
     {
         public ArchivistPlayer() {
-            base.MAXHANDSIZE = 8;
-            this.specialActions.Add("ReclaimCityCard", new ReclaimCityCardAction(this));
+            base.Maxhandsize = 8;
+            this.SpecialActions.Add("ReclaimCityCard", new ReclaimCityCardAction(this));
         }
     }
 }

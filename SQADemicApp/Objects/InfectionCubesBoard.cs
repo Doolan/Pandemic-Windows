@@ -15,10 +15,10 @@ namespace SQADemicApp
         }
 
 
-        public override void DecrementCubeCount(COLOR color)
+        public override void DecrementCubeCount(Color color)
         {
-            cubesSet[color] --;
-            if (cubesSet[color] <= 0)
+            CubesSet[color] --;
+            if (CubesSet[color] <= 0)
             {
                 throw new InvalidOperationException("Game Over");
             }

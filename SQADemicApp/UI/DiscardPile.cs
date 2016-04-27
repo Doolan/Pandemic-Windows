@@ -23,12 +23,12 @@ namespace SQADemicApp
             {
                 Discard.Hide();
             }
-            setCards();
+            SetCards();
         }
-        private void setCards()
+        private void SetCards()
         {
             listBox1.Items.Clear();
-            List<string> discarded = new List<string>(GameBoardModels.GetInfectionPile());
+            var discarded = new List<string>(GameBoardModels.GetInfectionPile());
             listBox1.Items.AddRange(discarded.ToArray());
         }
 

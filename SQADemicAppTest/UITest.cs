@@ -67,7 +67,7 @@ namespace SQADemicAppTest
             pane.HidePlayersByCount(playerCount);
             for (int i = playerCount; i < 4; i++)
             {
-                Assert.AreEqual(false, pane.getPlayerBtns()[i].Visible);
+                Assert.AreEqual(false, pane.GetPlayerBtns()[i].Visible);
             }
         }
 
@@ -98,7 +98,7 @@ namespace SQADemicAppTest
             string cityName = "Chicago";
             GameBoard.UpdatePlayerButtonTextAccordingToIndex(pane, index, cityName);
             Assert.AreEqual("Player " + (index + 1) + "\n" + GameBoardModels.GetPlayerByIndex(index) + "\n" + cityName,
-               pane.getPlayerBtns()[index].Text);
+               pane.GetPlayerBtns()[index].Text);
         }
 
         [TestMethod]

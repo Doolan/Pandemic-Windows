@@ -10,7 +10,7 @@ namespace SQADemicApp.Players
     {
         public override bool BuildAResearchStationOption()
         {
-            currentCity.researchStation = true;
+            CurrentCity.ResearchStation = true;
             return true;
         }
     }

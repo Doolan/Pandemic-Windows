@@ -11,20 +11,18 @@ namespace SQADemicApp.Players
 
         public override bool MovePlayer(City city) 
         {
-            if(base.MovePlayer(city)) {
-                //Ok so this is how we have to do it for now because I 
-                //can't get a list/anything I can call a foreach
-                //loop on to make this look less dumb
-                DiseaseContainment(city, COLOR.black);
-                DiseaseContainment(city, COLOR.blue);
-                DiseaseContainment(city, COLOR.yellow);
-                DiseaseContainment(city, COLOR.red);
-                return true;
-            }
-            return false;
+            if (!base.MovePlayer(city)) return false;
+            //Ok so this is how we have to do it for now because I 
+            //can't get a list/anything I can call a foreach
+            //loop on to make this look less dumb
+            DiseaseContainment(city, Color.Black);
+            DiseaseContainment(city, Color.Blue);
+            DiseaseContainment(city, Color.Yellow);
+            DiseaseContainment(city, Color.Red);
+            return true;
         }
 
-        private void DiseaseContainment(City city, COLOR color)
+        private static void DiseaseContainment(City city, Color color)
         {
             if (GetDiseaseCubes(city, color) >= 2)
             {

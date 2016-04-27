@@ -8,73 +8,73 @@ namespace SQADemicApp
 {
     public partial class GameBoard : Form
     {
-        public GameBoardModels boardModel;
-        CharacterPane characterPane;
-        PlayerPanel playerForm;
-        EventCardForm ECForm;
-        public enum STATE { Dispatcher, Initializing, Move, Cure, Default, Airlift, GovGrant}
-        public static STATE CurrentState;
-        public enum TURNPART { Action, Draw, Infect };
-        public static TURNPART turnpart;
-        public static int dispatcherMoveIndex;
+        public GameBoardModels BoardModel;
+        readonly CharacterPane _characterPane;
+        readonly PlayerPanel _playerForm;
+        readonly EventCardForm _ecForm;
+        public enum State { Dispatcher, Initializing, Move, Cure, Default, Airlift, GovGrant}
+        public static State CurrentState;
+        public enum Turnpart { Action, Draw, Infect };
+        public static Turnpart CurrentTurnPart;
+        public static int DispatcherMoveIndex;
         
 
         public GameBoard()
         {
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            CurrentState = STATE.Initializing;
+            CurrentState = State.Initializing;
             string[] rolesDefault = { "Dispatcher", "Scientist" };
-            boardModel = new GameBoardModels(rolesDefault);
-            playerForm = new PlayerPanel(this);
-            characterPane = new CharacterPane(rolesDefault);
-            ECForm = new EventCardForm();
+            BoardModel = new GameBoardModels(rolesDefault);
+            _playerForm = new PlayerPanel(this);
+            _characterPane = new CharacterPane(rolesDefault);
+            _ecForm = new EventCardForm();
             InitializeComponent();
-            ECForm.Show();
-            characterPane.Show();
-            playerForm.Show();
+            _ecForm.Show();
+            _characterPane.Show();
+            _playerForm.Show();
             UpdatePlayerForm();
             UpdateCityButtons(true);
             
 
-            CurrentState = STATE.Default;
-            turnpart = TURNPART.Action;
+            CurrentState = State.Default;
+            CurrentTurnPart = Turnpart.Action;
         }
         public GameBoard(string[] playerRoles)
         {
 
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            boardModel = new GameBoardModels(playerRoles);
-            playerForm = new PlayerPanel(this);
-            characterPane = new CharacterPane(playerRoles);
-            ECForm = new EventCardForm();
+            BoardModel = new GameBoardModels(playerRoles);
+            _playerForm = new PlayerPanel(this);
+            _characterPane = new CharacterPane(playerRoles);
+            _ecForm = new EventCardForm();
             InitializeComponent();
-            ECForm.Show();
-            characterPane.Show();
-            playerForm.Show();
+            _ecForm.Show();
+            _characterPane.Show();
+            _playerForm.Show();
             UpdatePlayerForm();
             UpdateCityButtons(true);
-            CurrentState = STATE.Default;
-            turnpart = TURNPART.Action; 
+            CurrentState = State.Default;
+            CurrentTurnPart = Turnpart.Action; 
         }
 
         private void City_Click(object sender, EventArgs e)
         {
-            Button pressed = sender as Button;
+            var pressed = sender as Button;
             var cityName = pressed.Text.Substring(3);
             switch (CurrentState)
             {
-                case STATE.Airlift:
-                    SpecialEventCardsBL.Airlift(GameBoardModels.GetCurrentPlayer(), Create.cityDictionary[cityName]);
+                case State.Airlift:
+                    SpecialEventCardsBL.Airlift(GameBoardModels.GetCurrentPlayer(), Create.CityDictionary[cityName]);
                     break;
-                case STATE.GovGrant:
+                case State.GovGrant:
                     SpecialEventCardsBL.GovernmentGrant(cityName);
                     break;
-                case STATE.Dispatcher:
-                    if (GameBoardModels.GetPlayerByIndex(dispatcherMoveIndex).DispatcherMovePlayer(new List<AbstractPlayer>(GameBoardModels.GetPlayers()), Create.cityDictionary[cityName]))
+                case State.Dispatcher:
+                    if (GameBoardModels.GetPlayerByIndex(DispatcherMoveIndex).DispatcherMovePlayer(new List<AbstractPlayer>(GameBoardModels.GetPlayers()), Create.CityDictionary[cityName]))
                     {
-                        characterPane.updatePlayerCity(dispatcherMoveIndex, cityName);
-                        if (boardModel.IncTurnCount())
-                            turnpart = TURNPART.Draw;
+                        _characterPane.UpdatePlayerCity(DispatcherMoveIndex, cityName);
+                        if (BoardModel.IncTurnCount())
+                            CurrentTurnPart = Turnpart.Draw;
                         UpdatePlayerForm();
                         UpdateCityButtons(false);
                     }
@@ -83,13 +83,13 @@ namespace SQADemicApp
                         MessageBox.Show("Invalid City", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     break;
-                case STATE.Move:
-                    if (GameBoardModels.GetCurrentPlayer().MovePlayer(Create.cityDictionary[cityName]))
+                case State.Move:
+                    if (GameBoardModels.GetCurrentPlayer().MovePlayer(Create.CityDictionary[cityName]))
                     {
-                        characterPane.updatePlayerCity(GameBoardModels.GetCurrentPlayerIndex(), cityName);
-                        bool endofturn = boardModel.IncTurnCount();
+                        _characterPane.UpdatePlayerCity(GameBoardModels.GetCurrentPlayerIndex(), cityName);
+                        bool endofturn = BoardModel.IncTurnCount();
                         if (endofturn)
-                            turnpart = TURNPART.Draw;
+                            CurrentTurnPart = Turnpart.Draw;
                         UpdatePlayerForm();
                         UpdateCityButtons(false);
                     }
@@ -99,85 +99,83 @@ namespace SQADemicApp
                     }
                     break;
                 default:
-                    CityPageForm CPForm = new CityPageForm(Create.cityDictionary[cityName]);
-                    CPForm.Show();
+                    CityPageForm cpForm = new CityPageForm(Create.CityDictionary[cityName]);
+                    cpForm.Show();
                     break;
             }
-            CurrentState = STATE.Default;
+            CurrentState = State.Default;
         }
 
         public CharacterPane GetCharacterPane()
         {
-            return characterPane;
+            return _characterPane;
         }
 
         public static void UpdatePlayerButtonTextAccordingToIndex(CharacterPane pane, int index, string cityName)
         {
-            pane.getPlayerBtns()[index].Text = 
+            pane.GetPlayerBtns()[index].Text = 
                 "Player " + (index + 1) + "\n" + GameBoardModels.GetPlayerByIndex(index) + "\n" + cityName;
         }
 
         public void UpdatePlayerForm()
         {
-            playerForm.UpdateTurnProgressBoard(boardModel.currentPlayerTurnCounter, GameBoardModels.GetCurrentPlayer().getMaxTurnCount());
-            playerForm.UpdatePlayerHand(GameBoardModels.GetCurrentPlayer().HandStringList().ToArray());
+            _playerForm.UpdateTurnProgressBoard(BoardModel.CurrentPlayerTurnCounter, GameBoardModels.GetCurrentPlayer().GetMaxTurnCount());
+            _playerForm.UpdatePlayerHand(GameBoardModels.GetCurrentPlayer().HandStringList().ToArray());
             if (GameBoardModels.GetCurrentPlayer().GetType() == typeof(DispatcherPlayer))
             {
-                playerForm.AddDispatcherButton();
+                _playerForm.AddDispatcherButton();
             }
             else
             {
-                playerForm.RemoveDispatcherButton();
+                _playerForm.RemoveDispatcherButton();
             }
-            if (turnpart == TURNPART.Draw)
+            if (CurrentTurnPart == Turnpart.Draw)
             {
-                playerForm.ShowDrawButton();
+                _playerForm.ShowDrawButton();
             }
-            else if (turnpart == TURNPART.Infect)
+            else if (CurrentTurnPart == Turnpart.Infect)
             {
-                playerForm.ShowInfectButton();
+                _playerForm.ShowInfectButton();
             }
             else
             {
-                playerForm.HideDrawInfectButton();
+                _playerForm.HideDrawInfectButton();
             }
 
-            characterPane.updateCurrentPlayer(GameBoardModels.GetCurrentPlayerIndex());
-            characterPane.updatePlayerCount(GameBoardModels.GetPlayerCount());
+            _characterPane.UpdateCurrentPlayer(GameBoardModels.GetCurrentPlayerIndex());
+            _characterPane.UpdatePlayerCount(GameBoardModels.GetPlayerCount());
 
-            playerForm.updateCubeCounts(GameBoardModels.GetInfectionCubeCount(COLOR.red), GameBoardModels.GetInfectionCubeCount(COLOR.blue),
-                GameBoardModels.GetInfectionCubeCount(COLOR.black), GameBoardModels.GetInfectionCubeCount(COLOR.yellow));
-            playerForm.updateCounters(GameBoardModels.InfectionRate, GameBoardModels.GetOutbreakMarker());
-            playerForm.updateCureStatus(GameBoardModels.GetCureStatus(COLOR.red).ToString(), GameBoardModels.GetCureStatus(COLOR.blue).ToString(),
-                GameBoardModels.GetCureStatus(COLOR.black).ToString(), GameBoardModels.GetCureStatus(COLOR.yellow).ToString());
-            ECForm.UpdateEventCards();
+            _playerForm.UpdateCubeCounts(GameBoardModels.GetInfectionCubeCount(Color.Red), GameBoardModels.GetInfectionCubeCount(Color.Blue),
+                GameBoardModels.GetInfectionCubeCount(Color.Black), GameBoardModels.GetInfectionCubeCount(Color.Yellow));
+            _playerForm.UpdateCounters(GameBoardModels.InfectionRate, GameBoardModels.GetOutbreakMarker());
+            _playerForm.updateCureStatus(GameBoardModels.GetCureStatus(Color.Red).ToString(), GameBoardModels.GetCureStatus(Color.Blue).ToString(),
+                GameBoardModels.GetCureStatus(Color.Black).ToString(), GameBoardModels.GetCureStatus(Color.Yellow).ToString());
+            _ecForm.UpdateEventCards();
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DiscardPile dp = new DiscardPile(false);
+            var dp = new DiscardPile(false);
             dp.Show();
         }
         public void UpdateCityButtons(bool firstRun)
         {
             foreach (var control in this.Controls)
             {
-                if(control is Button)
+                if (!(control is Button)) continue;
+                var button = control as Button;
+                var cityName = button.Text.Substring(3);
+                try
                 {
-                    var button = control as Button;
-                    string cityName = button.Text.Substring(3);
-                    try
-                    {
-                        var city = Create.cityDictionary[cityName];
-                        button.Text = String.Format("{0,2} " + city.Name, city.allCubeCount());
-                        if(firstRun)
-                            button.Font = new System.Drawing.Font(button.Font.FontFamily, 5);
-                    }
-                    catch(KeyNotFoundException)
-                    {
-                        // not a button that needs to be updated
-                    }
+                    var city = Create.CityDictionary[cityName];
+                    button.Text = string.Format("{0,2} " + city.Name, city.AllCubeCount());
+                    if(firstRun)
+                        button.Font = new System.Drawing.Font(button.Font.FontFamily, 5);
+                }
+                catch(KeyNotFoundException)
+                {
+                    // not a button that needs to be updated
                 }
             }
         }

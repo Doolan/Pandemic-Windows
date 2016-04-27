@@ -23,15 +23,15 @@ namespace SQADemicAppTest
             //set up GameboardModels if not already
             var g = new GameBoardModels(new string[] { "Dispatcher", "Medic" });
             //cities
-            Create.createDictionary();
-            Create.setAdjacentCities(new StringReader("Chicago;San Francisco,Los Angeles,Atlanta,Montreal"));
-            Create.setAdjacentCities(new StringReader("Bangkok;Kolkata,Hong Kong,Ho Chi Minh City,Jakarta,Chennai"));
-            Create.setAdjacentCities(new StringReader("Kolkata;Delhi,Chennai,Bangkok,Hong Kong"));
-            Create.setAdjacentCities(new StringReader("San Francisco;Tokyo,Manila,Chicago,Los Angeles"));
-            if (!Create.cityDictionary.TryGetValue("Chicago", out chicagoCity) ||
-                !Create.cityDictionary.TryGetValue("Bangkok", out bangkok) ||
-                !Create.cityDictionary.TryGetValue("Kolkata", out kolkata) ||
-                !Create.cityDictionary.TryGetValue("San Francisco", out sanFran))
+            Create.CreateDictionary();
+            Create.SetAdjacentCities(new StringReader("Chicago;San Francisco,Los Angeles,Atlanta,Montreal"));
+            Create.SetAdjacentCities(new StringReader("Bangkok;Kolkata,Hong Kong,Ho Chi Minh City,Jakarta,Chennai"));
+            Create.SetAdjacentCities(new StringReader("Kolkata;Delhi,Chennai,Bangkok,Hong Kong"));
+            Create.SetAdjacentCities(new StringReader("San Francisco;Tokyo,Manila,Chicago,Los Angeles"));
+            if (!Create.CityDictionary.TryGetValue("Chicago", out chicagoCity) ||
+                !Create.CityDictionary.TryGetValue("Bangkok", out bangkok) ||
+                !Create.CityDictionary.TryGetValue("Kolkata", out kolkata) ||
+                !Create.CityDictionary.TryGetValue("San Francisco", out sanFran))
             {
                 throw new InvalidOperationException("Set up failed");
             }
@@ -46,18 +46,18 @@ namespace SQADemicAppTest
         public void TestGovernmentGrantChicago()
         {
             Assert.AreEqual(true, SpecialEventCardsBL.GovernmentGrant(chicagoCity.Name));
-            Assert.AreEqual(true, chicagoCity.researchStation);
-            chicagoCity.researchStation = false;
+            Assert.AreEqual(true, chicagoCity.ResearchStation);
+            chicagoCity.ResearchStation = false;
         }
 
         [TestMethod]
         public void TestGovernmentGrantKolkataFAILED()
         {
             //already has a research station should fail
-            kolkata.researchStation = true;
+            kolkata.ResearchStation = true;
             Assert.AreEqual(false, SpecialEventCardsBL.GovernmentGrant(kolkata.Name));
-            Assert.AreEqual(true, kolkata.researchStation);
-            kolkata.researchStation = false;
+            Assert.AreEqual(true, kolkata.ResearchStation);
+            kolkata.ResearchStation = false;
         }
 
         #endregion
@@ -66,17 +66,17 @@ namespace SQADemicAppTest
         [TestMethod]
         public void TestAirliftBankokToChicago()
         {
-            dispatcher.currentCity = bangkok;
+            dispatcher.CurrentCity = bangkok;
             Assert.AreEqual(true, SpecialEventCardsBL.Airlift(dispatcher, chicagoCity));
-            Assert.AreEqual(dispatcher.currentCity, chicagoCity);
+            Assert.AreEqual(dispatcher.CurrentCity, chicagoCity);
         }
 
         [TestMethod]
         public void TestAirliftChicagoToChicagoFAIL()
         {
-            dispatcher.currentCity = chicagoCity;
+            dispatcher.CurrentCity = chicagoCity;
             Assert.AreEqual(false, SpecialEventCardsBL.Airlift(dispatcher, chicagoCity));
-            Assert.AreEqual(dispatcher.currentCity, chicagoCity);
+            Assert.AreEqual(dispatcher.CurrentCity, chicagoCity);
         }
 
         #endregion

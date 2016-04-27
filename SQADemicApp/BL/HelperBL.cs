@@ -17,36 +17,36 @@ namespace SQADemicApp.BL
         /// </summary>
         /// <param name="unshuffledArry"></param>
         /// <returns>a shuffled Arry</returns>
-        public static string[] shuffleArray(string[] unshuffledArry)
+        public static string[] ShuffleArray(string[] unshuffledArry)
         {
-            RNGCryptoServiceProvider rnd = new RNGCryptoServiceProvider();
-            string[] shuffledarray = unshuffledArry.OrderBy(x => GetNextInt32(rnd)).ToArray();
+            var rnd = new RNGCryptoServiceProvider();
+            var shuffledarray = unshuffledArry.OrderBy(x => GetNextInt32(rnd)).ToArray();
             return shuffledarray;
         }
-        public static List<SQADemicApp.Card> shuffleArray(List<SQADemicApp.Card> unshuffledArry)
+        public static List<Card> shuffleArray(List<Card> unshuffledArry)
         {
-            RNGCryptoServiceProvider rnd = new RNGCryptoServiceProvider();
-            List<SQADemicApp.Card> shuffledarray = unshuffledArry.OrderBy(x => GetNextInt32(rnd)).ToList<Card>();
+            var rnd = new RNGCryptoServiceProvider();
+            var shuffledarray = unshuffledArry.OrderBy(x => GetNextInt32(rnd)).ToList<Card>();
             return shuffledarray;
         }
         private static int GetNextInt32(RNGCryptoServiceProvider rnd)
         {
-            byte[] randomInt = new byte[4];
+            var randomInt = new byte[4];
             rnd.GetBytes(randomInt);
             return Convert.ToInt32(randomInt[0]);
         }
-        public static COLOR getColor(string color)
+        public static Color GetColor(string color)
         {
             switch (color.ToLower())
             {
                 case "red":
-                    return COLOR.red;
+                    return Color.Red;
                 case "black":
-                    return COLOR.black;
+                    return Color.Black;
                 case "yellow":
-                    return COLOR.yellow;
+                    return Color.Yellow;
                 default:
-                    return COLOR.blue;
+                    return Color.Blue;
             }
         }
     }

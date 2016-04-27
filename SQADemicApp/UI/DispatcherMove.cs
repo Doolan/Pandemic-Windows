@@ -16,13 +16,9 @@ namespace SQADemicApp
         {
             InitializeComponent();
         }
-        public DispatcherMove(AbstractPlayer[] players, int CurrentPlayer)
+        public DispatcherMove(AbstractPlayer[] players, int currentPlayer)
         {
             InitializeComponent();
-            //switch(players.Count())
-            //{
-                
-            //}
         }
     }
 }

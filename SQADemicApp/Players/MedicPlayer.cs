@@ -8,12 +8,10 @@ namespace SQADemicApp.Players
 {
     public class MedicPlayer : AbstractPlayer
     {
-        public override bool TreatDiseaseOption(COLOR color)
+        public override bool TreatDiseaseOption(Color color)
         {
-            int number = GetDiseaseCubes(currentCity, color);
-            if (number < 1)
-                return false;
-            return SetDiseaseCubes(currentCity, color, 0, number);
+            var number = GetDiseaseCubes(CurrentCity, color);
+            return number >= 1 && SetDiseaseCubes(CurrentCity, color, 0, number);
         }
     }
 }

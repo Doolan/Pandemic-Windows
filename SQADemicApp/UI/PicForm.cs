@@ -22,16 +22,16 @@ namespace SQADemicApp
             InitializeComponent();
             if(outbreak)
             {
-                this.Text = "Outbreak";
-                this.ClientSize = new System.Drawing.Size(667, 521);
-                this.BackgroundImage = global::SQADemicApp.Properties.Resources.Ebola_Virus_outbreak_2;
-                this.label1.Text = cityName;
+                Text = "Outbreak";
+                ClientSize = new System.Drawing.Size(667, 521);
+                BackgroundImage = global::SQADemicApp.Properties.Resources.Ebola_Virus_outbreak_2;
+                label1.Text = cityName;
             }
             else
             {
-                this.Text = cityName;
-                this.BackgroundImage = global::SQADemicApp.Properties.Resources.Epidemic;
-                this.ClientSize = new System.Drawing.Size(276, 385);
+                Text = cityName;
+                BackgroundImage = global::SQADemicApp.Properties.Resources.Epidemic;
+                ClientSize = new System.Drawing.Size(276, 385);
             }   
         }
     }
