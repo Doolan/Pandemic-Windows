@@ -1,0 +1,17 @@
+stages:
+  - build
+
+Testing:
+  stage: build
+  script:
+    - msbuild SQADemicApp.sln /t:build /p:Configuration=Release
+    - dir
+    - cd SQADemicAppTest\bin\Release
+    - dir
+    - echo "Ready to run the test ..."
+    - vstest.console SQADemicAppTest.dll
+    - IF %errorlevel% NEQ 0 exit /b %errorlevel%
+  tags:
+    - msbuild
+    - visualstudio
+    - windows
