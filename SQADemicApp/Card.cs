@@ -26,8 +26,17 @@ namespace SQADemicApp
 
         public override bool Equals(object obj)
         {
-            var objects = (Card)obj;
+            if (obj == null) return false;
+
+            var objects = obj as Card;
+            if ((System.Object)objects == null) return false;
+            //var objects = (Card)obj;
             return (this.CityName == objects.CityName) && (this.CardType == objects.CardType) && (this.CityColor == objects.CityColor);
+        }
+
+        public override String ToString() 
+        {
+            return this.CityName + " (" + this.CityColor.ToString() + ")";
         }
     }
 }

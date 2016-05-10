@@ -66,7 +66,13 @@ namespace SQADemicApp
             try
             {
                 if (GameBoard.CurrentTurnPart == GameBoard.Turnpart.Draw)
+                {
                     Drawcards();
+                    if (GameBoardModels.GetCurrentPlayer().GetMaxHandSize() < GameBoardModels.GetCurrentPlayer().Hand.Count)
+                    {
+                        new UI.DiscardExtraCards(_board).ShowDialog();
+                    }
+                }
                 else if (GameBoard.CurrentTurnPart == GameBoard.Turnpart.Infect)
                     InfectCities();
                 _board.UpdatePlayerForm();

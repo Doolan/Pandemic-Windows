@@ -84,6 +84,12 @@
     <Compile Include="UI\CubeSelector.Designer.cs">
       <DependentUpon>CubeSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\DiscardExtraCards.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DiscardExtraCards.Designer.cs">
+      <DependentUpon>DiscardExtraCards.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forecast.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CubeSelector.resx">
       <DependentUpon>CubeSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\DiscardExtraCards.resx">
+      <DependentUpon>DiscardExtraCards.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forecast.resx">
       <DependentUpon>Forecast.cs</DependentUpon>

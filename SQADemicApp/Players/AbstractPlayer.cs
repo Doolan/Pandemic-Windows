@@ -22,6 +22,11 @@ namespace SQADemicApp
             return Maxturncount;
         }
 
+        public int GetMaxHandSize()
+        {
+            return Maxhandsize;
+        }
+
         public Dictionary<string, AbstractSpecialAction> SpecialActions = new Dictionary<string, AbstractSpecialAction>();
 
         public List<Card> Hand { get; set; }
@@ -40,7 +45,7 @@ namespace SQADemicApp
             {
                 return stringHand;
             }
-            stringHand.AddRange(Hand.Select(card => card.CityName + " (" + card.CityColor.ToString() + ")").Cast<object>());
+            stringHand.AddRange(Hand.Select(card => card.ToString()).Cast<object>());
             return stringHand;
         }
 
@@ -303,9 +308,7 @@ namespace SQADemicApp
 
         public bool AddCardToHand(Card card)
         {
-            //right now the drawn card will just be discarded if there is not enough room for it.
-            //This should be changed... right?
-            if (this.Hand.Count >= Maxhandsize) return false;
+            //we are just going to make the check at the GUI level because its the end of the project
             this.Hand.Add(card);
             return true;
         }
