@@ -15,11 +15,11 @@ namespace SQADemicApp.SpecialActions
         {
             Stack<Card> deck = GameBoardModels.GetPlayerDeck();
             String cards = "";
-            for (int i = 0; i < 3; i++ )
+            for (int i = 0; i < GameBoardModels.InfectionRate; i++ )
             {
                 cards = cards + deck.Pop().CityName + "\n";
             }
-            MessageBox.Show(cards, "Top 3 Cards", MessageBoxButtons.OK, MessageBoxIcon.None);
+            MessageBox.Show(cards, "Peek", MessageBoxButtons.OK, MessageBoxIcon.None);
             return true;
         }
 
