@@ -70,6 +70,7 @@ namespace SQADemicApp
         /// <param name="e"></param>
         private void P1T_Click(object sender, EventArgs e)
         {
+            if (listBox1.SelectedItem == null) return;
             var selectedItem = listBox1.SelectedItem.ToString();
             var selectedCard = selectedItem.Substring(0, selectedItem.IndexOf('(') - 1);
             var success = false;
@@ -98,6 +99,7 @@ namespace SQADemicApp
         /// <param name="e"></param>
         private void P2T_Click(object sender, EventArgs e)
         {
+            if (listBox1.SelectedItem == null) return;
             var selectedItem = listBox1.SelectedItem.ToString();
             var selectedCard = selectedItem.Substring(0, selectedItem.IndexOf('(') - 1);
             var success = false;
@@ -128,6 +130,7 @@ namespace SQADemicApp
         /// <param name="e"></param>
         private void P3T_Click(object sender, EventArgs e)
         {
+            if (listBox1.SelectedItem == null) return;
             var selectedItem = listBox1.SelectedItem.ToString();
             var selectedCard = selectedItem.Substring(0, selectedItem.IndexOf('(') - 1);
             var success = false;
