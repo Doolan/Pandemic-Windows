@@ -19,6 +19,9 @@ namespace SQADemicApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new SetupGameForm());
+
+            if (RolesArray == null) return;
+
             var form1 = new GameBoard(RolesArray);
             Application.Run(form1);
         }
