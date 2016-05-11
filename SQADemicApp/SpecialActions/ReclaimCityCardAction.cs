@@ -14,6 +14,7 @@ namespace SQADemicApp.specialActions
         {
             if (!GameBoardModels.PlayerDiscardPileContains(player.CurrentCity.Name)) return false;
             player.AddCardToHand(GameBoardModels.ReclaminCityCardFromPlayerDeck(player.CurrentCity.Name));
+            this.board.UpdatePlayerForm();
             return true;
         }
     }

@@ -7,10 +7,10 @@ using System.Windows.Forms;
 
 namespace SQADemicApp.SpecialActions
 {
-    class PeekAtTopThreeAction : AbstractSpecialAction
+    class PeekAtTopAction : AbstractSpecialAction
     {
 
-        public PeekAtTopThreeAction(AbstractPlayer player) : base(player) { }
+        public PeekAtTopAction(AbstractPlayer player) : base(player) { }
         public override bool PreformAction()
         {
             Stack<Card> deck = GameBoardModels.GetPlayerDeck();

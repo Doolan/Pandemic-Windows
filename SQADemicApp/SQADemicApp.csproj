@@ -60,7 +60,7 @@
     <Compile Include="Players\TroubleshooterPlayer.cs" />
     <Compile Include="SpecialActions\AbstractSpecialAction.cs" />
     <Compile Include="SpecialActions\MoveCubeToCard.cs" />
-    <Compile Include="SpecialActions\PeekAtTopThreeAction.cs" />
+    <Compile Include="SpecialActions\PeekAtTopAction.cs" />
     <Compile Include="SpecialActions\ReclaimCityCardAction.cs" />
     <Compile Include="UI\AdvancedActions.cs">
       <SubType>Form</SubType>
